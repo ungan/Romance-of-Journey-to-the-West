@@ -327,7 +327,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   code: 8
-  value: 12
+  value: 16
   pushAmount: 12
   defaultSpeed: 0
   maxSpeed: 0
@@ -346,7 +346,6 @@ MonoBehaviour:
   make_ball: 1
   stab_fire: 0
   isRooted: 0
-  partyManager: {fileID: 0}
   fox_ball: {fileID: 0}
   fox_ball1: {fileID: 0}
   fox_ball2: {fileID: 0}
