@@ -1,0 +1,554 @@
+﻿///////////////////////////////////////////////////////////////////주 의 사 항/////////////////////////////////////////////////////////////////////////
+//ctrl+F 하고 SJM 치면 내가(신준문) 추가+수정한 스크립트들 확인할 수 있음. 그리고 앞으로 다른 사람이 작성한 스크립트에 손 댈 경우엔 꼭 수정한 스크립트에 본인의 이니셜 박아주길 바람//
+//그리고 Debug는 한 번 확인했으면 바로 지워주셈. 괜히 렉잡아먹음
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using Pathfinding;
+
+public enum e_state
+{
+    Follow,     // plyaer 추격중
+    attack,     // 공격
+    attack_ready // 공격 대기? 상태
+}
+
+public class Enemy_ai : MonoBehaviour
+{
+    CameraController cam;
+    PartyManager partyManager; //SJM
+    EventManager eventManager; //SJM
+
+    public int code;        // code enemy 고유값
+    //밸류
+    public int value;
+
+    //밀쳐지는 양
+    public float pushAmount;
+
+    public float defaultSpeed; //기본 속력 SJM
+    public float maxSpeed; //현재 속력(ai_Path의 maxSpeed의 변수를 저장. 속력을 복구시키고 싶을 때 사용바람) SJM
+    public float maxHealth;
+    public float curHealth;             // 현재 체력
+    public float damage;
+    public float damage_skill;
+    public float attack_cooltime=3;
+    float curReadyDelay = 0;        // 현재 딜레이
+    public float maxReadyDelay = 2;        // 최대 딜레이
+    float curShotDelay = 0;     // 현재 딜레이
+    public float maxShotDelay = 2; //    딜레이 총량?
+    public GameObject player;
+    public SpriteRenderer sprite_render;
+
+    public bool can_attack = false;
+    public bool attack_inrange = false;
+    public bool stop = false;
+    public bool make_ball = true;      // true일때 생성가능 false일때 생성불가
+    public bool stab_fire = false;
+    public bool isRooted = false; //속박됨 SJM
+
+    public GameObject fox_ball;     // 구미호 bullet prefab
+    public Transform fox_ball1;     // 구미호볼 1,2,3 
+    public Transform fox_ball2;
+    public Transform fox_ball3;
+
+    bulletmove_khi bullet1;         // 여우볼 3개
+    bulletmove_khi bullet2;
+    bulletmove_khi bullet3;
+
+    AIPath aiPath;
+    AIDestinationSetter ADS;
+    Rigidbody2D rigid;
+    Animator anim;
+
+    public status_abnormality stab;        // 상태이상
+    Enemy_ai enemy_ai;
+    int stab_type;                // 어떤 상태이상의 종류인지
+    float holding_time = 10f;     // 얼마나 상태이상을 지속할것이냐
+    float play_time = 11f;             // 얼마나 대기중이였는지
+    //특수상태 카운트
+    float curRootedDelay = 0f; //현재속박딜레이 SJM
+    float maxRootedDelay = 5f; //최대속박딜레이 SJM
+    bool damageon = false;
+    public GameObject fire_effect;
+
+    public GameObject imae_ew;
+    public GameObject imae_sn;
+    public GameObject imae_e;
+    public GameObject imae_w;
+    public GameObject imae_s;
+    public GameObject imae_n;
+
+    public GameObject destination;          // 목적지 오브젝트
+    public AIDestinationSetter ai_destination;      // 목적지 오브젝트를 넣어주어야 할곳
+    public e_state enemy_state;
+    void Start()
+    {
+        cam = GameObject.Find("Main Camera").GetComponent<CameraController>(); //게임오브젝트를 신 안에서 찾은 후 스크립트 연결(프리펩시 필수!)
+        eventManager = GameObject.Find("EventManager").GetComponent<EventManager>(); //이벤트 매니저 찾기 SJM
+        partyManager = GameObject.Find("Party").GetComponent<PartyManager>();  //파티(플레이어)찾기 SJM
+
+        stab = new status_abnormality();
+        rigid = GetComponent<Rigidbody2D>();
+        aiPath = GetComponent<AIPath>();
+        anim = GetComponent<Animator>();
+        //seeker.StartPath(rigid.position, target.position, )
+        ADS = GetComponent<AIDestinationSetter>();
+        ADS.target = partyManager.transform;  //타겟 지정 SJM
+        maxSpeed = aiPath.maxSpeed; //aiPath내 maxspeed 복사 SJM
+
+        Stats(); //스텟
+
+        enemy_state = e_state.attack_ready;
+        //aiPath.canMove = false;
+        can_attack = true;
+        destination = GameObject.Find("Party");
+        if(code >= 10 && code <= 15)
+        {
+            ai_destination = GetComponent<AIDestinationSetter>();
+            ai_destination.target = destination.transform;
+        }
+    }
+
+    void Update() //SJM
+    {
+        Delay_normal();
+
+        if (isRooted) //속박시 
+        {
+            aiPath.maxSpeed = 0; //속력 = 0
+            if (curRootedDelay >= maxRootedDelay) //속박 제한시간을 초과할 경우
+            {
+                isRooted = false; aiPath.maxSpeed = maxSpeed; //속박 풀기 + maxSpeed 복구
+                curRootedDelay = 0;
+            }
+        }
+    }
+
+    private void FixedUpdate()
+    {
+        Delay_fixed();
+
+        enemy_ai = this;
+        if(!stop)
+        {
+            special();
+            state();
+        }
+        else 
+        {
+            sprite_render.color = new Color(sprite_render.color.r, sprite_render.color.g - Time.deltaTime, sprite_render.color.b - Time.deltaTime);
+        }
+        //dead();
+    }
+
+    void state()
+    {
+
+        if(enemy_state == e_state.Follow)
+        {
+           
+        }
+        else if(enemy_state == e_state.attack)
+        {
+            if (can_attack)
+            {
+                switch(code)                    // 여기서 코드에 따라서 다른 공격 시행
+                {
+                    case 3:
+                        partyManager.StartCoroutine("onDamage_party");
+                        break;
+                    case 4:
+                        partyManager.StartCoroutine("onDamage_party");
+                        break;
+                    case 5:
+                        partyManager.StartCoroutine("onDamage_party");
+                        break;
+                    case 6:
+                        partyManager.get_enemy(this);
+                        partyManager.StartCoroutine("onDamage_party");
+                        break;
+                    case 7:
+                        bullet1.can_move = true;
+                        bullet2.can_move = true;
+                        bullet3.can_move = true;
+                        make_ball = true;
+                        break;
+                    case 8:
+                        race();
+                        break;
+                }
+                
+                can_attack = false;
+                enemy_state = e_state.attack_ready;
+            }
+        }
+        else if(enemy_state == e_state.attack_ready)
+        {
+            if(can_attack)
+            {
+                ready_to_attack();
+            }
+        }
+        else if(enemy_state != e_state.attack_ready)
+        {
+
+        }
+        if(!can_attack)
+        {
+            cooltime_to_attack();
+        }
+
+        // 상태이상 이부분은 따로히 script화를 시키기 위해서 분리를 해둠
+        
+        stab_control();
+        if(stab_fire == true)
+        {
+            fire_effect.SetActive(true);
+        }
+        
+    }
+    void race()
+    {
+        
+    }
+
+    void make_foxball()
+    {
+        bullet1 = Instantiate(fox_ball, fox_ball1.position, Quaternion.identity).GetComponent<bulletmove_khi>();
+        bullet2 = Instantiate(fox_ball, fox_ball2.position, Quaternion.identity).GetComponent<bulletmove_khi>();
+        bullet3 = Instantiate(fox_ball, fox_ball3.position, Quaternion.identity).GetComponent<bulletmove_khi>();
+        bullet1.make_ball = fox_ball1;
+        bullet2.make_ball = fox_ball2;
+        bullet3.make_ball = fox_ball3;
+    }
+    void special()
+    {
+        switch (code)
+        {
+            case 6:         // 자폭맨
+                if (curHealth <= (maxHealth / 10))
+                {
+                    partyManager.get_enemy(this);
+                    if (attack_inrange)
+                    {
+                        StartCoroutine("self_destruct");
+                    }
+                }
+                break;
+            case 7:         // 구미호
+                if ((enemy_state == e_state.attack_ready) && make_ball)
+                {
+                    make_ball = false;
+                    make_foxball();
+                }
+                break;
+        }
+    }
+
+    public void move_false()
+    {
+        aiPath.canMove = false;
+    }
+
+    public void move_true()
+    {
+        aiPath.canMove = true;
+    }
+
+    public void dead()
+    {
+        if (curHealth <= 0)
+        {
+            curHealth = 0;
+            Destroy(gameObject);
+            //사망, 누움
+            //transform.rotation = Quaternion.Euler(0, 0, -90);
+            //gameObject.layer = 17;
+        }
+    }
+    void cooltime_to_attack()
+    {
+        if(maxShotDelay <= curShotDelay)
+        {
+            curShotDelay = 0f;
+            can_attack = true;
+        }
+        else 
+        {
+            curShotDelay += Time.deltaTime;
+        }
+    }
+
+    void ready_to_attack()
+    {
+        if (maxReadyDelay <= curReadyDelay)
+        {
+            curReadyDelay = 0f;
+            enemy_state = e_state.attack;
+        }
+        else
+        {
+            curReadyDelay += Time.deltaTime;
+        }
+    }
+    void Stats()
+    {
+        switch (value)
+        {
+            case 0:
+                maxHealth = 100f;
+                curHealth = 100f;
+                damage = 0f;
+                break;
+        }
+    }
+
+    public void shut_down()
+    {
+        gameObject.SetActive(false);
+    }
+
+    IEnumerator self_destruct()     // 자폭
+    {
+       
+        stop = true;
+        yield return new WaitForSeconds(1.4f);
+        anim.SetTrigger("death");
+        partyManager.StartCoroutine("onDamage_bomb_party");
+        yield return null;
+    }
+    IEnumerator attack_cool()
+    {
+        yield return new WaitForSeconds(3f);
+        can_attack = false;
+    }
+    IEnumerator OnDamage(int damage)
+    {
+        play_time = 0f;         // play time 0f로 만들어줘서 일단 돌수 있게 만들어줌
+        stab_type = 0;          // case number를 만들어서 다양한? 즉 종류 구별 가능하게 만들어 줄것
+
+        if (curHealth > 0)
+            curHealth -= damage;
+        if (curHealth <= 0)
+        {
+            if (code == 9)
+            {
+               
+                Instantiate(imae_ew, new Vector3(transform.position.x+3,transform.position.y,transform.position.z), Quaternion.identity);
+                Instantiate(imae_sn, new Vector3(transform.position.x, transform.position.y, transform.position.z), Quaternion.identity);
+
+            }
+            else if(code == 10)
+            {
+                Instantiate(imae_e, new Vector3(transform.position.x + 3, transform.position.y, transform.position.z), Quaternion.identity);
+                Instantiate(imae_w, new Vector3(transform.position.x, transform.position.y, transform.position.z), Quaternion.identity);
+            }
+            else if (code == 11)
+            {
+                Instantiate(imae_s, new Vector3(transform.position.x + 3, transform.position.y, transform.position.z), Quaternion.identity);
+                Instantiate(imae_n, new Vector3(transform.position.x, transform.position.y, transform.position.z), Quaternion.identity);
+            }
+
+            curHealth = 0;
+            eventManager.curMonsterCount--; //씬 안에 몬스터 카운팅 -1 SJM
+            Destroy(gameObject);
+            //사망, 누움
+            //transform.rotation = Quaternion.Euler(0, 0, -90);
+            //gameObject.layer = 17;
+        }
+        yield return null;
+    }
+
+    IEnumerator BePushed()
+    {
+        if (isRooted) //속박시 이 함수 사용X SJM
+            yield return null;
+        else
+        {
+            aiPath.canMove = false;
+            Vector2 direction = this.transform.position - ADS.target.position;
+            direction = direction.normalized * (pushAmount / 2);
+            rigid.AddForce(direction, ForceMode2D.Impulse);
+
+            yield return new WaitForSeconds(0.2f);
+            rigid.velocity = Vector3.zero;
+            aiPath.canMove = true;
+            aiPath.maxSpeed = 1f;
+
+            yield return new WaitForSeconds(0.1f);
+            aiPath.maxSpeed = maxSpeed;
+        }
+    }
+
+    public void stab_control()
+    {
+        switch (stab_type)
+        {
+            case 0:
+                stab_behavior();
+                break;
+            case 1:
+                stab_dot();
+                break;
+        }
+    }
+    public void stab_behavior()     // 행동 제한 상태이상
+    {
+       
+        if (holding_time >= play_time)
+        {
+            aiPath.maxSpeed = 1.5f;     // 느려지게 하는것
+            play_time += Time.deltaTime;
+            //sprite_render.color = new Color(sprite_render.color.r - Time.deltaTime, sprite_render.color.g - Time.deltaTime, sprite_render.color.b + Time.deltaTime);
+            sprite_render.color = new Color(0,0,255);
+        }
+        else
+        {
+            sprite_render.color = new Color(255,255,255);
+            aiPath.maxSpeed = maxSpeed;     // 원래 속도
+            return;
+        }
+    }
+
+    public void stab_dot()          // 도트데미지 상태이상
+    {
+        if (holding_time >= play_time)
+        {
+            stab_fire = true;
+            play_time += Time.deltaTime;
+            if (damageon == false)
+            {
+
+                StartCoroutine("atab_damage");
+            }
+        }
+        else
+        {
+            stab_fire = false;
+            damageon = false;
+            StopCoroutine(atab_damage());
+            return;
+        }
+    }
+
+    void Delay_normal() //!모든 일반 딜레이 카운트(+=Time.deltaTime)은 여기에 넣으셈. fixedDeltaTime은 Delay_fixed()으로! SJM
+    {
+        if (isRooted)
+            curRootedDelay += Time.deltaTime;
+    }
+
+    void Delay_fixed() //!모든 fixed 딜레이 카운트(+=Time.fixedDeltaTime)은 여기에 넣으셈. DeltaTime은 Delay_normal로! SJM
+    {
+        //참고로 fixedUpdate는 성능을 크게 잡아먹음. 그러니 이동같은 '섬세한 요소' 외에는 Update를 사용하길 권장함
+    }
+
+    public IEnumerator atab_damage()     // 데미지 들어가는 부분
+    {
+        damageon = true;
+
+        yield return new WaitForSeconds(0.5f);
+        curHealth = curHealth - 10;
+        damageon = false;
+        yield return null;
+    }
+
+    public IEnumerator Shake(float _amount, float _duration)
+    {
+        float timer = 0;
+        while (timer <= _duration)
+        {
+            transform.localPosition = (Vector3)Random.insideUnitCircle * _amount + this.transform.position;
+
+            timer += Time.deltaTime;
+            yield return null;
+        }
+        //transform.localPosition = originPos;
+
+    }
+
+    void OnTriggerEnter2D(Collider2D collision) //피격 다양화 + 수정 SJM
+    {
+        Bullet bullet = collision.gameObject.GetComponent<Bullet>();
+
+        if (collision.gameObject.tag == "PlayerBullet") //투사체
+        {
+            StartCoroutine(OnDamage(bullet.damage));
+            StartCoroutine(BePushed());
+            //Destroy(collision.gameObject);
+        }
+        if (collision.gameObject.tag == "PlayerSwing") //근접공격
+        {
+            StartCoroutine(OnDamage(bullet.damage));
+            StartCoroutine(BePushed());
+            cam.Shake(0.12f, 1);
+        }
+
+        //장판 스킬
+        if (collision.gameObject.tag == "Magicline") //마법진
+        {
+            switch (bullet.value)
+            {
+                case 1:
+                    StartCoroutine(OnDamage(bullet.damage));
+                    StartCoroutine(BePushed());
+                    break;
+                case 30:
+                    StartCoroutine(OnDamage(bullet.damage));
+                    StartCoroutine(BePushed());
+                    break;
+                case 20:
+                    StartCoroutine(OnDamage(bullet.damage));
+                    break;
+            }
+        }
+
+        if (collision.gameObject.tag == "Explosive") //폭발
+        {
+            switch (bullet.value)
+            {
+                case 10: //속박됨
+                    isRooted = true;
+                    break;
+            }
+        }
+    }
+
+    void OnTriggerStay2D(Collider2D collision) //Crystal SJM
+    {
+        Bullet bullet = collision.gameObject.GetComponent<Bullet>();
+
+        if (collision.gameObject.tag == "Magicline") //마법진
+        {
+            switch (bullet.value)
+            {
+                case 0: //어그로
+                    ADS.target = partyManager.characters[3].transform; //SJM
+                    break;
+                case 11: //느려짐
+                    aiPath.maxSpeed = 4f;
+                    break;
+            }
+        }
+    }
+
+    void OnTriggerExit2D(Collider2D collision) //Crystal SJM
+    {
+        Bullet bullet = collision.gameObject.GetComponent<Bullet>();
+
+        if (collision.gameObject.tag == "Magicline")
+        {
+            switch (bullet.value)
+            {
+                case 0:
+                    ADS.target = partyManager.transform; //SJM
+                    break;
+                case 11:
+                    aiPath.maxSpeed = maxSpeed;
+                    break;
+            }
+        }
+    }
+}

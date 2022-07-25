@@ -1,0 +1,680 @@
+fileFormatVersion: 2
+guid: a6388c37604a5dd469ca15372ea23ac6
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -8435603293813111194
+    second: testOverWatch_0
+  - first:
+      213: -5673907281214620588
+    second: testOverWatch_1
+  - first:
+      213: 5295610684113161067
+    second: testOverWatch_2
+  - first:
+      213: -8374012651260543328
+    second: testOverWatch_3
+  - first:
+      213: 6142096502755745620
+    second: testOverWatch_4
+  - first:
+      213: 2550593109310064043
+    second: testOverWatch_5
+  - first:
+      213: 226738417880940197
+    second: testOverWatch_6
+  - first:
+      213: 2165246538304818472
+    second: testOverWatch_7
+  - first:
+      213: 4367907151034374979
+    second: testOverWatch_8
+  - first:
+      213: 6110649809066952963
+    second: testOverWatch_9
+  - first:
+      213: -3063913293537547026
+    second: testOverWatch_10
+  - first:
+      213: -6431323073477531139
+    second: testOverWatch_11
+  - first:
+      213: 1514718068050051847
+    second: testOverWatch_12
+  - first:
+      213: 2418385058839807751
+    second: testOverWatch_13
+  - first:
+      213: 2119162455381892921
+    second: testOverWatch_14
+  - first:
+      213: 4347323703557493575
+    second: testOverWatch_15
+  - first:
+      213: 4342300407515482095
+    second: testOverWatch_16
+  - first:
+      213: 2528635238210985496
+    second: testOverWatch_17
+  - first:
+      213: 5475823371271319648
+    second: testOverWatch_18
+  - first:
+      213: 740326161820545473
+    second: testOverWatch_19
+  - first:
+      213: 4466525737253263854
+    second: testOverWatch_20
+  - first:
+      213: -6440271302194843413
+    second: testOverWatch_21
+  - first:
+      213: -3907787090907535725
+    second: testOverWatch_22
+  externalObjects: {}
+  serializedVersion: 11
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: -1
+    mipBias: -100
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 16
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  applyGammaDecoding: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: testOverWatch_0
+      rect:
+        serializedVersion: 2
+        x: 91
+        y: 2071
+        width: 265
+        height: 356
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 666872e7f77beea80800000000000000
+      internalID: -8435603293813111194
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: testOverWatch_1
+      rect:
+        serializedVersion: 2
+        x: 439
+        y: 2071
+        width: 252
+        height: 356
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 45c33bea36b3241b0800000000000000
+      internalID: -5673907281214620588
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: testOverWatch_2
+      rect:
+        serializedVersion: 2
+        x: 728
+        y: 2071
+        width: 325
+        height: 356
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b6b045f1cd9cd7940800000000000000
+      internalID: 5295610684113161067
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: testOverWatch_3
+      rect:
+        serializedVersion: 2
+        x: 1111
+        y: 2071
+        width: 240
+        height: 356
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0aefcf07cd789cb80800000000000000
+      internalID: -8374012651260543328
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: testOverWatch_4
+      rect:
+        serializedVersion: 2
+        x: 67
+        y: 1681
+        width: 337
+        height: 344
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 45fdcee1a3c1d3550800000000000000
+      internalID: 6142096502755745620
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: testOverWatch_5
+      rect:
+        serializedVersion: 2
+        x: 511
+        y: 1682
+        width: 482
+        height: 319
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ba54cf65be6856320800000000000000
+      internalID: 2550593109310064043
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: testOverWatch_6
+      rect:
+        serializedVersion: 2
+        x: 1075
+        y: 1681
+        width: 313
+        height: 356
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5ae3ab6c369852300800000000000000
+      internalID: 226738417880940197
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: testOverWatch_7
+      rect:
+        serializedVersion: 2
+        x: 103
+        y: 1291
+        width: 253
+        height: 356
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 82d8dce21408c0e10800000000000000
+      internalID: 2165246538304818472
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: testOverWatch_8
+      rect:
+        serializedVersion: 2
+        x: 451
+        y: 1291
+        width: 253
+        height: 356
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 34bda45696ced9c30800000000000000
+      internalID: 4367907151034374979
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: testOverWatch_9
+      rect:
+        serializedVersion: 2
+        x: 763
+        y: 1291
+        width: 252
+        height: 356
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3098e3030a36dc450800000000000000
+      internalID: 6110649809066952963
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: testOverWatch_10
+      rect:
+        serializedVersion: 2
+        x: 1075
+        y: 1291
+        width: 276
+        height: 331
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eece814c71bca75d0800000000000000
+      internalID: -3063913293537547026
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: testOverWatch_11
+      rect:
+        serializedVersion: 2
+        x: 79
+        y: 901
+        width: 314
+        height: 331
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: df929914db95fb6a0800000000000000
+      internalID: -6431323073477531139
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: testOverWatch_12
+      rect:
+        serializedVersion: 2
+        x: 427
+        y: 901
+        width: 289
+        height: 344
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7034dfcbe0c550510800000000000000
+      internalID: 1514718068050051847
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: testOverWatch_13
+      rect:
+        serializedVersion: 2
+        x: 763
+        y: 901
+        width: 277
+        height: 356
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 707424ad564df8120800000000000000
+      internalID: 2418385058839807751
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: testOverWatch_14
+      rect:
+        serializedVersion: 2
+        x: 1088
+        y: 901
+        width: 276
+        height: 356
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 93fd16e7607c86d10800000000000000
+      internalID: 2119162455381892921
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: testOverWatch_15
+      rect:
+        serializedVersion: 2
+        x: 103
+        y: 511
+        width: 265
+        height: 356
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7431e2210ebc45c30800000000000000
+      internalID: 4347323703557493575
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: testOverWatch_16
+      rect:
+        serializedVersion: 2
+        x: 451
+        y: 511
+        width: 229
+        height: 344
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fe78ef1d633f24c30800000000000000
+      internalID: 4342300407515482095
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: testOverWatch_17
+      rect:
+        serializedVersion: 2
+        x: 775
+        y: 511
+        width: 264
+        height: 344
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 81ed9141a54871320800000000000000
+      internalID: 2528635238210985496
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: testOverWatch_18
+      rect:
+        serializedVersion: 2
+        x: 1088
+        y: 511
+        width: 287
+        height: 356
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 060b86118580efb40800000000000000
+      internalID: 5475823371271319648
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: testOverWatch_19
+      rect:
+        serializedVersion: 2
+        x: 115
+        y: 121
+        width: 241
+        height: 331
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1c1fd35c8ba264a00800000000000000
+      internalID: 740326161820545473
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: testOverWatch_20
+      rect:
+        serializedVersion: 2
+        x: 451
+        y: 121
+        width: 229
+        height: 356
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ee9de1d4e794cfd30800000000000000
+      internalID: 4466525737253263854
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: testOverWatch_21
+      rect:
+        serializedVersion: 2
+        x: 739
+        y: 121
+        width: 336
+        height: 356
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: be0b8876f5f8f96a0800000000000000
+      internalID: -6440271302194843413
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: testOverWatch_22
+      rect:
+        serializedVersion: 2
+        x: 1088
+        y: 121
+        width: 252
+        height: 356
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 396699c5850c4c9c0800000000000000
+      internalID: -3907787090907535725
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
