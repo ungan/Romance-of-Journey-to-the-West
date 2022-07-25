@@ -77,4 +77,9 @@ public class bulletmove_khi : MonoBehaviour
         transform.Translate(new Vector3(x, y, 0) * Time.deltaTime*speed);
 
     }
+
+    public void Dead()
+    {
+        Destroy(gameObject);
+    }
 }

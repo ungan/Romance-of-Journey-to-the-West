@@ -87,7 +87,7 @@ public class Enemy_ai : MonoBehaviour
     void Start()
     {
         cam = GameObject.Find("Main Camera").GetComponent<CameraController>(); //게임오브젝트를 신 안에서 찾은 후 스크립트 연결(프리펩시 필수!)
-        eventManager = GameObject.Find("EventManager").GetComponent<EventManager>(); //이벤트 매니저 찾기 SJM
+        //eventManager = GameObject.Find("EventManager").GetComponent<EventManager>(); //이벤트 매니저 찾기 SJM
         partyManager = GameObject.Find("Party").GetComponent<PartyManager>();  //파티(플레이어)찾기 SJM
 
         stab = new status_abnormality();
@@ -105,7 +105,7 @@ public class Enemy_ai : MonoBehaviour
         //aiPath.canMove = false;
         can_attack = true;
         destination = GameObject.Find("Party");
-        if(code >= 10 && code <= 15)
+        if(code >= 104 && code <= 109)
         {
             ai_destination = GetComponent<AIDestinationSetter>();
             ai_destination.target = destination.transform;
@@ -157,26 +157,48 @@ public class Enemy_ai : MonoBehaviour
             {
                 switch(code)                    // 여기서 코드에 따라서 다른 공격 시행
                 {
-                    case 3:
+                    case 0:                                                     // 경기
                         partyManager.StartCoroutine("onDamage_party");
                         break;
-                    case 4:
+                    case 2:                                                    // 짐조
                         partyManager.StartCoroutine("onDamage_party");
                         break;
-                    case 5:
+                    case 5:                                                     // ?? 알수없음
                         partyManager.StartCoroutine("onDamage_party");
                         break;
-                    case 6:
-                        partyManager.get_enemy(this);
+                    case 100:                                                   // 이매망량 1페
                         partyManager.StartCoroutine("onDamage_party");
                         break;
-                    case 7:
+                    case 101:                                                 // 구미호
                         bullet1.can_move = true;
                         bullet2.can_move = true;
                         bullet3.can_move = true;
                         make_ball = true;
                         break;
-                    case 8:
+                    case 104:                                                  // 이매망량 2페 ew
+                        partyManager.StartCoroutine("onDamage_party");
+                        break;
+                    case 105:                                                  // 이매망량 2페 ns
+                        partyManager.StartCoroutine("onDamage_party");
+                        break;
+                    case 106:                                                   // 이매망량 3페 e
+                        partyManager.StartCoroutine("onDamage_party");
+                        break; 
+                    case 107:                                                   // 이매망량 3페 w 
+                        partyManager.StartCoroutine("onDamage_party");
+                        break;
+                    case 108:                                                   // 이매망량 3페 n
+                        partyManager.StartCoroutine("onDamage_party");
+                        break;
+                    case 109:                                                   // 이매망량 3페 s
+                        partyManager.StartCoroutine("onDamage_party");
+                        break;
+                    case 1000:
+                        partyManager.get_enemy(this);                           // 자폭맨 -> 폭죽
+                        partyManager.StartCoroutine("onDamage_party");
+                        break;
+                    case 1001:                                                  // 천 요괴
+                        partyManager.StartCoroutine("onDamage_party");
                         race();
                         break;
                 }
@@ -228,7 +250,7 @@ public class Enemy_ai : MonoBehaviour
     {
         switch (code)
         {
-            case 6:         // 자폭맨
+            case 1000:         // 자폭맨 => 폭죽
                 if (curHealth <= (maxHealth / 10))
                 {
                     partyManager.get_enemy(this);
@@ -238,7 +260,7 @@ public class Enemy_ai : MonoBehaviour
                     }
                 }
                 break;
-            case 7:         // 구미호
+            case 101:         // 구미호
                 if ((enemy_state == e_state.attack_ready) && make_ball)
                 {
                     make_ball = false;
@@ -262,6 +284,12 @@ public class Enemy_ai : MonoBehaviour
     {
         if (curHealth <= 0)
         {
+            if(code == 101)   // fox일 때 남은 fox 삭제 해줘야됨
+            {
+                bullet1.Dead();
+                bullet2.Dead();
+                bullet3.Dead();
+            }
             curHealth = 0;
             Destroy(gameObject);
             //사망, 누움
@@ -329,31 +357,38 @@ public class Enemy_ai : MonoBehaviour
     {
         play_time = 0f;         // play time 0f로 만들어줘서 일단 돌수 있게 만들어줌
         stab_type = 0;          // case number를 만들어서 다양한? 즉 종류 구별 가능하게 만들어 줄것
-
         if (curHealth > 0)
             curHealth -= damage;
+        Debug.Log("curHealth : "+curHealth);
+        Debug.Log("curHealth <=0 :" + (curHealth <= 0));
         if (curHealth <= 0)
         {
-            if (code == 9)
+            if (code == 100)
             {
                
                 Instantiate(imae_ew, new Vector3(transform.position.x+3,transform.position.y,transform.position.z), Quaternion.identity);
                 Instantiate(imae_sn, new Vector3(transform.position.x, transform.position.y, transform.position.z), Quaternion.identity);
 
             }
-            else if(code == 10)
+            else if(code == 105)
             {
                 Instantiate(imae_e, new Vector3(transform.position.x + 3, transform.position.y, transform.position.z), Quaternion.identity);
                 Instantiate(imae_w, new Vector3(transform.position.x, transform.position.y, transform.position.z), Quaternion.identity);
             }
-            else if (code == 11)
+            else if (code == 104)
             {
                 Instantiate(imae_s, new Vector3(transform.position.x + 3, transform.position.y, transform.position.z), Quaternion.identity);
                 Instantiate(imae_n, new Vector3(transform.position.x, transform.position.y, transform.position.z), Quaternion.identity);
             }
-
+            else if (code == 101)   // fox일 때 남은 fox 삭제 해줘야됨
+            {
+                bullet1.Dead();
+                bullet2.Dead();
+                bullet3.Dead();
+            }
             curHealth = 0;
-            eventManager.curMonsterCount--; //씬 안에 몬스터 카운팅 -1 SJM
+            Debug.Log("aaa");
+            //eventManager.curMonsterCount--; //씬 안에 몬스터 카운팅 -1 SJM
             Destroy(gameObject);
             //사망, 누움
             //transform.rotation = Quaternion.Euler(0, 0, -90);
