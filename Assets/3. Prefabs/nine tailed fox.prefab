@@ -174,7 +174,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 553723129943523875}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -371,8 +371,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1cdcbe6c75dd31247b6da1904131b636, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  code: 7
-  value: 12
+  code: 101
+  value: 101
   pushAmount: 12
   defaultSpeed: 0
   maxSpeed: 0
@@ -391,7 +391,6 @@ MonoBehaviour:
   make_ball: 1
   stab_fire: 0
   isRooted: 0
-  partyManager: {fileID: 0}
   fox_ball: {fileID: 4094950304863942409, guid: ac81cbf3c011c0648a59127f6ec6561f,
     type: 3}
   fox_ball1: {fileID: 553723129131281030}

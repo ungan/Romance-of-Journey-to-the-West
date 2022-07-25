@@ -12752,6 +12752,90 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &1494627250
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 553723129943523874, guid: 7d0f031e4e9747041a72ddeacdbc4ca3,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -5.81
+      objectReference: {fileID: 0}
+    - target: {fileID: 553723129943523874, guid: 7d0f031e4e9747041a72ddeacdbc4ca3,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.26
+      objectReference: {fileID: 0}
+    - target: {fileID: 553723129943523874, guid: 7d0f031e4e9747041a72ddeacdbc4ca3,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 553723129943523874, guid: 7d0f031e4e9747041a72ddeacdbc4ca3,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 553723129943523874, guid: 7d0f031e4e9747041a72ddeacdbc4ca3,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 553723129943523874, guid: 7d0f031e4e9747041a72ddeacdbc4ca3,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 553723129943523874, guid: 7d0f031e4e9747041a72ddeacdbc4ca3,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 553723129943523874, guid: 7d0f031e4e9747041a72ddeacdbc4ca3,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 553723129943523874, guid: 7d0f031e4e9747041a72ddeacdbc4ca3,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 553723129943523874, guid: 7d0f031e4e9747041a72ddeacdbc4ca3,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 553723129943523874, guid: 7d0f031e4e9747041a72ddeacdbc4ca3,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 553723129943523875, guid: 7d0f031e4e9747041a72ddeacdbc4ca3,
+        type: 3}
+      propertyPath: m_Name
+      value: nine tailed fox
+      objectReference: {fileID: 0}
+    - target: {fileID: 553723129943523875, guid: 7d0f031e4e9747041a72ddeacdbc4ca3,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 553723129943523885, guid: 7d0f031e4e9747041a72ddeacdbc4ca3,
+        type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 1884214262}
+    - target: {fileID: 553723129943523885, guid: 7d0f031e4e9747041a72ddeacdbc4ca3,
+        type: 3}
+      propertyPath: maxSpeed
+      value: 5
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 7d0f031e4e9747041a72ddeacdbc4ca3, type: 3}
 --- !u!1 &1506199429
 GameObject:
   m_ObjectHideFlags: 0
@@ -19294,7 +19378,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &2070688221
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21342,7 +21426,7 @@ MonoBehaviour:
   followPos: {x: 0, y: 0, z: 0}
   parent: {fileID: 1884214265}
   partyManager: {fileID: 1884214263}
-  enemy: {fileID: 0}
+  enemy: {fileID: 7772141664105544660, guid: 858aa5df6853d4341a626467621650f0, type: 3}
   cam: {fileID: 519420030}
   skillObject:
   - {fileID: 195924082222946349, guid: 546fb525e71bd5b4888f7af65ec0f828, type: 3}
@@ -33746,7 +33830,7 @@ MonoBehaviour:
   followPos: {x: 0, y: 0, z: 0}
   parent: {fileID: 47755510}
   partyManager: {fileID: 1884214263}
-  enemy: {fileID: 0}
+  enemy: {fileID: 7772141664105544660, guid: 858aa5df6853d4341a626467621650f0, type: 3}
   cam: {fileID: 519420030}
   skillObject:
   - {fileID: 2306374684262054326}
@@ -35403,7 +35487,7 @@ MonoBehaviour:
   followPos: {x: 0, y: 0, z: 0}
   parent: {fileID: 1884214265}
   partyManager: {fileID: 1884214263}
-  enemy: {fileID: 0}
+  enemy: {fileID: 7772141664105544660, guid: 858aa5df6853d4341a626467621650f0, type: 3}
   cam: {fileID: 519420030}
   skillObject:
   - {fileID: 195924082222946349, guid: da98e58eb7071ee40809ea72f26957b4, type: 3}
@@ -35970,7 +36054,7 @@ MonoBehaviour:
   followPos: {x: 0, y: 0, z: 0}
   parent: {fileID: 1884214265}
   partyManager: {fileID: 1884214263}
-  enemy: {fileID: 0}
+  enemy: {fileID: 7772141664105544660, guid: 858aa5df6853d4341a626467621650f0, type: 3}
   cam: {fileID: 519420030}
   skillObject:
   - {fileID: 1411458592}
