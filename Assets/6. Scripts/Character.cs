@@ -486,9 +486,9 @@ public class Character : MonoBehaviour
                     }
                     if (fire2Down) //리더 액티브 스킬-일직선 밀쳐내기 + 저격
                     {
-                        if (curShotDelay < maxShotDelay)
+                        if (curLSkillDelay < maxLSkillDelay)
                             return;
-                        curShotDelay = 0;
+                        curLSkillDelay = 0;
                         StartCoroutine(Push(rotateDg));
                     }
                     if (skill1Down) //5초간 파티 스피드 +25% 올림
@@ -677,14 +677,6 @@ public class Character : MonoBehaviour
                 AttackFinished();
                 break;
             case 2: //사오정
-                curAmmo--;
-
-                for (int i = 0; i < partyManager.hasCharactersCount; i++)
-                {
-                    if (partyManager.characterScripts[i].isDead == false)
-                        partyManager.characterScripts[i].curHealth += 30;
-                }
-
                 isAttacking = true;
                 anim.SetTrigger("MagicSkill");
                 skillObject[0].SetActive(true);

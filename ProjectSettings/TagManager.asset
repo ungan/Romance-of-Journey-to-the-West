@@ -23,6 +23,9 @@ TagManager:
   - Magicline
   - Downed
   - ChoiceButton
+  - Explosive
+  - EnemySwing
+  - EnemyBullet
   layers:
   - Default
   - TransparentFX

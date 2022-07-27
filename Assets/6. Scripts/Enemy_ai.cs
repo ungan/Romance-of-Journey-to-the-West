@@ -48,7 +48,6 @@ public class Enemy_ai : MonoBehaviour
     public bool make_ball = true;      // true일때 생성가능 false일때 생성불가
     public bool stab_fire = false;
     public bool isRooted = false; //속박됨 SJM
-    public bool inrange = false; // true 일때 공격 범위내에 캐릭터가 존재함
 
     public GameObject fox_ball;     // 구미호 bullet prefab
     public Transform fox_ball1;     // 구미호볼 1,2,3 
@@ -85,13 +84,10 @@ public class Enemy_ai : MonoBehaviour
     public GameObject destination;          // 목적지 오브젝트
     public AIDestinationSetter ai_destination;      // 목적지 오브젝트를 넣어주어야 할곳
     public e_state enemy_state;
-
-    public GameObject atk_range_image;          // 공격 범위 이미지화
-    public GameObject atk_range;                // 어택 ragne 회전을 위함임
     void Start()
     {
         cam = GameObject.Find("Main Camera").GetComponent<CameraController>(); //게임오브젝트를 신 안에서 찾은 후 스크립트 연결(프리펩시 필수!)
-        //eventManager = GameObject.Find("EventManager").GetComponent<EventManager>(); //이벤트 매니저 찾기 SJM
+        eventManager = GameObject.Find("EventManager").GetComponent<EventManager>(); //이벤트 매니저 찾기 SJM
         partyManager = GameObject.Find("Party").GetComponent<PartyManager>();  //파티(플레이어)찾기 SJM
 
         stab = new status_abnormality();
@@ -105,7 +101,7 @@ public class Enemy_ai : MonoBehaviour
 
         Stats(); //스텟
 
-        enemy_state = e_state.Follow;
+        enemy_state = e_state.attack_ready;
         //aiPath.canMove = false;
         can_attack = true;
         destination = GameObject.Find("Party");
@@ -134,6 +130,7 @@ public class Enemy_ai : MonoBehaviour
     private void FixedUpdate()
     {
         Delay_fixed();
+
         enemy_ai = this;
         if(!stop)
         {
@@ -156,12 +153,7 @@ public class Enemy_ai : MonoBehaviour
         }
         else if(enemy_state == e_state.attack)
         {
-            attack_direction();         // 공격할때 어디로 해야할지 방향을 탐지
-            atk_range_image.SetActive(true);
-            Debug.Log("can_attack : " + can_attack);
-            Debug.Log("inrange : " + inrange);
-            Debug.Log("isDashing" + !partyManager.isDashing);
-            if (can_attack&&inrange&&!partyManager.isDashing)            // canattack + inrange  즉 공격은 당연히 시행을 하고 inrange 공격 범위내에 player 존재시 데미지가 들어감
+            if (can_attack)
             {
                 switch(code)                    // 여기서 코드에 따라서 다른 공격 시행
                 {
@@ -211,12 +203,9 @@ public class Enemy_ai : MonoBehaviour
                         break;
                 }
                 
+                can_attack = false;
+                enemy_state = e_state.attack_ready;
             }
-
-            can_attack = false;
-            enemy_state = e_state.attack_ready;
-            StartCoroutine("atkr_image_time");
-            //atk_range_image.SetActive(false);
         }
         else if(enemy_state == e_state.attack_ready)
         {
@@ -243,12 +232,6 @@ public class Enemy_ai : MonoBehaviour
         }
         
     }
-    void attack_direction()
-    {
-        //atk_range_image.transform.rotation.z = Mathf.Atan2(player.transform.position.y - transform.position.y, player.transform.position.x - transform.position.x);
-        atk_range.transform.rotation = Quaternion.Euler(0,0, Mathf.Atan2(player.transform.position.y - transform.position.y+1f, player.transform.position.x - transform.position.x) * 57.2958f);
-    }
-
     void race()
     {
         
@@ -341,7 +324,6 @@ public class Enemy_ai : MonoBehaviour
     }
     void Stats()
     {
-        /*
         switch (value)
         {
             case 0:
@@ -349,7 +331,7 @@ public class Enemy_ai : MonoBehaviour
                 curHealth = 100f;
                 damage = 0f;
                 break;
-        }*/
+        }
     }
 
     public void shut_down()
@@ -357,11 +339,6 @@ public class Enemy_ai : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    IEnumerator atkr_image_time()       // 공격 범위 표시
-    {
-        yield return new WaitForSeconds(0.2f);
-        atk_range_image.SetActive(false);
-    }
     IEnumerator self_destruct()     // 자폭
     {
        
@@ -379,13 +356,9 @@ public class Enemy_ai : MonoBehaviour
     IEnumerator OnDamage(int damage)
     {
         play_time = 0f;         // play time 0f로 만들어줘서 일단 돌수 있게 만들어줌
-        stab_type = 1;          // case number를 만들어서 다양한? 즉 종류 구별 가능하게 만들어 줄것 느려지게 하는거
+        stab_type = 1;          // case number를 만들어서 다양한? 즉 종류 구별 가능하게 만들어 줄것
         if (curHealth > 0)
             curHealth -= damage;
-        enemy_state = e_state.attack_ready;
-        curShotDelay = 0;       // 공격시간 초기화
-        Debug.Log("curHealth : "+curHealth);
-        Debug.Log("curHealth <=0 :" + (curHealth <= 0));
         if (curHealth <= 0)
         {
             if (code == 100)
@@ -412,8 +385,7 @@ public class Enemy_ai : MonoBehaviour
                 bullet3.Dead();
             }
             curHealth = 0;
-            Debug.Log("aaa");
-            //eventManager.curMonsterCount--; //씬 안에 몬스터 카운팅 -1 SJM
+            eventManager.curMonsterCount--; //씬 안에 몬스터 카운팅 -1 SJM
             Destroy(gameObject);
             //사망, 누움
             //transform.rotation = Quaternion.Euler(0, 0, -90);
@@ -448,10 +420,10 @@ public class Enemy_ai : MonoBehaviour
         switch (stab_type)
         {
             case 0:
-                stab_behavior();            // 느려지는거
+                stab_behavior();
                 break;
             case 1:
-                stab_dot();                 // 불
+                stab_dot();
                 break;
         }
     }
@@ -537,7 +509,7 @@ public class Enemy_ai : MonoBehaviour
         {
             StartCoroutine(OnDamage(bullet.damage));
             StartCoroutine(BePushed());
-            //Destroy(collision.gameObject);
+            Destroy(collision.gameObject);
         }
         if (collision.gameObject.tag == "PlayerSwing") //근접공격
         {

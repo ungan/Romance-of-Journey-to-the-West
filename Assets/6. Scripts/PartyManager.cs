@@ -414,9 +414,9 @@ public class PartyManager : MonoBehaviour
     {
         characterScripts[charactersIndex].OnDamage_bullet(damage);
     }
-    void OnCollisionEnter2D(Collision2D collision)
+    /*void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Enemy" && !isDashing && canSwap)
+        if ((collision.gameObject.tag == "EnemySwing" || collision.gameObject.tag == "EnemyBullet") && !isDashing && canSwap)
         {
             // gameobject.tag == enemy 공격 준비 시작
            // Enemy_ai enem = collision.gameObject.GetComponent<Enemy_ai>();
@@ -427,7 +427,7 @@ public class PartyManager : MonoBehaviour
             characterScripts[charactersIndex].StartCoroutine("OnDamage");
             
         }
-    }
+    }*/
 
 
     void OnTriggerStay2D(Collider2D collision)

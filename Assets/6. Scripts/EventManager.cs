@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class EventManager : MonoBehaviour
 {
+    public MusicManager musicManager;
+
     //Event
     public float curEChangeDelay = 0f; //현재 노말->호드 이벤트 체인지 딜레이
     public float maxEChangeDelay = 20f; //최대 노말->호드 이벤트 체인지 딜레이
@@ -46,6 +48,7 @@ public class EventManager : MonoBehaviour
         if(curEChangeDelay >= maxEChangeDelay)
         {
             ActiveHordeEvent();
+            musicManager.playMusic = true;
             curEChangeDelay = 0;
         }
         if(curHordeDelay >= maxHordeDelay)
