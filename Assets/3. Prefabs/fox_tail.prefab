@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4094950304863942414}
-  - component: {fileID: 4094950304863942415}
   - component: {fileID: 4094950304863942408}
   - component: {fileID: 4094950304863942413}
   - component: {fileID: 4094950304863942412}
@@ -35,21 +34,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4094950304863942415
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4094950304863942409}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bd5241d0f41a284488974f1e7892e4c0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  type: 1
-  value: 1
-  damage: 1
 --- !u!212 &4094950304863942408
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -116,8 +100,10 @@ MonoBehaviour:
   partymanager: {fileID: 0}
   player: {fileID: 0}
   target: {fileID: 0}
-  speed: 2
+  make_ball: {fileID: 0}
+  speed: 1
   damage: 5
+  can_move: 0
   x: 0
   y: 0
 --- !u!58 &4094950304863942412
