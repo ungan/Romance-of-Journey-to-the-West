@@ -19378,7 +19378,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &2070688221
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19392,7 +19392,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   curEChangeDelay: 0
-  maxEChangeDelay: 10
+  maxEChangeDelay: 2
   curSpawnDelay: 0
   maxSpawnDelay: 0.5
   normalEvent: 1
