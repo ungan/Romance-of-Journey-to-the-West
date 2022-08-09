@@ -49,13 +49,13 @@ public class Enemy_ai : MonoBehaviour
     public bool stab_fire = false;
     public bool isRooted = false; //속박됨 SJM
     public bool inrange = false; // true 일때 공격 범위내에 캐릭터가 존재함
-
+    public bool bullet_attack = false;  // bullet 공격이후에 true 이용해서 enemy state 조절 공격 직후 true로 만들고 나머지 시간엔 false로 만들어 줄것
     public GameObject fox_ball;     // 구미호 bullet prefab
     public Transform fox_ball1;     // 구미호볼 1,2,3 
     public Transform fox_ball2;
     public Transform fox_ball3;
 
-    bulletmove_khi bullet1;         // 여우볼 3개
+    public bulletmove_khi bullet1;         // 여우볼 3개
     bulletmove_khi bullet2;
     bulletmove_khi bullet3;
 
@@ -149,13 +149,15 @@ public class Enemy_ai : MonoBehaviour
 
     void state()
     {
-
+        //Debug.Log("enemy_state : " + enemy_state);
         if (enemy_state == e_state.Follow)
         {
 
         }
         else if (enemy_state == e_state.attack)
         {
+            //Debug.Log("can_move" + bullet1.can_move);
+            //Debug.Log("can_move" + bullet1.can_move);
             attack_direction();         // 공격할때 어디로 해야할지 방향을 탐지
             atk_range_image.SetActive(true);
             //Debug.Log("can_attack : " + can_attack);
@@ -178,10 +180,12 @@ public class Enemy_ai : MonoBehaviour
                         partyManager.StartCoroutine("onDamage_party");
                         break;
                     case 101:                                                 // 구미호
-                        bullet1.can_move = true;
+                        make_ball = true;
+                        if(bullet1 != null) bullet1.can_move = true;
                         bullet2.can_move = true;
                         bullet3.can_move = true;
-                        make_ball = true;
+                        bullet1 = null;
+                        
                         break;
                     case 104:                                                  // 이매망량 2페 ew
                         partyManager.StartCoroutine("onDamage_party");
@@ -212,22 +216,62 @@ public class Enemy_ai : MonoBehaviour
                 }
 
             }
+            else if (can_attack && bullet1 != null)
+            {
+                switch(code)
+                {
+                    case 101:
+                        bullet1.can_move = true;
+                        bullet2.can_move = true;
+                        bullet3.can_move = true;
+                        bullet1 = null;
+                        if (!inrange)
+                        {
+                            enemy_state = e_state.Follow;      // attack range 밖으로 player 벗어남
+                            move_true();
+                            //player = null;
+                        }
+                        break;
+                }
+            }
 
-            can_attack = false;
+                can_attack = false;
             enemy_state = e_state.attack_ready;
             StartCoroutine("atkr_image_time");
             //atk_range_image.SetActive(false);
         }
         else if (enemy_state == e_state.attack_ready)
         {
+            Debug.Log("지금은 state attack_ready");
             if (can_attack)
             {
                 ready_to_attack();
             }
+            if(bullet1 == null)         // 여우볼 생성 x일때 움직여 주는것을 허용해줌
+            {
+
+                Debug.Log("bullet1 null");
+                switch (code)
+                {
+                    case 101:
+                        if (!inrange)
+                        {
+                            enemy_state = e_state.Follow;      // attack range 밖으로 player 벗어남
+                            move_true();
+                            //player = null;
+                        }
+                        break;
+                }
+            }
+            else
+            {
+                Debug.Log("bullet1 :" + bullet1 );
+            }
+
         }
         else if (enemy_state != e_state.attack_ready)
         {
-
+            
         }
         if (!can_attack)
         {
@@ -259,7 +303,7 @@ public class Enemy_ai : MonoBehaviour
         bullet1 = Instantiate(fox_ball, fox_ball1.position, Quaternion.identity).GetComponent<bulletmove_khi>();
         bullet2 = Instantiate(fox_ball, fox_ball2.position, Quaternion.identity).GetComponent<bulletmove_khi>();
         bullet3 = Instantiate(fox_ball, fox_ball3.position, Quaternion.identity).GetComponent<bulletmove_khi>();
-        bullet1.make_ball = fox_ball1;
+        bullet1.make_ball = fox_ball1;                              // ball 소환 위치를 ball1,2,3 각각 정해줌
         bullet2.make_ball = fox_ball2;
         bullet3.make_ball = fox_ball3;
     }
@@ -278,7 +322,7 @@ public class Enemy_ai : MonoBehaviour
                 }
                 break;
             case 101:         // 구미호
-                if ((enemy_state == e_state.attack_ready) && make_ball)
+                if ((enemy_state == e_state.attack_ready) && make_ball)         // attack_ready 일때 make_ball on
                 {
                     make_ball = false;
                     make_foxball();
@@ -466,7 +510,7 @@ public class Enemy_ai : MonoBehaviour
             sprite_render.color = new Color(0, 0, 255);
         }
         else
-        {
+        {   
             sprite_render.color = new Color(255, 255, 255);
             aiPath.maxSpeed = maxSpeed;     // 원래 속도
             return;

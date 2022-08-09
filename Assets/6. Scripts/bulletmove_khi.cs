@@ -53,6 +53,7 @@ public class bulletmove_khi : MonoBehaviour
             start = false;
             sprite.color = new Color(255f,255f,255f,0);
         }
+        //if(sprite.color.r == 255f)        // 움직이는 조건이 투명화에서 색이 다 채워 졌을때 기준임
         if(can_move)
         {
             move();   
