@@ -49,7 +49,7 @@ public class Enemy_ai : MonoBehaviour
     public bool stab_fire = false;
     public bool isRooted = false; //속박됨 SJM
     public bool inrange = false; // true 일때 공격 범위내에 캐릭터가 존재함
-    public bool bullet_attack = false;  // bullet 공격이후에 true 이용해서 enemy state 조절 공격 직후 true로 만들고 나머지 시간엔 false로 만들어 줄것
+    public bool bullet_attack = false;  // shot foxball 코루틴 여러번 돌지 않게 하기 위한 것
     public GameObject fox_ball;     // 구미호 bullet prefab
     public Transform fox_ball1;     // 구미호볼 1,2,3 
     public Transform fox_ball2;
@@ -181,9 +181,7 @@ public class Enemy_ai : MonoBehaviour
                         break;
                     case 101:                                                 // 구미호
                         make_ball = true;
-                        if(bullet1 != null) bullet1.can_move = true;
-                        bullet2.can_move = true;
-                        bullet3.can_move = true;
+                        StartCoroutine("shot_foxball");
                         bullet1 = null;
                         
                         break;
@@ -221,9 +219,7 @@ public class Enemy_ai : MonoBehaviour
                 switch(code)
                 {
                     case 101:
-                        bullet1.can_move = true;
-                        bullet2.can_move = true;
-                        bullet3.can_move = true;
+                        StartCoroutine("shot_foxball");
                         bullet1 = null;
                         if (!inrange)
                         {
@@ -235,8 +231,9 @@ public class Enemy_ai : MonoBehaviour
                 }
             }
 
-                can_attack = false;
-            enemy_state = e_state.attack_ready;
+            can_attack = false;
+            
+            if(code != 101) enemy_state = e_state.attack_ready; // 여우볼이 다공격을 갈때까지 기다려야함
             StartCoroutine("atkr_image_time");
             //atk_range_image.SetActive(false);
         }
@@ -300,12 +297,15 @@ public class Enemy_ai : MonoBehaviour
 
     void make_foxball()
     {
-        bullet1 = Instantiate(fox_ball, fox_ball1.position, Quaternion.identity).GetComponent<bulletmove_khi>();
-        bullet2 = Instantiate(fox_ball, fox_ball2.position, Quaternion.identity).GetComponent<bulletmove_khi>();
-        bullet3 = Instantiate(fox_ball, fox_ball3.position, Quaternion.identity).GetComponent<bulletmove_khi>();
-        bullet1.make_ball = fox_ball1;                              // ball 소환 위치를 ball1,2,3 각각 정해줌
-        bullet2.make_ball = fox_ball2;
-        bullet3.make_ball = fox_ball3;
+        if(bullet1 == null && bullet2 == null && bullet3 == null)     // 여우볼 없을때만 생성할것
+        {
+            bullet1 = Instantiate(fox_ball, fox_ball1.position, Quaternion.identity).GetComponent<bulletmove_khi>();
+            bullet2 = Instantiate(fox_ball, fox_ball2.position, Quaternion.identity).GetComponent<bulletmove_khi>();
+            bullet3 = Instantiate(fox_ball, fox_ball3.position, Quaternion.identity).GetComponent<bulletmove_khi>();
+            bullet1.make_ball = fox_ball1;                              // ball 소환 위치를 ball1,2,3 각각 정해줌
+            bullet2.make_ball = fox_ball2;
+            bullet3.make_ball = fox_ball3;
+        }
     }
     void special()
     {
@@ -400,7 +400,16 @@ public class Enemy_ai : MonoBehaviour
     {
         gameObject.SetActive(false);
     }
-
+    IEnumerator shot_foxball()       // 여우구슬발사
+    {
+        if (bullet1 != null) bullet1.can_move = true;
+        yield return new WaitForSeconds(0.2f);
+        bullet2.can_move = true;
+        yield return new WaitForSeconds(0.2f);
+        bullet3.can_move = true;
+        enemy_state = e_state.attack_ready;
+        yield return null;
+    }
     IEnumerator atkr_image_time()       // 공격 범위 표시
     {
         yield return new WaitForSeconds(0.2f);
