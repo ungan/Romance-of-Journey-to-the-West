@@ -45,10 +45,12 @@ public class PartyManager : MonoBehaviour
     //애니메이션
     public bool isRunning;
     public bool isDashing;
+    public bool isStopping;
     bool isAttacking;
 
     //컨트롤
     public bool canSwap; //true시 스왑 가능
+    bool swapDelayDone;
 
     //딜레이
     float maxSwapDelay = 0.2f;
@@ -146,6 +148,9 @@ public class PartyManager : MonoBehaviour
                 rigid.velocity = new Vector2(dirXY.x, dirXY.y) * speed;
             if(isDashing == true)
                 rigid.velocity = new Vector2(dirXY.x, dirXY.y) * (speed * 4f);
+            if (isStopping == true)
+                rigid.velocity = Vector2.zero;
+                //rigid.velocity = new Vector2(dirXY.x, dirXY.y) * (speed / 4f);
         }
         
         if(curCharactersCount == 0)
@@ -191,7 +196,8 @@ public class PartyManager : MonoBehaviour
         if (sDown4 && (hasCharactersCount < 4 || !aliveList[3] || !controlList[3]))
             return;
 
-        if (range < 0.5f && curSwapDelay >= maxSwapDelay) canSwap = true;
+        StartCoroutine("CanYouSwap");
+        if (range < 0.5f && swapDelayDone) { canSwap = true; swapDelayDone = false; }
 
         if ((sDown1 || (cPanel.tUp && cPanel.cNum == 1)) && canSwap) { priCharIndex = charactersIndex; charactersIndex = 0; canSwap = false; curSwapDelay = 0; }
         if ((sDown2 || (cPanel.tUp && cPanel.cNum == 2)) && canSwap) { priCharIndex = charactersIndex; charactersIndex = 1; canSwap = false; curSwapDelay = 0; }
@@ -346,15 +352,23 @@ public class PartyManager : MonoBehaviour
         }
     }
 
+    public void CanSwapFalse()
+    {
+        curSwapDelay = 0;
+        canSwap = false;
+    }
+
     public IEnumerator Dash() //대시
     {
         isDashing = true;
         this.gameObject.layer = 12;
 
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(0.15f);
         isDashing = false;
+        isStopping = true;
 
         yield return new WaitForSeconds(0.2f);
+        isStopping = false;
         this.gameObject.layer = 10;
     }
 
@@ -386,6 +400,12 @@ public class PartyManager : MonoBehaviour
             Time.timeScale = 1f;
             Time.fixedDeltaTime = this.fixedDeltaTime * Time.timeScale;
         }
+    }
+
+    IEnumerator CanYouSwap()
+    {
+        yield return new WaitForSeconds(0.2f);
+        swapDelayDone = true;
     }
 
     void GameOver()

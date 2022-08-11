@@ -91,7 +91,7 @@ public class Enemy_ai : MonoBehaviour
     void Start()
     {
         cam = GameObject.Find("Main Camera").GetComponent<CameraController>(); //게임오브젝트를 신 안에서 찾은 후 스크립트 연결(프리펩시 필수!)
-        //eventManager = GameObject.Find("EventManager").GetComponent<EventManager>(); //이벤트 매니저 찾기 SJM
+        eventManager = GameObject.Find("EventManager").GetComponent<EventManager>(); //이벤트 매니저 찾기 SJM
         partyManager = GameObject.Find("Party").GetComponent<PartyManager>();  //파티(플레이어)찾기 SJM
 
         stab = new status_abnormality();
@@ -413,7 +413,7 @@ public class Enemy_ai : MonoBehaviour
             }
             curHealth = 0;
             Debug.Log("aaa");
-            //eventManager.curMonsterCount--; //씬 안에 몬스터 카운팅 -1 SJM
+            eventManager.curMonsterCount--; //씬 안에 몬스터 카운팅 -1 SJM
             Destroy(gameObject);
             //사망, 누움
             //transform.rotation = Quaternion.Euler(0, 0, -90);
@@ -537,7 +537,7 @@ public class Enemy_ai : MonoBehaviour
         {
             StartCoroutine(OnDamage(bullet.damage));
             StartCoroutine(BePushed());
-            //Destroy(collision.gameObject);
+            Destroy(collision.gameObject);
         }
         if (collision.gameObject.tag == "PlayerSwing") //근접공격
         {
