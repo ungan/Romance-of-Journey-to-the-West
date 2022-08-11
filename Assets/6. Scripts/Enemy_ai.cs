@@ -20,6 +20,7 @@ public class Enemy_ai : MonoBehaviour
     CameraController cam;
     PartyManager partyManager; //SJM
     EventManager eventManager; //SJM
+    int r;                   // 납치할때 character 랜덤 배열값
 
     public int code;        // code enemy 고유값
     //밸류
@@ -39,6 +40,7 @@ public class Enemy_ai : MonoBehaviour
     public float maxReadyDelay = 2;        // 최대 딜레이
     float curShotDelay = 0;     // 현재 딜레이
     public float maxShotDelay = 2; //    딜레이 총량?
+    public float regular_d;
     public GameObject player;
     public SpriteRenderer sprite_render;
 
@@ -49,13 +51,14 @@ public class Enemy_ai : MonoBehaviour
     public bool stab_fire = false;
     public bool isRooted = false; //속박됨 SJM
     public bool inrange = false; // true 일때 공격 범위내에 캐릭터가 존재함
-
+    public bool bullet_attack = false;  // shot foxball 코루틴 여러번 돌지 않게 하기 위한 것
+    public bool iskidnap = false;
     public GameObject fox_ball;     // 구미호 bullet prefab
     public Transform fox_ball1;     // 구미호볼 1,2,3 
     public Transform fox_ball2;
     public Transform fox_ball3;
 
-    bulletmove_khi bullet1;         // 여우볼 3개
+    public bulletmove_khi bullet1;         // 여우볼 3개
     bulletmove_khi bullet2;
     bulletmove_khi bullet3;
 
@@ -88,6 +91,10 @@ public class Enemy_ai : MonoBehaviour
 
     public GameObject atk_range_image;          // 공격 범위 이미지화
     public GameObject atk_range;                // 어택 ragne 회전을 위함임
+    public GameObject objparty;
+    //public GameObject dummy;
+
+    Character nap;                              // 납치한 character의 script character 정보를 여기에 저장
     void Start()
     {
         cam = GameObject.Find("Main Camera").GetComponent<CameraController>(); //게임오브젝트를 신 안에서 찾은 후 스크립트 연결(프리펩시 필수!)
@@ -149,13 +156,23 @@ public class Enemy_ai : MonoBehaviour
 
     void state()
     {
-
-        if (enemy_state == e_state.Follow)
+        //Debug.Log("enemy_state : " + enemy_state);
+        if(iskidnap&& partyManager.curCharactersCount>1)
+        {
+            kid_nap();
+        }
+        else if(iskidnap && partyManager.curCharactersCount <= 1)
+        {
+            iskidnap = false;
+        }
+        else if (enemy_state == e_state.Follow)
         {
 
         }
         else if (enemy_state == e_state.attack)
         {
+            //Debug.Log("can_move" + bullet1.can_move);
+            //Debug.Log("can_move" + bullet1.can_move);
             attack_direction();         // 공격할때 어디로 해야할지 방향을 탐지
             atk_range_image.SetActive(true);
             //Debug.Log("can_attack : " + can_attack);
@@ -178,10 +195,10 @@ public class Enemy_ai : MonoBehaviour
                         partyManager.StartCoroutine("onDamage_party");
                         break;
                     case 101:                                                 // 구미호
-                        bullet1.can_move = true;
-                        bullet2.can_move = true;
-                        bullet3.can_move = true;
                         make_ball = true;
+                        StartCoroutine("shot_foxball");
+                        bullet1 = null;
+                        
                         break;
                     case 104:                                                  // 이매망량 2페 ew
                         partyManager.StartCoroutine("onDamage_party");
@@ -207,27 +224,67 @@ public class Enemy_ai : MonoBehaviour
                         break;
                     case 1001:                                                  // 천 요괴
                         partyManager.StartCoroutine("onDamage_party");
+                        iskidnap = true;
                         race();
                         break;
                 }
 
             }
+            else if (can_attack && bullet1 != null)
+            {
+                switch(code)
+                {
+                    case 101:
+                        StartCoroutine("shot_foxball");
+                        bullet1 = null;
+                        if (!inrange)
+                        {
+                            enemy_state = e_state.Follow;      // attack range 밖으로 player 벗어남
+                            move_true();
+                            //player = null;
+                        }
+                        break;
+                }
+            }
 
             can_attack = false;
-            enemy_state = e_state.attack_ready;
+            
+            if(code != 101) enemy_state = e_state.attack_ready; // 여우볼이 다공격을 갈때까지 기다려야함
             StartCoroutine("atkr_image_time");
             //atk_range_image.SetActive(false);
         }
         else if (enemy_state == e_state.attack_ready)
         {
+            Debug.Log("지금은 state attack_ready");
             if (can_attack)
             {
                 ready_to_attack();
             }
+            if(bullet1 == null)         // 여우볼 생성 x일때 움직여 주는것을 허용해줌
+            {
+
+                Debug.Log("bullet1 null");
+                switch (code)
+                {
+                    case 101:
+                        if (!inrange)
+                        {
+                            enemy_state = e_state.Follow;      // attack range 밖으로 player 벗어남
+                            move_true();
+                            //player = null;
+                        }
+                        break;
+                }
+            }
+            else
+            {
+                Debug.Log("bullet1 :" + bullet1 );
+            }
+
         }
         else if (enemy_state != e_state.attack_ready)
         {
-
+            
         }
         if (!can_attack)
         {
@@ -256,12 +313,15 @@ public class Enemy_ai : MonoBehaviour
 
     void make_foxball()
     {
-        bullet1 = Instantiate(fox_ball, fox_ball1.position, Quaternion.identity).GetComponent<bulletmove_khi>();
-        bullet2 = Instantiate(fox_ball, fox_ball2.position, Quaternion.identity).GetComponent<bulletmove_khi>();
-        bullet3 = Instantiate(fox_ball, fox_ball3.position, Quaternion.identity).GetComponent<bulletmove_khi>();
-        bullet1.make_ball = fox_ball1;
-        bullet2.make_ball = fox_ball2;
-        bullet3.make_ball = fox_ball3;
+        if(bullet1 == null && bullet2 == null && bullet3 == null)     // 여우볼 없을때만 생성할것
+        {
+            bullet1 = Instantiate(fox_ball, fox_ball1.position, Quaternion.identity).GetComponent<bulletmove_khi>();
+            bullet2 = Instantiate(fox_ball, fox_ball2.position, Quaternion.identity).GetComponent<bulletmove_khi>();
+            bullet3 = Instantiate(fox_ball, fox_ball3.position, Quaternion.identity).GetComponent<bulletmove_khi>();
+            bullet1.make_ball = fox_ball1;                              // ball 소환 위치를 ball1,2,3 각각 정해줌
+            bullet2.make_ball = fox_ball2;
+            bullet3.make_ball = fox_ball3;
+        }
     }
     void special()
     {
@@ -278,7 +338,7 @@ public class Enemy_ai : MonoBehaviour
                 }
                 break;
             case 101:         // 구미호
-                if ((enemy_state == e_state.attack_ready) && make_ball)
+                if ((enemy_state == e_state.attack_ready) && make_ball)         // attack_ready 일때 make_ball on
                 {
                     make_ball = false;
                     make_foxball();
@@ -297,6 +357,55 @@ public class Enemy_ai : MonoBehaviour
         aiPath.canMove = true;
     }
 
+    public void kid_nap()
+    {
+        objparty = GameObject.Find("Party");
+        //Debug.Log("objparty : " + objparty.transform.position);
+        r = Random.Range(0, partyManager.curCharactersCount);
+        if (partyManager.aliveList[r] == true && partyManager.characterLists[r].tag == "Leader")                                                     // leader 납치
+        {
+            partyManager.characterLists[r].transform.position = new Vector3(transform.position.x, transform.position.y - 2, transform.position.z);      // 납치한 player의 위치를 몬스터 아래에 옮김
+            partyManager.controlList[r] = false;                                                                                                    // control 불가
+            nap = partyManager.characterLists[r].GetComponent<Character>();
+            partyManager.priCharIndex = -1; //퀵버튼 리셋
+            nap.isLeaving = true;
+
+
+            if (partyManager.curCharactersCount > 1)
+            {
+                partyManager.controlList[partyManager.charactersIndex] = false;
+                partyManager.priCharIndex = -1; //퀵버튼 리셋
+
+                while (!partyManager.controlList[partyManager.charactersIndex])
+                {
+                    if (partyManager.charactersIndex != partyManager.hasCharactersCount - 1)
+                        partyManager.charactersIndex++;
+                    else if (partyManager.charactersIndex == partyManager.hasCharactersCount - 1)
+                        partyManager.charactersIndex = 0;
+                }
+
+            }
+            //nap.StartCoroutine("LeavingSkill");
+        }
+            //partyManager.aliveList[r] = false;
+            // 멤버를 납치하는 경우
+            /*
+            if(partyManager.aliveList[r] == true && partyManager.characterLists[r].tag == "Member")                                                     // 살아 있지만 동시에 leader가 아닌 캐릭터가 member 여야함
+            {
+                partyManager.characterLists[r].transform.position = new Vector3(transform.position.x,transform.position.y-2,transform.position.z);      // 납치한 player의 위치를 몬스터 아래에 옮김
+                partyManager.controlList[r] = false;                                                                                                    // control 불가
+                nap = partyManager.characterLists[r].GetComponent<Character>();
+                nap.isLeaving = true;
+                //partyManager.aliveList[r] = false;
+            }
+            */
+            Vector3 dir = transform.position - objparty.transform.position;
+        dir = dir.normalized;
+        move_false();
+        regular_d = 2f;
+        //dummy.transform.position =transform.position + dir * regular_d;
+        transform.position = Vector3.MoveTowards(transform.position, transform.position + dir * regular_d, 5f * Time.deltaTime);
+    }
     public void dead()
     {
         if (curHealth <= 0)
@@ -306,6 +415,18 @@ public class Enemy_ai : MonoBehaviour
                 bullet1.Dead();
                 bullet2.Dead();
                 bullet3.Dead();
+            }
+            else if(code == 1001)
+            {
+                Debug.Log("nap"+ nap);
+                if(nap != null)
+                {
+                    Debug.Log("돌았슈");
+                    iskidnap = false;                       // 납치중 아님
+                    nap.isLeaving = false;                  // leaving 상태 아님
+                    partyManager.controlList[r] = true;     // control 허용
+                    //partyManager.aliveList[r] = true;       //
+                }
             }
             curHealth = 0;
             Destroy(gameObject);
@@ -356,7 +477,16 @@ public class Enemy_ai : MonoBehaviour
     {
         gameObject.SetActive(false);
     }
-
+    IEnumerator shot_foxball()       // 여우구슬발사
+    {
+        if (bullet1 != null) bullet1.can_move = true;
+        yield return new WaitForSeconds(0.2f);
+        bullet2.can_move = true;
+        yield return new WaitForSeconds(0.2f);
+        bullet3.can_move = true;
+        enemy_state = e_state.attack_ready;
+        yield return null;
+    }
     IEnumerator atkr_image_time()       // 공격 범위 표시
     {
         yield return new WaitForSeconds(0.2f);
@@ -384,8 +514,8 @@ public class Enemy_ai : MonoBehaviour
             curHealth -= damage;
         enemy_state = e_state.attack_ready;
         curShotDelay = 0;       // 공격시간 초기화
-        Debug.Log("curHealth : " + curHealth);
-        Debug.Log("curHealth <=0 :" + (curHealth <= 0));
+        //Debug.Log("curHealth : " + curHealth);
+        //Debug.Log("curHealth <=0 :" + (curHealth <= 0));
         if (curHealth <= 0)
         {
             if (code == 100)
@@ -410,6 +540,18 @@ public class Enemy_ai : MonoBehaviour
                 bullet1.Dead();
                 bullet2.Dead();
                 bullet3.Dead();
+            }
+            else if(code == 1001)
+            {
+                Debug.Log("nap" + nap);
+                if (nap != null)
+                {
+                    Debug.Log("돌았슈");
+                    iskidnap = false;                       // 납치중 아님
+                    nap.isLeaving = false;                  // leaving 상태 아님
+                    partyManager.controlList[r] = true;     // control 허용
+                    //partyManager.aliveList[r] = true;       //
+                }
             }
             curHealth = 0;
             Debug.Log("aaa");
@@ -466,7 +608,7 @@ public class Enemy_ai : MonoBehaviour
             sprite_render.color = new Color(0, 0, 255);
         }
         else
-        {
+        {   
             sprite_render.color = new Color(255, 255, 255);
             aiPath.maxSpeed = maxSpeed;     // 원래 속도
             return;
