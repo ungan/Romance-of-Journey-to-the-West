@@ -88,7 +88,7 @@ public class dummy : MonoBehaviour
         d_y = d_y / regular;
 
         phase = 4;
-        Debug.Log("d_x : " + d_x + "d_y : " + d_y);
+        //Debug.Log("d_x : " + d_x + "d_y : " + d_y);
         rb2D.AddForce(new Vector3(d_x, d_y, 0)*1.5f, ForceMode2D.Impulse);
         //rb2D.AddForce(new Vector3(d_x,d_y,0)*100);
     }

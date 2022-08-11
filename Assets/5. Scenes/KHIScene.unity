@@ -9325,6 +9325,7 @@ MonoBehaviour:
   attack_cooltime: 3
   maxReadyDelay: 2
   maxShotDelay: 2
+  regular_d: 0
   player: {fileID: 0}
   sprite_render: {fileID: 0}
   can_attack: 0
@@ -9335,6 +9336,7 @@ MonoBehaviour:
   isRooted: 0
   inrange: 0
   bullet_attack: 0
+  iskidnap: 0
   fox_ball: {fileID: 0}
   fox_ball1: {fileID: 0}
   fox_ball2: {fileID: 0}
@@ -9353,6 +9355,7 @@ MonoBehaviour:
   enemy_state: 0
   atk_range_image: {fileID: 0}
   atk_range: {fileID: 0}
+  objparty: {fileID: 0}
 --- !u!114 &1009308387
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11738,6 +11741,7 @@ MonoBehaviour:
   attack_cooltime: 3
   maxReadyDelay: 2
   maxShotDelay: 2
+  regular_d: 0
   player: {fileID: 0}
   sprite_render: {fileID: 0}
   can_attack: 0
@@ -11748,6 +11752,7 @@ MonoBehaviour:
   isRooted: 0
   inrange: 0
   bullet_attack: 0
+  iskidnap: 0
   fox_ball: {fileID: 0}
   fox_ball1: {fileID: 0}
   fox_ball2: {fileID: 0}
@@ -11766,6 +11771,7 @@ MonoBehaviour:
   enemy_state: 0
   atk_range_image: {fileID: 0}
   atk_range: {fileID: 0}
+  objparty: {fileID: 0}
 --- !u!114 &1417277384
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18286,7 +18292,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1884214263
 MonoBehaviour:
   m_ObjectHideFlags: 0
