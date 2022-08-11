@@ -30,7 +30,9 @@ public class EventManager : MonoBehaviour
     public Transform[] enemySpawnZone; //적스폰존
 
     //Enemy
-    public GameObject[] enemies;
+    public GameObject[] enemies_Normal;
+    public GameObject[] enemies_Elite;
+    public GameObject[] enemies_Special;
     public List<int> enemyList;
 
     void Start()
@@ -92,9 +94,9 @@ public class EventManager : MonoBehaviour
         //스폰
         if(curSpawnDelay >= maxSpawnDelay && !hordeBreakTime)
         {
-            int ran = Random.Range(0, enemies.Length);
+            int ran = Random.Range(0, enemies_Normal.Length);
             int ranZone = Random.Range(0, enemySpawnZone.Length);
-            GameObject instantEnemy = Instantiate(enemies[ran], enemySpawnZone[ranZone]);
+            GameObject instantEnemy = Instantiate(enemies_Normal[ran], enemySpawnZone[ranZone]);
             Enemy_ai enemy = instantEnemy.GetComponent<Enemy_ai>();
             curSpawnDelay = 0f;
             curMonsterCount++;

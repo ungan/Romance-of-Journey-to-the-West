@@ -115,4 +115,6 @@ MonoBehaviour:
   type: 4
   value: 11
   damage: 0
-  skillObject: []
+  skillObject:
+  - {fileID: 1371909169211440238, guid: 0b2ee2f485769b44eb85b58335b469e0, type: 3}
+  - {fileID: 5363096667271264433, guid: 2b0cac80f63940c43852db3f064ca6e7, type: 3}

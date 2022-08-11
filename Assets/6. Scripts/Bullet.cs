@@ -4,18 +4,26 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    public enum Type { Swing, Shoot, Magic, Magicline, Trap, Explosive }
+    public enum Type { Swing, Shoot, Magic, Magicline, Trap, Explosive, Effect }
     public Type type;
     public int value;
     public int damage;
 
     public GameObject[] skillObject;
 
+    bool trapOn = false; //트랩 활성화 bool
+
+    void Start()
+    {
+        if(value == 9)
+            Invoke("TrapOn", 1f);
+    }
     void Update()
     {
         if (type == Type.Swing)
         {
-            Invoke("ActiveFalse", 0.15f);
+            if(value == 2)
+              Invoke("Gone", 0.6f);
         }
         else if (type == Type.Shoot)
         {
@@ -32,6 +40,10 @@ public class Bullet : MonoBehaviour
         {
             Invoke("Gone", 0.1f);
         }
+        else if(type == Type.Effect)
+        {
+            Invoke("Gone", 1f);
+        }
     }
 
     void OnTriggerEnter2D(Collider2D collision)
@@ -42,10 +54,16 @@ public class Bullet : MonoBehaviour
         {
             Gone();
         }
-        if (type == Type.Trap && collision.gameObject.tag == "Enemy" && value == 9)
+        if (type == Type.Trap && collision.gameObject.tag == "Enemy" && value == 9 && trapOn)
         {
             bullet = Instantiate(skillObject[0], this.transform.position, Quaternion.Euler(0, 0, 0));
             bullet = Instantiate(skillObject[1], this.transform.position, Quaternion.Euler(0, 0, 0));
+            Gone();
+        }
+        if(type == Type.Trap && value == 11 && collision.gameObject.tag == "Magicline" && collision.gameObject.name == "DodgePushZone")
+        {
+            bullet = Instantiate(skillObject[0], this.transform.position, Quaternion.Euler(0, 0, 0));
+            Instantiate(skillObject[1], this.transform.position, Quaternion.Euler(0, 0, 0));
             Gone();
         }
     }
@@ -58,5 +76,10 @@ public class Bullet : MonoBehaviour
     void ActiveFalse()
     {
         this.gameObject.SetActive(false);
+    }
+
+    void TrapOn() //트랩 활성화
+    {
+        trapOn = true;
     }
 }
