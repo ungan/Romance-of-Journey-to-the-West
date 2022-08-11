@@ -484,7 +484,7 @@ MonoBehaviour:
   damage: 0
   damage_skill: 0
   attack_cooltime: 3
-  maxReadyDelay: 2
+  maxReadyDelay: 1
   maxShotDelay: 2
   player: {fileID: 0}
   sprite_render: {fileID: 3283208921527373151}

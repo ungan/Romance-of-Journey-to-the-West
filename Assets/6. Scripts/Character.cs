@@ -42,16 +42,14 @@ public class Character : MonoBehaviour
     //딜레이
     public float maxShotDelay; //최대사격딜레이
     public float curShotDelay; //현재사격딜레이
-    public float maxDodgeDelay; //최대닷지딜레이
-    public float curDodgeDelay; //현재닷지딜레이
+    public float maxDashDelay; //최대닷지딜레이
+    public float curDashDelay; //현재닷지딜레이
     public float maxLSkillDelay; //최대-리더액티브스킬딜레이
     public float curLSkillDelay; //현재-리더액티브스킬딜레이
     public float maxMSkillDelay; //최대-맴버액티브스킬딜레이
     public float curMSkillDelay; //현재-맴버액티브스킬딜레이
     public float maxMemberShotDelay; //최대멤버공격딜레이
     public float curMemberShotDelay; //현재멤버공격딜레이
-    float maxDodgeRailDelay = 0.01f; //최대닷지불길생성딜레이
-    float curDodgeRailDelay = 0.0f; //현재닷지불길생성딜레이
 
     public Vector3 followPos; //따라가려는 기차의 위치
     public Transform parent; //파티 중심(선봉)
@@ -65,10 +63,10 @@ public class Character : MonoBehaviour
     public GameObject skillPositionCenter; //스킬포지션(센터)
 
     //닷지
-    public int maxDodgeCount = 1; //최대닷지카운트
-    public int curDodgeCount = 0; //현재닷지카운트
-    public float maxDodgeCooldownDelay = 1; //최대닷지쿨다운딜레이
-    public float curDodgeCooldownDelay = 0; //현재닷지쿨다운딜레이
+    public int maxDashCount = 1; //최대닷지카운트
+    public int curDashCount = 0; //현재닷지카운트
+    public float maxDashCooldownDelay = 1; //최대닷지쿨다운딜레이
+    public float curDashCooldownDelay = 0; //현재닷지쿨다운딜레이
 
     //매태리얼과 스프라이트
     public Material material; //매태리얼
@@ -85,6 +83,9 @@ public class Character : MonoBehaviour
 
     //거리
     float range;
+
+    //중복스킬 방지
+    bool noMoreOverlapSkill = true;
 
 
     void Awake()
@@ -198,8 +199,8 @@ public class Character : MonoBehaviour
             case 0: //손오공
                 maxHealth = 100;
                 curHealth = 100;
-                maxAmmo = 6;
-                curAmmo = 6;
+                maxAmmo = 2;
+                curAmmo = 2;
                 maxLSkillDelay = 5f;
                 maxMSkillDelay = 5f;
                 break;
@@ -445,18 +446,19 @@ public class Character : MonoBehaviour
                 case 0: //손오공
                     if (fire1 && !isReloading) //일반공격(근접)
                     {
-                        if (curShotDelay < maxShotDelay)
+                        if (curShotDelay < maxShotDelay || !partyManager.canSwap)
                             return;
 
                         StartCoroutine(NormalAttack(rotateDg));
                     }
                     if (fire2Down) //리더 액티브 스킬-회피(대시)
                     {
-                        if (curDodgeDelay < maxDodgeDelay || curDodgeCount == 0)
+                        if (curDashDelay < maxDashDelay || curDashCount == 0 || !partyManager.canSwap)
                             return;
 
-                        curDodgeCooldownDelay = 0;
-                        curDodgeCount--;
+                        curDashCooldownDelay = 0;
+                        curDashCount--;
+                        curDashDelay = 0;
                         partyManager.StartCoroutine("Dash"); //닷지
                         StartCoroutine(Push(0)); //닷지
                     }
@@ -464,19 +466,21 @@ public class Character : MonoBehaviour
                 case 1: //저팔계
                     if (fire1 && !isReloading) //화염구
                     {
-                        if (curShotDelay < maxShotDelay)
+                        if (curShotDelay < maxShotDelay || !partyManager.canSwap)
                             return;
                         StartCoroutine(NormalAttack(rotateDg));
                     }
                     if (fire2Down) //리더 액티브 스킬-이탈형 스킬, 어그로
                     {
+                        if (!partyManager.canSwap)
+                            return;
                         StartCoroutine(LeavingSkill());
                     }
                     break;
                 case 2: //사오정
                     if (fire1 && !isReloading) //전체 힐
                     {
-                        if (curShotDelay < maxShotDelay || curAmmo <= 0)
+                        if (curShotDelay < maxShotDelay || curAmmo <= 0 || !partyManager.canSwap)
                             return;
 
                         if (curAmmo > 0)
@@ -486,14 +490,14 @@ public class Character : MonoBehaviour
                     }
                     if (fire2Down) //리더 액티브 스킬-일직선 밀쳐내기 + 저격
                     {
-                        if (curLSkillDelay < maxLSkillDelay)
+                        if (curLSkillDelay < maxLSkillDelay || !partyManager.canSwap)
                             return;
                         curLSkillDelay = 0;
                         StartCoroutine(Push(rotateDg));
                     }
                     if (skill1Down) //5초간 파티 스피드 +25% 올림
                     {
-                        if (curLSkillDelay < maxLSkillDelay)
+                        if (curLSkillDelay < maxLSkillDelay || !partyManager.canSwap)
                             return;
                         curLSkillDelay = 0;
                         StartCoroutine(SupportSkill());
@@ -508,11 +512,9 @@ public class Character : MonoBehaviour
             switch (value)
             {
                 case 0: //손오공
-                    if (curDodgeRailDelay >= maxDodgeRailDelay)
-                    {
-                        GameObject bullet = Instantiate(skillObject[1], skillPositionCenter.transform.position, Quaternion.Euler(0, 0, 0));
-                        curDodgeRailDelay = 0f;
-                    }
+                    StartCoroutine("DashRail");
+                        //curDashRailDelay = 0f;
+                    //}
                     break;
             }
         }
@@ -596,25 +598,21 @@ public class Character : MonoBehaviour
     void Delay()
     {
         curShotDelay += Time.deltaTime;
-        curDodgeDelay += Time.deltaTime;
+        curDashDelay += Time.deltaTime;
         curLSkillDelay += Time.deltaTime;
         curMSkillDelay += Time.deltaTime;
 
-        if (partyManager.isDashing)
-            curDodgeRailDelay += Time.deltaTime;
-        else curDodgeRailDelay = 0f;
-
-        if (curDodgeCount < maxDodgeCount) //닷지카운트
+        if (curDashCount < maxDashCount) //닷지카운트
         {
-            curDodgeCooldownDelay += Time.deltaTime;
+            curDashCooldownDelay += Time.deltaTime;
         }
 
-        if (curDodgeCooldownDelay >= maxDodgeCooldownDelay) //닷지 딜레이
+        if (curDashCooldownDelay >= maxDashCooldownDelay) //닷지 딜레이
         {
-            if (curDodgeCount < maxDodgeCount)
+            if (curDashCount < maxDashCount)
             {
-                curDodgeCount = maxDodgeCount;
-                curDodgeCooldownDelay = 0;
+                curDashCount = maxDashCount;
+                curDashCooldownDelay = 0;
             }
         }
 
@@ -651,12 +649,14 @@ public class Character : MonoBehaviour
         switch (value)
         {
             case 0: //손오공
+                curAmmo--;
                 skillObject[0].SetActive(true);
                 skillObject[0].transform.rotation = Quaternion.Euler(0, 0, rotateDg);
                 isAttacking = true;
                 anim.SetTrigger("ClosedAttack");
                 curShotDelay = 0;
                 yield return new WaitForSeconds(0.25f);
+                AttackFinished();
                 break;
             case 1: //저팔계
                 curAmmo--;
@@ -671,7 +671,6 @@ public class Character : MonoBehaviour
                 anim.SetTrigger("MagicAttack");
 
                 curShotDelay = 0;
-                cam.Shake(0.15f, 1);
 
                 yield return new WaitForSeconds(0.4f);
                 AttackFinished();
@@ -682,7 +681,6 @@ public class Character : MonoBehaviour
                 skillObject[0].SetActive(true);
 
                 curShotDelay = 0;
-
                 yield return new WaitForSeconds(0.4f);
                 AttackFinished();
                 break;
@@ -697,6 +695,7 @@ public class Character : MonoBehaviour
     {
         int leavingIndex = partyManager.charactersIndex; //인덱스 저장
 
+        partyManager.CanSwapFalse();
         isLeaving = true;
 
         //캐릭터 변경 매커니즘
@@ -726,8 +725,10 @@ public class Character : MonoBehaviour
         {
             if (value == 1) //저팔계
             {
-                skillObject[1].SetActive(true);
                 anim.SetTrigger("MagicSkill");
+                yield return new WaitForSeconds(0.2f);
+                skillObject[1].SetActive(true);
+                cam.Shake(0.4f, 1);
 
                 for (int i = 0; i < 5; i++)
                 {
@@ -786,16 +787,21 @@ public class Character : MonoBehaviour
         if (value == 0) //손오공
         {
             yield return new WaitForSeconds(0.2f);
+            cam.Shake(0.3f, 1);
             skillObject[2].SetActive(true);
-            yield return new WaitForSeconds(0.2f);
+            yield return new WaitForSeconds(0.3f);
             skillObject[2].SetActive(false);
         }
         if (value == 2) //사오정
         {
-            skillObject[2].SetActive(true);
-            skillObject[2].transform.rotation = Quaternion.Euler(0, 0, rotateDg - 90);
-            yield return new WaitForSeconds(0.2f);
-            skillObject[2].SetActive(false);
+            partyManager.isStopping = true;
+            skillObject[1].SetActive(true);
+            yield return new WaitForSeconds(0.3f);
+            skillObject[1].SetActive(false);
+            GameObject bullet = Instantiate(skillObject[2], skillPositionCenter.transform.position, Quaternion.Euler(0, 0, rotateDg));
+            yield return new WaitForSeconds(0.1f);
+            partyManager.isStopping = false;
+            cam.Shake(0.6f, 2);
         }
         /*if(value == 2) //원으로 밀쳐내기
         {
@@ -806,11 +812,20 @@ public class Character : MonoBehaviour
             partyManager.gameObject.layer = 10;
         }*/
     }
+    IEnumerator DashRail()
+    {
+        yield return new WaitForSeconds(0.01f);
+        GameObject bullet = Instantiate(skillObject[1], skillPositionCenter.transform.position, Quaternion.Euler(0, 0, 0));
+    }
 
     void AttackFinished()
     {
         isAttacking = false;
 
+        if(value == 0)
+        {
+            skillObject[0].SetActive(false);
+        }
         if (value == 2)
         {
             skillObject[0].SetActive(false);
