@@ -304,6 +304,7 @@ public class Enemy_ai : MonoBehaviour
 
     public void enemy_atk()
     {
+
         switch (code)                    // 여기서 코드에 따라서 다른 공격 시행
         {
             case 0:                                                     // 경기
@@ -322,6 +323,7 @@ public class Enemy_ai : MonoBehaviour
                 make_ball = true;
                 StartCoroutine("shot_foxball");
                 bullet1 = null;
+
 
                 break;
             case 104:                                                  // 이매망량 2페 ew
@@ -618,7 +620,9 @@ public class Enemy_ai : MonoBehaviour
                 }
             }
             curHealth = 0;
+
             eventManager.curMonsterCount--; //씬 안에 몬스터 카운팅 -1 SJM
+
             Destroy(gameObject);
             //사망, 누움
             //transform.rotation = Quaternion.Euler(0, 0, -90);

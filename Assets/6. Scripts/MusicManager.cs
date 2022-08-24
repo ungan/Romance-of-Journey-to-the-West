@@ -9,7 +9,7 @@ public class MusicManager : MonoBehaviour
     AudioSource audioSource;
 
     //OST
-    public AudioClip hordeTheme; //호드테마
+    public AudioClip[] Theme; //호드테마
 
     //play
     public bool playMusic;
@@ -23,9 +23,21 @@ public class MusicManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //loop 관리
+        if (eventManager.hordeEvent == true) audioSource.loop = true; 
+        else audioSource.loop = false;
+
+        if (eventManager.normalEvent)
+        {
+            playMusic = false;
+        }
+        if (eventManager.hordeEventIntro)
+        {
+            audioSource.clip = Theme[0];
+        }
         if (eventManager.hordeEvent)
         {
-            audioSource.clip = hordeTheme;
+            audioSource.clip = Theme[1];
         }
 
         if(playMusic == true)

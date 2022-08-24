@@ -14,6 +14,7 @@ public class bulletmove_khi : MonoBehaviour
     bool start = true;      //  true는 시작전 false 는 시작후 
     public bool can_move = false;
     public float x, y;
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if(collision.gameObject.tag =="Wall")
@@ -43,7 +44,7 @@ public class bulletmove_khi : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        Invoke("Dead", 5f);
     }
 
     private void FixedUpdate()
