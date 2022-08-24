@@ -35631,9 +35631,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   musicManager: {fileID: 826022830}
   curEChangeDelay: 13
-  maxEChangeDelay: 300000
+  maxEChangeDelay: 15000
   curSpawnDelay: 0
-  maxSpawnDelay: 0.25
+  maxSpawnDelay: 2500
   normalEvent: 1
   hordeEvent: 0
   bossEvent: 0
@@ -35648,9 +35648,14 @@ MonoBehaviour:
   - {fileID: 440014086}
   - {fileID: 362889608}
   - {fileID: 2045655043}
-  enemies_Normal: []
-  enemies_Elite: []
-  enemies_Special: []
+  enemies_Normal:
+  - {fileID: 4967149955886504490, guid: b1461cb2c1b133049a98eff0c564e38f, type: 3}
+  enemies_Elite:
+  - {fileID: 553723129943523875, guid: 7d0f031e4e9747041a72ddeacdbc4ca3, type: 3}
+  - {fileID: 622089961713009119, guid: 17a68aecbe89e164db7f97faecddb2d5, type: 3}
+  - {fileID: 8958931992095593748, guid: 519b37c7321a3ab4cb9914d27bc4175c, type: 3}
+  enemies_Special:
+  - {fileID: 3283208921527373152, guid: be37b0cad60ed4e49b2876241326dfe4, type: 3}
   enemyList: 
 --- !u!4 &2070688222
 Transform:

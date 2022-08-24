@@ -12,7 +12,8 @@ public class sight_range : MonoBehaviour
 
         if (collision.gameObject.tag == "Leader")
         {
-            enemy_ai.enemy_state = e_state.attack_ready;      // attack range 안에 player 감지시 
+            enemy_ai.enemy_state = e_state.attack;      // attack range 안에 player 감지시 
+            enemy_ai.issight_range = true;
             enemy_ai.player = collision.gameObject;
             enemy_ai.move_false();
             if (enemy_ai.code == 101)                        // 구미호는 attak range와 sight rage가 같아서 따로 이부분만 sight range에 넣어줌
@@ -27,7 +28,9 @@ public class sight_range : MonoBehaviour
     {
         if (collision.gameObject.tag == "Leader")
         {
-            if(enemy_ai.code == 101  && enemy_ai.bullet1 != null)       // bullet1 이 null 이면 여우볼 없음 !null 이면 여우볼 존재
+            enemy_ai.issight_range = false;
+            /*
+            if (enemy_ai.code == 101  && enemy_ai.bullet1 != null)       // bullet1 이 null 이면 여우볼 없음 !null 이면 여우볼 존재
             {
                 enemy_ai.inrange = false;
                 if (enemy_ai.enemy_state == e_state.attack_ready || enemy_ai.enemy_state == e_state.attack)
@@ -57,6 +60,7 @@ public class sight_range : MonoBehaviour
                     enemy_ai.inrange = false;
                 }
             }
+            */
         }
 
     }
