@@ -551,7 +551,7 @@ public class Character : MonoBehaviour
                             return;
                         else if (curMSkillDelay >= maxMSkillDelay)
                         {
-                            //bullet = Instantiate(skillObject[3], this.transform.position, Quaternion.Euler(0, 0, 0));
+                            bullet = Instantiate(skillObject[3], this.transform.position, Quaternion.Euler(0, 0, 0));
                             curMSkillDelay = 0;
                         }
                         break;
