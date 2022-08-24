@@ -832,9 +832,9 @@ public class Character : MonoBehaviour
         }
     }
 
-    public IEnumerator OnDamage()
+    public IEnumerator OnDamage(int e_damage)
     {
-        curHealth -= enemy.damage;
+        curHealth -= e_damage;
         cam.Shake(0.2f, 1);
         if (curHealth <= 0)
         {

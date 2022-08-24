@@ -282,11 +282,11 @@ public class PartyManager : MonoBehaviour
             }
         }
     }
-
+    /*
     public void get_enemy(Enemy_ai ene)        // enemy가 있는이유 여러 종류의 enemy가 존재하고 그 존재하는 정보값을 가져와야하므로 
     {
         characterScripts[charactersIndex].enemy = ene;
-    }
+    }*/
     void Delay()
     {
         curSwapDelay += Time.deltaTime;
@@ -417,9 +417,9 @@ public class PartyManager : MonoBehaviour
         }
     }
 
-    public IEnumerator onDamage_party()
+    public IEnumerator onDamage_party(int e_damage)
     {
-        characterScripts[charactersIndex].StartCoroutine("OnDamage");
+        characterScripts[charactersIndex].StartCoroutine("OnDamage",e_damage);
         yield return new WaitForSeconds(0.1f);
     }
 
