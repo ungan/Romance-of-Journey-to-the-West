@@ -303,6 +303,7 @@ public class Enemy_ai : MonoBehaviour
     void attack_direction()
     {
         //atk_range_image.transform.rotation.z = Mathf.Atan2(player.transform.position.y - transform.position.y, player.transform.position.x - transform.position.x);
+        player = GameObject.Find("Party");
         atk_range.transform.rotation = Quaternion.Euler(0, 0, Mathf.Atan2(player.transform.position.y - transform.position.y + 1f, player.transform.position.x - transform.position.x) * 57.2958f);
     }
 
@@ -555,7 +556,7 @@ public class Enemy_ai : MonoBehaviour
             }
             curHealth = 0;
             Debug.Log("aaa");
-            eventManager.curMonsterCount--; //씬 안에 몬스터 카운팅 -1 SJM
+            //eventManager.curMonsterCount--; //씬 안에 몬스터 카운팅 -1 SJM
             Destroy(gameObject);
             //사망, 누움
             //transform.rotation = Quaternion.Euler(0, 0, -90);
