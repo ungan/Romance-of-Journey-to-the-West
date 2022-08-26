@@ -189,21 +189,14 @@ public class Enemy_ai : MonoBehaviour
             {
                 e_ani.Play("attack");
             }
-            /*
-            else
-            {
-                if (sight_right == true)
-                {
-                    e_ani.Play("idle");
-                }
-                else if (sight_right == false)
-                {
-                    e_ani.Play("lidle");
-                }
-            }*/
+            rigid.constraints = RigidbodyConstraints2D.FreezeAll;       // 공격중일때 enemy를 고정 시켜줌
 
         }
 
+        if(enemy_state != e_state.attack)
+        {
+            rigid.constraints = RigidbodyConstraints2D.FreezeRotation;      // 일반적인 상태일떄는 enemy 고정 해제
+        }
         if (!can_attack)                                    // canattack 이 true가 아니라면 can attack으로 되돌리기 위해서 돌림
         {
             cooltime_to_attack();

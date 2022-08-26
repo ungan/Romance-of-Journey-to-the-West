@@ -24224,7 +24224,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   eventManager: {fileID: 2070688221}
   gameManager: {fileID: 783539141}
-  hordeTheme: {fileID: 8300000, guid: e3c7029d631e0b54aa86ce62f2ea25f4, type: 3}
+  Theme: []
   playMusic: 0
 --- !u!4 &826022831
 Transform:
@@ -35799,16 +35799,24 @@ MonoBehaviour:
   maxEChangeDelay: 300000
   curSpawnDelay: 0
   maxSpawnDelay: 0.25
+  curEliteSpawnDelay: 0
+  maxEliteSpawnDelay: 10
   normalEvent: 1
+  hordeEventIntro: 0
   hordeEvent: 0
   bossEvent: 0
+  curHordeDelayIntro: 0
+  maxHordeDelayIntro: 10
   curHordeDelay: 0
   maxHordeDelay: 78
   curBreakTimeDelay: 0
   maxBreakTimeDelay: 10
+  curPhase: 0
+  maxPhase: 4
   curMonsterCount: 0
   maxMonsterCount: 30
   hordeBreakTime: 0
+  ranZone: 0
   enemySpawnZone:
   - {fileID: 440014086}
   - {fileID: 362889608}
@@ -36023,6 +36031,21 @@ PrefabInstance:
       propertyPath: pc2
       value: 
       objectReference: {fileID: 419669313}
+    - target: {fileID: 5282508158277705763, guid: 3477586b88fbd674c8e8f66e548ed11d,
+        type: 3}
+      propertyPath: looping
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8151025844390341943, guid: 3477586b88fbd674c8e8f66e548ed11d,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8272381770355283206, guid: 3477586b88fbd674c8e8f66e548ed11d,
+        type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8958931992095593748, guid: 3477586b88fbd674c8e8f66e548ed11d,
         type: 3}
       propertyPath: m_Name
@@ -36142,7 +36165,7 @@ PrefabInstance:
     - target: {fileID: 2083791450292622120, guid: 65c79576693dc50438993444433d61bf,
         type: 3}
       propertyPath: m_IsTrigger
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2083791450292622126, guid: 65c79576693dc50438993444433d61bf,
         type: 3}

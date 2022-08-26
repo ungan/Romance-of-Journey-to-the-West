@@ -12,49 +12,29 @@ public class attack_range : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        crash_point.SetActive(false);
         if (collision.gameObject.tag == "Leader")
         {
             enemy_ai.inrange = true;
-            Debug.Log("trigger");
-            
-            //enemy_ai.enemy_atk();
 
-        }
-
-    }
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        ContactPoint2D contact = collision.contacts[0];
-        if (collision.gameObject.tag == "Leader")
-        {
-            enemy_ai.inrange = true;
-            crash_point.transform.position = new Vector3(contact.point.x, contact.point.y, 0);
-            if(enemy_ai.enemy_state == e_state.attack)
+            crash_point.transform.position = collision.gameObject.GetComponent<Collider2D>().ClosestPoint(transform.position);
+            if (enemy_ai.enemy_state == e_state.attack)
             {
                 crash_point.SetActive(true);
-                pc2.isTrigger = true;
+                gameObject.SetActive(false);
             }
         }
-    }
-    private void OnCollisionExit2D(Collision2D collision)
-    {
-        if (collision.gameObject.tag == "Leader")
-        {
 
-            crash_point.SetActive(false);
-            pc2.isTrigger = false;
-        }
     }
+
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "Leader")
         {
-            enemy_ai.inrange = false;
-            crash_point.SetActive(false);
+            //crash_point.SetActive(false);
         }
-
     }
+
 
     void Start()
     {

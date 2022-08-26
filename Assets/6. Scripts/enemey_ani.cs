@@ -29,8 +29,6 @@ public class enemey_ani : MonoBehaviour
 
     void particle_start()
     {
-        pc.isTrigger = false;
-        //Debug.Log("enemy.sight_right" + enemy.sight_right);
         if (enemy.sight_right == true)
         {
             
