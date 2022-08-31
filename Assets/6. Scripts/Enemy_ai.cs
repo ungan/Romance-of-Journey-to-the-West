@@ -13,9 +13,16 @@ public enum e_state
     Follow,     // plyaer 추격중
     attack,     // 공격
     attack_ready, // 공격 대기? 상태
-    attack_ani   // attack 애니메이션 나오고 있는 상태
+    attack_ani,   // attack 애니메이션 나오고 있는 상태
+    dash           // dash 중인 상태
 }
 
+public enum atk_type
+{
+    short_range,    // 근거리
+    long_range,        // 원거리
+    dash,               // 돌진
+}
 public class Enemy_ai : MonoBehaviour
 {
     CameraController cam;
@@ -44,6 +51,7 @@ public class Enemy_ai : MonoBehaviour
     public float regular_d;
     public float stab_damge_Cycle = 1f;       // 몇초에 한번 데미지가 들어갈지 
     public float stab_damage_curCycle = 0;
+    public float dash_speed = 10f;          // dash speed
     public GameObject player;       //      player 받아옴
     public SpriteRenderer sprite_render;        // 상태이상 또는 
     public Animator e_ani;         // enemy animation
@@ -58,11 +66,16 @@ public class Enemy_ai : MonoBehaviour
     public bool bullet_attack = false;  // shot foxball 코루틴 여러번 돌지 않게 하기 위한 것
     public bool iskidnap = false;       // race 천요괴 납치시 true 아닐시 false
     public bool sight_right = true;     // 보는 방향 우측 좌측 true 시 우측 아닐시 좌측
+    public bool inrange_dash = false;   // inrange_dash  true 대쉬 범위내 false 대쉬 범위 밖
+    public bool isdash = false;     // dash 중에는 true 아닐경우 false
+    public bool isdash_effect = false; // isdash_effect on true off false
+    public bool spear = false;      // 창이면 true;
+
     public GameObject fox_ball;     // 구미호 bullet prefab
     public Transform fox_ball1;     // 구미호볼 1,2,3 
     public Transform fox_ball2;
     public Transform fox_ball3;
-
+    public Vector3 dash_target;
     public bulletmove_khi bullet1;         // 여우볼 3개
     bulletmove_khi bullet2;
     bulletmove_khi bullet3;
@@ -77,6 +90,7 @@ public class Enemy_ai : MonoBehaviour
     int stab_type = 0;                // 어떤 상태이상의 종류인지
     float holding_time = 10f;     // 얼마나 상태이상을 지속할것이냐
     float play_time = 11f;             // 얼마나 대기중이였는지
+    float angle;                        // enemy to player angle 측정시 사용 
     //특수상태 카운트
     float curRootedDelay = 0f; //현재속박딜레이 SJM
     float maxRootedDelay = 5f; //최대속박딜레이 SJM
@@ -97,8 +111,12 @@ public class Enemy_ai : MonoBehaviour
     public GameObject atk_range_image;          // 공격 범위 이미지화
     public GameObject atk_range;                // 어택 ragne 회전을 위함임
     public GameObject objparty;
+    public GameObject dash_effect;                     // dash_effect dash상태일때 켜주기 위함임
     //public GameObject dummy;
 
+    float[] e_angle = new float[6];
+    int min_engle;
+    
     Character nap;                              // 납치한 character의 script character 정보를 여기에 저장
     void Start()
     {
@@ -174,10 +192,15 @@ public class Enemy_ai : MonoBehaviour
         {
             move_true();
             e_ani.Play("walk");
+            if(inrange == true)
+            {
+                enemy_state = e_state.attack_ready;
+            }
         }
         else if (enemy_state == e_state.attack_ready)
         {
             e_ani.Play("idle");
+            move_false();
             if (can_attack)
             {
                 ready_to_attack();
@@ -187,15 +210,66 @@ public class Enemy_ai : MonoBehaviour
         {
             if (can_attack == true)
             {
-                e_ani.Play("attack");
+                if (spear)      
+                {
+                    e_to_p_angle(); // 0우,45우상,135좌상,180좌,225좌하,315우하
+                    switch(min_engle)
+                    {
+                        case 0:
+                            e_ani.Play("attack");
+                            break;
+                        case 1:
+                            e_ani.Play("attack_up");
+                            break;
+                        case 2:
+                            e_ani.Play("attack_up");
+                            break;
+                        case 3:
+                            e_ani.Play("attack");
+                            break;
+                        case 4:
+                            e_ani.Play("attack_down");
+                            break;
+                        case 5:
+                            e_ani.Play("attack_down");
+                            break;
+                    }
+                }
+                else
+                {
+                    e_ani.Play("attack");
+                }
             }
             rigid.constraints = RigidbodyConstraints2D.FreezeAll;       // 공격중일때 enemy를 고정 시켜줌
 
+        }
+        else if(enemy_state == e_state.dash)
+        {
+            if (isdash_effect == false&& isdash == true)
+            {
+                isdash_effect = true;
+                dash_effect.SetActive(true);
+            }
+            e_dash();
+            //e_ani.Play("dash");
+        }
+
+
+        if (inrange_dash == true && inrange == false && isdash == false)        // 돌진 범위내 이면서 동시에 공격범위 밖이여야하고 dash를 쓰지 않은 상태에서 dash로의 상태변경이 가능함
+        {
+            enemy_state = e_state.dash;
+        }
+
+        if(enemy_state != e_state.dash)
+        {
+            isdash_effect = false;
+            dash_effect.SetActive(false);
         }
 
         if(enemy_state != e_state.attack)
         {
             rigid.constraints = RigidbodyConstraints2D.FreezeRotation;      // 일반적인 상태일떄는 enemy 고정 해제
+            min_engle = 1000;                                               // attack 아닐때는 값을 초기화 시켜줌
         }
         if (!can_attack)                                    // canattack 이 true가 아니라면 can attack으로 되돌리기 위해서 돌림
         {
@@ -295,9 +369,33 @@ public class Enemy_ai : MonoBehaviour
 
     }
 
+    void e_dash()       // e_state dash 일때 사용될 함수
+    {
+        //ADS.target = partyManager.transform;
+        if (isdash == false)
+        {
+            isdash = true;
+            dash_target = partyManager.transform.position;
+            move_false();       // a* 움직임 봉쇄
+        }
+
+        transform.position = Vector3.MoveTowards(transform.position, dash_target, 5f * Time.deltaTime);
+
+        if (Mathf.Round(transform.position.x*100) == Mathf.Round(dash_target.x * 100) && Mathf.Round(transform.position.y * 100) == Mathf.Round(dash_target.y * 100))        // 목적지 도착
+        {
+            move_true();        // a* 움직임 활성화
+            if (issight_range == true)
+            {
+                enemy_state = e_state.attack_ready;
+            }
+            else if (issight_range == false)
+            {
+                enemy_state = e_state.Follow;
+            }
+        }
+    }
     public void enemy_atk()
     {
-
         switch (code)                    // 여기서 코드에 따라서 다른 공격 시행
         {
             case 0:                                                     // 경기
@@ -316,8 +414,6 @@ public class Enemy_ai : MonoBehaviour
                 make_ball = true;
                 StartCoroutine("shot_foxball");
                 bullet1 = null;
-
-
                 break;
             case 104:                                                  // 이매망량 2페 ew
                 partyManager.StartCoroutine("onDamage_party", damage);
@@ -345,6 +441,43 @@ public class Enemy_ai : MonoBehaviour
                 partyManager.StartCoroutine("onDamage_party", damage);
                 iskidnap = true;
                 break;
+        }
+    }
+    
+    void e_to_p_angle()
+    {
+        Vector3 dir = transform.position - player.transform.position;                                                                             // 목적 과 현재 지점의 벡터값을 정규화 시켜줌
+        dir = dir.normalized;
+        angle = Mathf.Acos(dir.x);
+        angle *= (180f / 3.141592f);
+
+        // 0우,45우상,135우상,180좌,225좌하,315우하
+        e_angle[0] = 0;
+        e_angle[1] = 45;
+        e_angle[2] = 135;
+        e_angle[3] = 180;
+        e_angle[4] = 225;
+        e_angle[5] = 315;
+        for(int i=0; i<e_angle.Length-1;i++)
+        {
+            e_angle[i] -= angle;
+            Mathf.Abs(e_angle[i]);
+            if(min_engle != 1000)
+            {
+                if(e_angle[i]<min_engle)
+                {
+                    min_engle = i;
+                }
+            }
+            else
+            {
+                Debug.Log("e_angle.length : " + e_angle.Length);
+                Debug.Log("i : " + i);
+                if (e_angle[i] < e_angle[min_engle])
+                {
+                    min_engle = i;
+                }
+            }
         }
     }
     void rol()
@@ -457,7 +590,7 @@ public class Enemy_ai : MonoBehaviour
                 //partyManager.aliveList[r] = false;
             }
             */
-            Vector3 dir = transform.position - objparty.transform.position;
+            Vector3 dir = transform.position - objparty.transform.position;                                                                             // 목적 과 현재 지점의 벡터값을 정규화 시켜줌
         dir = dir.normalized;
         move_false();
         regular_d = 2f;

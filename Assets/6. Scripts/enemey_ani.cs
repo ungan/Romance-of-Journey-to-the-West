@@ -50,7 +50,7 @@ public class enemey_ani : MonoBehaviour
         
         attack_range.SetActive(false);
         attack_mark.SetActive(false);
-        if (enemy.issight_range == true)
+        if (enemy.issight_range == true && enemy.inrange_dash == true)
         {
             enemy.enemy_state = e_state.attack_ready;
         }

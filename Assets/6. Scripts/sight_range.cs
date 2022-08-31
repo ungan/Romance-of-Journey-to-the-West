@@ -12,7 +12,10 @@ public class sight_range : MonoBehaviour
 
         if (collision.gameObject.tag == "Leader")
         {
-            enemy_ai.enemy_state = e_state.attack;      // attack range 안에 player 감지시 
+            if(enemy_ai.enemy_state != e_state.dash)
+            {
+                enemy_ai.enemy_state = e_state.attack;      // attack range 안에 player 감지시 
+            }
             enemy_ai.issight_range = true;
             enemy_ai.player = collision.gameObject;
             enemy_ai.move_false();
@@ -29,6 +32,7 @@ public class sight_range : MonoBehaviour
         if (collision.gameObject.tag == "Leader")
         {
             enemy_ai.issight_range = false;
+            enemy_ai.inrange = false;
             /*
             if (enemy_ai.code == 101  && enemy_ai.bullet1 != null)       // bullet1 이 null 이면 여우볼 없음 !null 이면 여우볼 존재
             {

@@ -27,8 +27,12 @@ public class dummy : MonoBehaviour
     void Update()
     {
         //rb2D.AddForce(new Vector3(1 , 0, 0), ForceMode2D.Impulse);
-
-        
+        Vector3 dir = transform.position - player.transform.position;                                                                             // 목적 과 현재 지점의 벡터값을 정규화 시켜줌
+        dir = dir.normalized;
+        float angle = Mathf.Acos(dir.x);
+        angle *= (180f / 3.141592f);
+        Debug.Log("angle : " + angle);
+        /*
         switch (phase)
         {
             case 1:
@@ -46,7 +50,7 @@ public class dummy : MonoBehaviour
             default:
                 break;
         }
-        
+        */
     }
     void player_d()     // player쪽으로 돌진할때 지점을 세팅해주는 함수
     {

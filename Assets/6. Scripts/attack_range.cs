@@ -20,6 +20,7 @@ public class attack_range : MonoBehaviour
             crash_point.transform.position = collision.gameObject.GetComponent<Collider2D>().ClosestPoint(transform.position);
             if (enemy_ai.enemy_state == e_state.attack)
             {
+                enemy_ai.enemy_atk();
                 crash_point.SetActive(true);
                 gameObject.SetActive(false);
             }
