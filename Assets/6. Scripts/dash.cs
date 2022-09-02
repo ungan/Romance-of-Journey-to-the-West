@@ -13,13 +13,17 @@ public class dash : MonoBehaviour
 
         if (collision.gameObject.tag == "Leader")
         {
-            if(count <= 1)
+            if(enemy_ai.isdead == false)
             {
-                count = 2;
-                enemy_ai.enemy_atk();
-                dash_effect.SetActive(false);
-                enemy_ai.isdash_effect = false;
-                enemy_ai.enemy_state = e_state.Follow;
+                if(count <= 1)
+                {
+                    count = 2;
+                    enemy_ai.enemy_atk();
+                    enemy_ai.dash_crash();
+                    dash_effect.SetActive(false);
+                    enemy_ai.isdash_effect = false;
+                    enemy_ai.enemy_state = e_state.Follow;
+                }
             }
         }
 

@@ -10,18 +10,22 @@ public class dash_range : MonoBehaviour
 
         if (collision.gameObject.tag == "Leader")
         {
-            enemy.inrange_dash = true;
-            
+            if (enemy.isdead == false)
+            {
+                enemy.inrange_dash = true;
+            }
         }
-
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "Leader")
         {
-            enemy.inrange_dash = false;
-            enemy.isdash = false;
+            if (enemy.isdead == false)
+            {
+                enemy.inrange_dash = false;
+                enemy.isdash = false;
+            }
         }
     }
 

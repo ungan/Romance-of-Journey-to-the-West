@@ -15,14 +15,17 @@ public class attack_range : MonoBehaviour
         crash_point.SetActive(false);
         if (collision.gameObject.tag == "Leader")
         {
-            enemy_ai.inrange = true;
+            if (enemy_ai.isdead == false)
+            { 
+                enemy_ai.inrange = true;
 
-            crash_point.transform.position = collision.gameObject.GetComponent<Collider2D>().ClosestPoint(transform.position);
-            if (enemy_ai.enemy_state == e_state.attack)
-            {
-                enemy_ai.enemy_atk();
-                crash_point.SetActive(true);
-                gameObject.SetActive(false);
+                crash_point.transform.position = collision.gameObject.GetComponent<Collider2D>().ClosestPoint(transform.position);
+                if (enemy_ai.enemy_state == e_state.attack)
+                {
+                    enemy_ai.enemy_atk();
+                    crash_point.SetActive(true);
+                    gameObject.SetActive(false);
+                }
             }
         }
 

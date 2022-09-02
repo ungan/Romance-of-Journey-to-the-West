@@ -14,7 +14,8 @@ public enum e_state
     attack,     // 공격
     attack_ready, // 공격 대기? 상태
     attack_ani,   // attack 애니메이션 나오고 있는 상태
-    dash           // dash 중인 상태
+    dash,           // dash 중인 상태
+    dead            // 죽은 상태
 }
 
 public enum atk_type
@@ -69,8 +70,7 @@ public class Enemy_ai : MonoBehaviour
     public bool inrange_dash = false;   // inrange_dash  true 대쉬 범위내 false 대쉬 범위 밖
     public bool isdash = false;     // dash 중에는 true 아닐경우 false
     public bool isdash_effect = false; // isdash_effect on true off false
-    public bool spear = false;      // 창이면 true;
-
+    public bool isdead = false;     // 죽었을경우에는 true
     public GameObject fox_ball;     // 구미호 bullet prefab
     public Transform fox_ball1;     // 구미호볼 1,2,3 
     public Transform fox_ball2;
@@ -112,8 +112,10 @@ public class Enemy_ai : MonoBehaviour
     public GameObject atk_range;                // 어택 ragne 회전을 위함임
     public GameObject objparty;
     public GameObject dash_effect;                     // dash_effect dash상태일때 켜주기 위함임
+    public GameObject e_ghost;                      // 유령 오브젝트
     //public GameObject dummy;
 
+    BoxCollider2D boxcollider2d;
     float[] e_angle = new float[6];
     int min_engle;
     
@@ -123,7 +125,7 @@ public class Enemy_ai : MonoBehaviour
         cam = GameObject.Find("Main Camera").GetComponent<CameraController>(); //게임오브젝트를 신 안에서 찾은 후 스크립트 연결(프리펩시 필수!)
         eventManager = GameObject.Find("EventManager").GetComponent<EventManager>(); //이벤트 매니저 찾기 SJM
         partyManager = GameObject.Find("Party").GetComponent<PartyManager>();  //파티(플레이어)찾기 SJM
-
+        boxcollider2d = GetComponent<BoxCollider2D>();
         rigid = GetComponent<Rigidbody2D>();
         aiPath = GetComponent<AIPath>();
         anim = GetComponent<Animator>();
@@ -147,7 +149,6 @@ public class Enemy_ai : MonoBehaviour
     void Update() //SJM
     {
         Delay_normal();
-        rol();      // right or left
         if (isRooted) //속박시 
         {
             aiPath.maxSpeed = 0; //속력 = 0
@@ -157,7 +158,11 @@ public class Enemy_ai : MonoBehaviour
                 curRootedDelay = 0;
             }
         }
-        ani_state();        // 상태에 따른 ani 기본 state와 따로 분류 해줌
+        else if(isdead == false)
+        {
+            rol();      // right or left
+            ani_state();        // 상태에 따른 ani 기본 state와 따로 분류 해줌
+        }
     }
 
     private void FixedUpdate()
@@ -210,35 +215,7 @@ public class Enemy_ai : MonoBehaviour
         {
             if (can_attack == true)
             {
-                if (spear)      
-                {
-                    e_to_p_angle(); // 0우,45우상,135좌상,180좌,225좌하,315우하
-                    switch(min_engle)
-                    {
-                        case 0:
-                            e_ani.Play("attack");
-                            break;
-                        case 1:
-                            e_ani.Play("attack_up");
-                            break;
-                        case 2:
-                            e_ani.Play("attack_up");
-                            break;
-                        case 3:
-                            e_ani.Play("attack");
-                            break;
-                        case 4:
-                            e_ani.Play("attack_down");
-                            break;
-                        case 5:
-                            e_ani.Play("attack_down");
-                            break;
-                    }
-                }
-                else
-                {
-                    e_ani.Play("attack");
-                }
+                e_ani.Play("attack");
             }
             rigid.constraints = RigidbodyConstraints2D.FreezeAll;       // 공격중일때 enemy를 고정 시켜줌
 
@@ -444,6 +421,19 @@ public class Enemy_ai : MonoBehaviour
         }
     }
     
+    public void dash_crash()       // dash 중 chracter(leader)와 부딫혔을때 발동될 함수 뒤로 물러나는 물리값 넣어 줄것
+    {
+        isRooted = true;
+        if (sight_right)     // 우측을 보고 있을때
+        {
+            rigid.AddForce(new Vector3(-5,0,0));
+        }
+        else                // 좌측을 보고 있을때
+        {
+            rigid.AddForce(new Vector3(5, 0, 0));
+        }
+ 
+    }
     void e_to_p_angle()
     {
         Vector3 dir = transform.position - player.transform.position;                                                                             // 목적 과 현재 지점의 벡터값을 정규화 시켜줌
@@ -482,7 +472,6 @@ public class Enemy_ai : MonoBehaviour
     }
     void rol()
     {
-        //Debug.Log("target : " + ADS.target.position.x);
         if(ADS.target.position.x - transform.position.x > 0)        //  목적지가 우측에 존재
         {
             sight_right = true;
@@ -491,7 +480,6 @@ public class Enemy_ai : MonoBehaviour
         {
             sight_right = false;
         }
-        //Debug.Log("sight_right : " + sight_right);
     }
 
     void attack_direction()     // 어느 방향으로 공격을 해야할지 탐지
@@ -601,6 +589,10 @@ public class Enemy_ai : MonoBehaviour
     {
         if (curHealth <= 0)
         {
+            enemy_state = e_state.dead;
+            isdead = true;
+            rigid.constraints = RigidbodyConstraints2D.FreezeAll;   // 사망시 시체가 움직이지 않게 해줌
+            boxcollider2d.isTrigger = true;
             if (code == 101)   // fox일 때 남은 fox 삭제 해줘야됨
             {
                 bullet1.Dead();
@@ -620,7 +612,9 @@ public class Enemy_ai : MonoBehaviour
                 }
             }
             curHealth = 0;
-            Destroy(gameObject);
+            //Destroy(gameObject);
+            e_ani.Play("dead");
+            e_ghost.SetActive(true);
             //사망, 누움
             //transform.rotation = Quaternion.Euler(0, 0, -90);
             //gameObject.layer = 17;
@@ -749,7 +743,7 @@ public class Enemy_ai : MonoBehaviour
 
             eventManager.curMonsterCount--; //씬 안에 몬스터 카운팅 -1 SJM
 
-            Destroy(gameObject);
+            //Destroy(gameObject);
             //사망, 누움
             //transform.rotation = Quaternion.Euler(0, 0, -90);
             //gameObject.layer = 17;
