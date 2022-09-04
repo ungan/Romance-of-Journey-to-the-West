@@ -593,6 +593,7 @@ public class Enemy_ai : MonoBehaviour
             isdead = true;
             rigid.constraints = RigidbodyConstraints2D.FreezeAll;   // 사망시 시체가 움직이지 않게 해줌
             boxcollider2d.isTrigger = true;
+            dash_effect.SetActive(false);
             if (code == 101)   // fox일 때 남은 fox 삭제 해줘야됨
             {
                 bullet1.Dead();
