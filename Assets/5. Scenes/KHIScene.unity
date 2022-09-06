@@ -23470,10 +23470,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82d09474453ba354c8259f68ab3b945a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  radiius: 2
+  maxlightning: 0.25
+  curlightning: 0
+  numchild: 12
+  lightning_count: 0
+  can_lightning: 1
+  can_lightning_ready: 0
+  ex_phase: 1
+  isLight_circle_button: 0
+  isLight_circle_button_ex_phase: 0
+  isLight_chess_button: 0
+  reset: 1
   lightning: {fileID: 4482906470431603876, guid: 81c7ed47118071946a50b8c15bc9ee6e,
     type: 3}
   lightning_preview: {fileID: 3722112603609700000, guid: 10f52d31d511ff54f9a14668bb735a77,
     type: 3}
+  go: {fileID: 0}
 --- !u!1 &612650898
 GameObject:
   m_ObjectHideFlags: 0
@@ -36013,7 +36026,7 @@ PrefabInstance:
     - target: {fileID: 241947956510941505, guid: 7d9d2254ad7650f47bb2cd1cc2d7ffbc,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 241947956510941505, guid: 7d9d2254ad7650f47bb2cd1cc2d7ffbc,
         type: 3}
