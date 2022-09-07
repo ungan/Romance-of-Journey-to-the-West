@@ -16,9 +16,12 @@ public class boss_nachal : MonoBehaviour
     public bool isLight_circle_button_ex_phase = false; // 
     public bool isLight_chess_button = false;
     public bool reset = true;   // reset 용
+
     public GameObject lightning;
     public GameObject lightning_preview;
     public GameObject go;
+    public GameObject startpoint_left_up;        // 시작 지점 왼쪽 위   
+    public GameObject endpoint_right_down;       // 아래 지점 왼쪽 아래
     // Start is called before the first frame update
     void Start()
     {
@@ -46,6 +49,30 @@ public class boss_nachal : MonoBehaviour
             Light_chess_button();
         }
     }
+    public void Light_vertical_downup()        // 아래 -> 위
+    {
+        for (int i = 0; i < (int)(endpoint_right_down.transform.position.x - startpoint_left_up.transform.position.x); i++)
+        {
+            if (lightning_count % 2 == 0)
+            {
+                //Instantiate(lightning_preview, transform.position + (new Vector3(i*2-7, lightning_count*1-7, 0)), Quaternion.identity);
+                Instantiate(lightning, transform.position + (new Vector3(i * 2 + startpoint_left_up.transform.position.x, lightning_count + endpoint_right_down.transform.position.y, 0)), Quaternion.identity);
+            }
+            else if (lightning_count % 2 != 0)
+            {
+                if (i == (int)(endpoint_right_down.transform.position.x - startpoint_left_up.transform.position.x - 1)) break;
+                //Instantiate(lightning_preview, transform.position + (new Vector3(i * 2 - 6, lightning_count * 1 - 7, 0)), Quaternion.identity);
+                Instantiate(lightning, transform.position + (new Vector3(i * 2 + startpoint_left_up.transform.position.x, lightning_count + endpoint_right_down.transform.position.y, 0)), Quaternion.identity);
+            }
+        }
+        lightning_count++;
+        if (lightning_count == (int)(startpoint_left_up.transform.position.y - endpoint_right_down.transform.position.y))
+        {
+            isLight_chess_button = false;
+            reset = true;
+        }
+    }
+
     public void Light_chess_button()
     {
         if(reset == true)
@@ -53,28 +80,31 @@ public class boss_nachal : MonoBehaviour
             reset = false;
             lightning_count = 0;
         }
-        if(lightning_count<=15)
+        if(lightning_count<=(int)(startpoint_left_up.transform.position.y-endpoint_right_down.transform.position.y))
         {
             Light_chess();
         }
     }
 
+
     public void Light_chess()
     {
-        for(int i=0; i<10;i++)
+        for(int i=0; i<(int)((endpoint_right_down.transform.position.x - startpoint_left_up.transform.position.x)/2); i++)
         {
             if(lightning_count%2 == 0)
             {
-                Instantiate(lightning_preview, transform.position + (new Vector3(i*2-7, lightning_count*1-7, 0)), Quaternion.identity);
+                //Instantiate(lightning_preview, transform.position + (new Vector3(i*2-7, lightning_count*1-7, 0)), Quaternion.identity);
+                Instantiate(lightning, transform.position + (new Vector3(i * 2 + startpoint_left_up.transform.position.x,lightning_count + endpoint_right_down.transform.position.y, 0)), Quaternion.identity);
             }
             else if(lightning_count % 2 != 0)
             {
-                if (i == 9) break;
-                Instantiate(lightning_preview, transform.position + (new Vector3(i * 2 - 6, lightning_count * 1 - 7, 0)), Quaternion.identity);
+                if (i == (int)(endpoint_right_down.transform.position.x - startpoint_left_up.transform.position.x - 1)) break;
+                //Instantiate(lightning_preview, transform.position + (new Vector3(i * 2 - 6, lightning_count * 1 - 7, 0)), Quaternion.identity);
+                Instantiate(lightning, transform.position + (new Vector3(i * 2 + startpoint_left_up.transform.position.x+1,lightning_count + endpoint_right_down.transform.position.y, 0)), Quaternion.identity);
             }
         }
         lightning_count++;
-        if (lightning_count == 15)
+        if (lightning_count == (int)(startpoint_left_up.transform.position.y - endpoint_right_down.transform.position.y))
         {
             isLight_chess_button = false;
             reset = true;
