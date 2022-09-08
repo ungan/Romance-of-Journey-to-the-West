@@ -402,36 +402,6 @@ MonoBehaviour:
   version: 1
   uniqueID: 5247389725787815666
   wallHeight: 1
---- !u!1 &135929496
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 135929497}
-  m_Layer: 0
-  m_Name: endpoint_right_down
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &135929497
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 135929496}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.7, y: -3.4, z: -110.88483}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 611383725}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &143036403 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7200881242125004770, guid: 33d72b803ba19bd42be9840706ab72a0,
@@ -23482,49 +23452,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 33d72b803ba19bd42be9840706ab72a0, type: 3}
---- !u!1 &611383722 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5161893504635840760, guid: 7d9d2254ad7650f47bb2cd1cc2d7ffbc,
-    type: 3}
-  m_PrefabInstance: {fileID: 1644470597194755198}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &611383723
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 611383722}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 82d09474453ba354c8259f68ab3b945a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  radiius: 2
-  maxlightning: 0.25
-  curlightning: 0
-  numchild: 12
-  lightning_count: 0
-  can_lightning: 1
-  can_lightning_ready: 0
-  ex_phase: 1
-  isLight_circle_button: 0
-  isLight_circle_button_ex_phase: 0
-  isLight_chess_button: 0
-  reset: 1
-  lightning: {fileID: 4482906470431603876, guid: 81c7ed47118071946a50b8c15bc9ee6e,
-    type: 3}
-  lightning_preview: {fileID: 3722112603609700000, guid: 10f52d31d511ff54f9a14668bb735a77,
-    type: 3}
-  go: {fileID: 0}
-  startpoint_left_up: {fileID: 1337168442}
-  endpoint_right_down: {fileID: 135929496}
---- !u!4 &611383725 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 241947956510941505, guid: 7d9d2254ad7650f47bb2cd1cc2d7ffbc,
-    type: 3}
-  m_PrefabInstance: {fileID: 1644470597194755198}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &612650898
 GameObject:
   m_ObjectHideFlags: 0
@@ -32413,36 +32340,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1336119877}
   m_CullTransparentMesh: 0
---- !u!1 &1337168442
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1337168443}
-  m_Layer: 0
-  m_Name: startpoint_left_up
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1337168443
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1337168442}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -27.98, y: 21.35, z: -110.88483}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 611383725}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1348621512
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -36091,6 +35988,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 611383723, guid: 7d9d2254ad7650f47bb2cd1cc2d7ffbc, type: 3}
+      propertyPath: isLight_chess_button_vertical
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 241947956510941505, guid: 7d9d2254ad7650f47bb2cd1cc2d7ffbc,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -36150,11 +36051,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: boss_nachal
-      objectReference: {fileID: 0}
-    - target: {fileID: 5161893504635840760, guid: 7d9d2254ad7650f47bb2cd1cc2d7ffbc,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7d9d2254ad7650f47bb2cd1cc2d7ffbc, type: 3}

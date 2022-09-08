@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 public class boss_nachal : MonoBehaviour
 {
@@ -8,15 +9,25 @@ public class boss_nachal : MonoBehaviour
 
     public int numchild = 12;
     public int lightning_count=0;
+    public int lightning_chess_downtoup_count = 0;      // downtoup count
+    public int lightning_chess_uptodown_count = 0;      // uptodown count
 
     public bool can_lightning = true;
     public bool can_lightning_ready = false;     // false면 preview true면 진짜 번개
     public bool ex_phase = false;
-    public bool isLight_circle_button= false;      // true로 만들어 주면 
-    public bool isLight_circle_button_ex_phase = false; // 
-    public bool isLight_chess_button = false;
-    public bool reset = true;   // reset 용
+    public bool isLight_circle_button= false;      // circle 시간차o 존재 공격
+    public bool isLight_circle_button_ex_phase = false; // circle 시간차x로 공격
+    public bool isLight_chess_button_downtoup = false;      // 체스모양 위에서 아래로 시간차 존재
+    public bool isLight_chess_button_uptodown = false;      // 체스모양 위에서 아래로 시간차 존재
+    public bool isLight_chess_button_vertical = false;     //  체스모양 위아래 동시공격
+    public bool isLight_chess_button_ex_phase = false;      // 체스모양 전체 폭파 시간차 존재x
 
+    public bool isLight_chess = false;
+    public bool isLight_chess_uptodown = false;     // 코루틴 돌때 사용 
+    public bool isLight_chess_downtoup = false;     // 코루틴 돌때 사용
+    public bool reset = true;   // reset 용
+    public bool isLight_chess_uptodown_reset = true;        //  체스모양 위에서 아래로 리셋
+    public bool isLight_chess_downtoup_reset = true;        // 체스모양 아래서 위로 리셋
     public GameObject lightning;
     public GameObject lightning_preview;
     public GameObject go;
@@ -44,9 +55,22 @@ public class boss_nachal : MonoBehaviour
         {
             Light_circle_button_ex_phase();
         }
-        if(isLight_chess_button == true)
+        if (isLight_chess_button_downtoup == true)      // chess 모양아래서 위로
         {
-            Light_chess_button();
+            Light_chess_button_downtoup();
+        }
+        if (isLight_chess_button_uptodown == true)      // chess 모양 위에서 아래로
+        {
+            Light_chess_button_uptodown();
+        }
+        if (isLight_chess_button_ex_phase == true)      // chess 모양강화 한번에 떨어지기
+        {
+            Light_chess_exphase_button();
+        }
+        if( isLight_chess_button_vertical == true)      // 체스 모양 위아래 동시에 나오기
+        {
+            Light_chess_button_downtoup();
+            Light_chess_button_uptodown();
         }
     }
     public void Light_vertical_downup()        // 아래 -> 위
@@ -55,8 +79,14 @@ public class boss_nachal : MonoBehaviour
         {
             if (lightning_count % 2 == 0)
             {
-                //Instantiate(lightning_preview, transform.position + (new Vector3(i*2-7, lightning_count*1-7, 0)), Quaternion.identity);
-                Instantiate(lightning, transform.position + (new Vector3(i * 2 + startpoint_left_up.transform.position.x, lightning_count + endpoint_right_down.transform.position.y, 0)), Quaternion.identity);
+                if (isLight_chess_uptodown == true)             // 아래에서 위로
+                {
+                    Instantiate(lightning_preview, transform.position + (new Vector3(i * 2 - 7, lightning_count * 1 - 7, 0)), Quaternion.identity);
+                }
+                else if (isLight_chess_uptodown == false)       // 위에서 아래로
+                {
+                    Instantiate(lightning, transform.position + (new Vector3(i * 2 + startpoint_left_up.transform.position.x, lightning_count + endpoint_right_down.transform.position.y, 0)), Quaternion.identity);
+                } 
             }
             else if (lightning_count % 2 != 0)
             {
@@ -68,47 +98,156 @@ public class boss_nachal : MonoBehaviour
         lightning_count++;
         if (lightning_count == (int)(startpoint_left_up.transform.position.y - endpoint_right_down.transform.position.y))
         {
-            isLight_chess_button = false;
+            //isLight_chess_button = false;
             reset = true;
         }
     }
 
-    public void Light_chess_button()
+    
+
+    public void Light_chess_button_downtoup()
     {
-        if(reset == true)
+        if (isLight_chess_downtoup_reset == true)
+        {
+            isLight_chess_downtoup_reset = false;
+            lightning_chess_downtoup_count = 0;
+        }
+        StartCoroutine("Light_chess_downtoup");
+    }
+
+    public void Light_chess_button_uptodown()
+    {
+        if (isLight_chess_uptodown_reset == true)
+        {
+            isLight_chess_uptodown_reset = false;
+            lightning_chess_uptodown_count = 0;
+        }
+        StartCoroutine("Light_chess_uptodown");
+    }
+
+    IEnumerator Light_chess_uptodown()
+    {
+        yield return null;
+        if (isLight_chess_uptodown) yield break;
+        isLight_chess_uptodown = true;
+        while (lightning_chess_uptodown_count < (int)(startpoint_left_up.transform.position.y - endpoint_right_down.transform.position.y))
+        {
+            for (int i = 0; i < (int)((endpoint_right_down.transform.position.x - startpoint_left_up.transform.position.x) / 2); i++)
+            {
+                if (lightning_chess_uptodown_count % 2 == 0)
+                {
+                    Instantiate(lightning, transform.position + (new Vector3(i * 2 + startpoint_left_up.transform.position.x, (lightning_chess_uptodown_count * -1) + startpoint_left_up.transform.position.y, 0)), Quaternion.identity);
+                    //Instantiate(lightning_preview, transform.position + (new Vector3(i*2-7, lightning_count*1-7, 0)), Quaternion.identity);
+                }
+                else if (lightning_chess_uptodown_count % 2 != 0)
+                {
+                    if (i == (int)(endpoint_right_down.transform.position.x - startpoint_left_up.transform.position.x - 1)) break;
+                    //Instantiate(lightning_preview, transform.position + (new Vector3(i * 2 - 6, lightning_count * 1 - 7, 0)), Quaternion.identity);
+                    Instantiate(lightning, transform.position + (new Vector3(i * 2 + startpoint_left_up.transform.position.x + 1, (lightning_chess_uptodown_count * -1) + startpoint_left_up.transform.position.y, 0)), Quaternion.identity);
+                }
+            }
+            lightning_chess_uptodown_count++;  // 세로줄
+            yield return new WaitForSeconds(maxlightning);
+        }
+        isLight_chess_button_uptodown = false;
+        isLight_chess_uptodown = false;
+        isLight_chess_uptodown_reset = true;
+        isLight_chess_button_vertical = false;
+        StopCoroutine("Light_chess_uptodown");
+    }
+
+    IEnumerator Light_chess_downtoup()
+    {
+        yield return null;
+        if (isLight_chess_downtoup) yield break;
+        isLight_chess_downtoup = true;
+        while (lightning_chess_downtoup_count < (int)(startpoint_left_up.transform.position.y - endpoint_right_down.transform.position.y))
+        {
+            for (int i = 0; i < (int)((endpoint_right_down.transform.position.x - startpoint_left_up.transform.position.x)/2); i++)
+            {
+                if (lightning_chess_downtoup_count % 2 == 0)
+                {
+                    if (i == (int)(endpoint_right_down.transform.position.x - startpoint_left_up.transform.position.x - 1)) break;
+                    Instantiate(lightning, transform.position + (new Vector3(i * 2 + startpoint_left_up.transform.position.x+1, lightning_chess_downtoup_count + endpoint_right_down.transform.position.y, 0)), Quaternion.identity);
+                    //Instantiate(lightning_preview, transform.position + (new Vector3(i*2-7, lightning_count*1-7, 0)), Quaternion.identity);
+                }
+                else if (lightning_chess_downtoup_count % 2 != 0)
+                {
+                    //Instantiate(lightning_preview, transform.position + (new Vector3(i * 2 - 6, lightning_count * 1 - 7, 0)), Quaternion.identity);
+                    Instantiate(lightning, transform.position + (new Vector3(i * 2 + startpoint_left_up.transform.position.x, lightning_chess_downtoup_count + endpoint_right_down.transform.position.y, 0)), Quaternion.identity);
+                }
+            }
+            lightning_chess_downtoup_count++;  // 세로줄
+            yield return new WaitForSeconds(maxlightning);
+        }
+        isLight_chess_button_downtoup = false;
+        isLight_chess_downtoup = false;
+        isLight_chess_downtoup_reset = true;
+        isLight_chess_button_vertical = false;
+        StopCoroutine("Light_chess_downtoup");
+    }
+
+    public void Light_chess_exphase_button()        // 체스 강화 공격 
+    {
+        if (reset == true)
         {
             reset = false;
+            can_lightning_ready = false;
             lightning_count = 0;
         }
-        if(lightning_count<=(int)(startpoint_left_up.transform.position.y-endpoint_right_down.transform.position.y))
-        {
-            Light_chess();
-        }
+        Light_chess_exphase();                  // 체스 강화 공격 
+
     }
 
-
-    public void Light_chess()
+    public void Light_chess_exphase()
     {
-        for(int i=0; i<(int)((endpoint_right_down.transform.position.x - startpoint_left_up.transform.position.x)/2); i++)
+        while (lightning_count < (int)(startpoint_left_up.transform.position.y - endpoint_right_down.transform.position.y))
         {
-            if(lightning_count%2 == 0)
+            Debug.Log("linghtning_count" + lightning_count);
+            if(can_lightning == true)
             {
-                //Instantiate(lightning_preview, transform.position + (new Vector3(i*2-7, lightning_count*1-7, 0)), Quaternion.identity);
-                Instantiate(lightning, transform.position + (new Vector3(i * 2 + startpoint_left_up.transform.position.x,lightning_count + endpoint_right_down.transform.position.y, 0)), Quaternion.identity);
+                for (int i = 0; i < (int)((endpoint_right_down.transform.position.x - startpoint_left_up.transform.position.x) / 2); i++)
+                {
+                    if (lightning_count % 2 == 0)
+                    {
+                        if(can_lightning_ready == false)
+                        {
+                            Instantiate(lightning_preview, transform.position + (new Vector3(i * 2 + startpoint_left_up.transform.position.x, lightning_count + endpoint_right_down.transform.position.y, 0)), Quaternion.identity);
+                        }
+                        else if(can_lightning_ready == true)
+                        {
+                            Instantiate(lightning, transform.position + (new Vector3(i * 2 + startpoint_left_up.transform.position.x, lightning_count + endpoint_right_down.transform.position.y, 0)), Quaternion.identity);
+                        }
+                    }
+                    else if (lightning_count % 2 != 0)
+                    {
+                        if (i == (int)(endpoint_right_down.transform.position.x - startpoint_left_up.transform.position.x - 1)) break;
+                        if (can_lightning_ready == false)
+                        {
+                            Instantiate(lightning_preview, transform.position + (new Vector3(i * 2 + startpoint_left_up.transform.position.x + 1, lightning_count + endpoint_right_down.transform.position.y, 0)), Quaternion.identity);
+                        }
+                        else if (can_lightning_ready == true)
+                        {
+                            Instantiate(lightning, transform.position + (new Vector3(i * 2 + startpoint_left_up.transform.position.x + 1, lightning_count + endpoint_right_down.transform.position.y, 0)), Quaternion.identity);
+                        }
+                    }
+                }
+                lightning_count++;  // 세로줄
+                if(can_lightning_ready == false && lightning_count == (int)(startpoint_left_up.transform.position.y - endpoint_right_down.transform.position.y))
+                {
+                    lightning_count = 0;
+                    can_lightning = false;
+                    can_lightning_ready = true;
+                    maxlightning = 2f;                      // 다음 번개가 나오는 타이밍 조절
+                }
             }
-            else if(lightning_count % 2 != 0)
+            else if(can_lightning == false)
             {
-                if (i == (int)(endpoint_right_down.transform.position.x - startpoint_left_up.transform.position.x - 1)) break;
-                //Instantiate(lightning_preview, transform.position + (new Vector3(i * 2 - 6, lightning_count * 1 - 7, 0)), Quaternion.identity);
-                Instantiate(lightning, transform.position + (new Vector3(i * 2 + startpoint_left_up.transform.position.x+1,lightning_count + endpoint_right_down.transform.position.y, 0)), Quaternion.identity);
+                cooltime_to_lightning();        // 텀 조절 예상 공격 지점 나오고 나서 피할 시간을 주기 위함임
             }
         }
-        lightning_count++;
-        if (lightning_count == (int)(startpoint_left_up.transform.position.y - endpoint_right_down.transform.position.y))
-        {
-            isLight_chess_button = false;
-            reset = true;
-        }
+        isLight_chess_button_ex_phase = false;
+        reset = true;
     }
 
     public void Light_circle_button()       // 일반 lightning circle 
