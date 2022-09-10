@@ -6,6 +6,10 @@ public class boss_nachal : MonoBehaviour
     public float radiius = 2.0f;
     public float maxlightning = 0.25f;
     public float curlightning = 0;
+    public float curpatton_time = 0;
+    public float maxpatton_time = 2f;
+    public float curstoptime_patton = 0;
+    public float maxstoptime_patton = 100000f;
 
     public int numchild = 12;
     public int lightning_count=0;
@@ -14,6 +18,7 @@ public class boss_nachal : MonoBehaviour
     public int lightning_chess_downtoup_count = 0;      // downtoup count
     public int lightning_chess_uptodown_count = 0;      // uptodown count
     public int c = 0;
+    public int n = 0;
     public bool can_lightning = true;
     public bool can_lightning_ready = false;     // false면 preview true면 진짜 번개
     public bool can_lightning_ready_1 = false;
@@ -33,6 +38,7 @@ public class boss_nachal : MonoBehaviour
     public bool isLight_horizontal_righttoleft_synthesize_button = false;       // 일자모양 좌우 동시
 
     public bool isLight_chess = false;
+    public bool isboss_patton = false;
     public bool isLight_chess_uptodown = false;     // 코루틴 돌때 사용 
     public bool isLight_chess_downtoup = false;     // 코루틴 돌때 사용
     public bool isLight_vertical_downtoup = false;      // 코루틴 돌때 사용
@@ -68,6 +74,8 @@ public class boss_nachal : MonoBehaviour
 
     private void FixedUpdate()
     {
+        //StartCoroutine("boss_patton");
+
         if(isLight_circle_button == true)       // 일반 lightning_circle 이 나감
         {
             Light_circle_button();
@@ -130,7 +138,67 @@ public class boss_nachal : MonoBehaviour
             lightning_count_2 = 0;                          // 번개개수 카운트 초기화
         }
         StartCoroutine("Light_horizontal_righttoleft");     // 코루틴 시작
-    }   
+    }
+
+    IEnumerator boss_patton()
+    {
+        yield return null;
+        if (isboss_patton == false) maxpatton_time = 100000f;
+        if (isboss_patton) yield break;
+        isboss_patton = true;
+        n = Random.Range(1, 12);
+        patton();
+
+        yield return new WaitForSeconds(maxpatton_time);
+
+    }
+    void patton()
+    {
+        switch(n)
+        {
+            case 1:
+                isLight_circle_button = true;
+                break;
+            case 2:
+                isLight_circle_button_ex_phase = true;
+                break;
+            case 3:
+                isLight_chess_button_downtoup = true;
+                break;
+            case 4:
+                isLight_chess_button_uptodown = true;
+                break;
+            case 5:
+                isLight_chess_button_vertical = true;
+                break;
+            case 6:
+                isLight_chess_button_ex_phase = true;
+                break;
+            case 7:
+                isLight_vertical_downtoup_button = true;
+                break;
+            case 8:
+                isLight_vertical_uptodown_button = true;
+                break;
+            case 9:
+                isLight_vertical_synthesize_button = true;
+                break;
+            case 10:
+                isLight_horizontal_lefttoright_button = true;
+                break;
+            case 11:
+                isLight_horizontal_righttoleft_button = true;
+                break;
+            case 12:
+                isLight_horizontal_righttoleft_synthesize_button = true;
+                break;
+            default:
+                break;
+        }   
+
+
+    }
+
 
     IEnumerator Light_horizontal_righttoleft()
     {
@@ -163,6 +231,7 @@ public class boss_nachal : MonoBehaviour
         isLight_horizontal_righttoleft = false;                             // 코루틴 초기화
         isLight_horizontal_righttoleft_button = false;                      // 버튼 초기화
         isLight_horizontal_righttoleft_synthesize_button = false;           // synthesize 인경우 초기화
+        isboss_patton = false;
         StopCoroutine("Light_horizontal_righttoleft");
 
     }
