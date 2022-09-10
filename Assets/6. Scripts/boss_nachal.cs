@@ -9,11 +9,15 @@ public class boss_nachal : MonoBehaviour
 
     public int numchild = 12;
     public int lightning_count=0;
+    public int lightning_count_1 = 0;
+    public int lightning_count_2 = 0;
     public int lightning_chess_downtoup_count = 0;      // downtoup count
     public int lightning_chess_uptodown_count = 0;      // uptodown count
-
+    public int c = 0;
     public bool can_lightning = true;
     public bool can_lightning_ready = false;     // false면 preview true면 진짜 번개
+    public bool can_lightning_ready_1 = false;
+    public bool can_lightning_ready_2 = false;
     public bool ex_phase = false;
     public bool isLight_circle_button= false;      // circle 시간차o 존재 공격
     public bool isLight_circle_button_ex_phase = false; // circle 시간차x로 공격
@@ -21,13 +25,30 @@ public class boss_nachal : MonoBehaviour
     public bool isLight_chess_button_uptodown = false;      // 체스모양 위에서 아래로 시간차 존재
     public bool isLight_chess_button_vertical = false;     //  체스모양 위아래 동시공격
     public bool isLight_chess_button_ex_phase = false;      // 체스모양 전체 폭파 시간차 존재x
+    public bool isLight_vertical_downtoup_button = false;        // 일자모양 아래에서 위로
+    public bool isLight_vertical_uptodown_button = false;       // 일자 모양 위에서 아래로
+    public bool isLight_vertical_synthesize_button = false;     // 일자 모양 위 그리고 아래 동시
+    public bool isLight_horizontal_lefttoright_button = false;  // 일자 모양 좌에서 우로
+    public bool isLight_horizontal_righttoleft_button = false;  // 일자 모양 우에서 좌로
+    public bool isLight_horizontal_righttoleft_synthesize_button = false;       // 일자모양 좌우 동시
 
     public bool isLight_chess = false;
     public bool isLight_chess_uptodown = false;     // 코루틴 돌때 사용 
     public bool isLight_chess_downtoup = false;     // 코루틴 돌때 사용
+    public bool isLight_vertical_downtoup = false;      // 코루틴 돌때 사용
+    public bool isLight_vertical_uptodown = false;      // 코루틴 돌때 사용
+    public bool isLight_horizontal_lefttoright = false;      // 직선 좌에서 우로 코루틴
+    public bool isLight_horizontal_righttoleft = false;      // 직선 우에서 좌로 코루틴
+
+    public bool iscooltime_to_lightning_co = false; // prewview -> lightning cooltime corutine 사용시 사용됨
+    public bool isLight_chess_exphase = false;        //
     public bool reset = true;   // reset 용
+    public bool reset_1 = true;
+    public bool reset_2 = true;
     public bool isLight_chess_uptodown_reset = true;        //  체스모양 위에서 아래로 리셋
     public bool isLight_chess_downtoup_reset = true;        // 체스모양 아래서 위로 리셋
+    public bool isLight_vertical_uptodown_reset = true;     // 직선 위서 아래 리셋 
+    public bool isLight_vertical_downtoup_reset = true;     // 직선 아래서 위로 리셋
     public GameObject lightning;
     public GameObject lightning_preview;
     public GameObject go;
@@ -72,39 +93,245 @@ public class boss_nachal : MonoBehaviour
             Light_chess_button_downtoup();
             Light_chess_button_uptodown();
         }
+        if(isLight_vertical_downtoup_button == true)        // 직선 아래에서 위로
+        {
+            Light_vertical_downtoup_button();
+        }
+        if(isLight_vertical_uptodown_button == true)        // 직선 위에서 아래로
+        {
+            Light_vertical_uptodown_button();
+        }
+        if(isLight_vertical_synthesize_button == true)      // 번개 직선 위에래 동시
+        {
+            Light_vertical_downtoup_button();
+            Light_vertical_uptodown_button();
+        }
+        if(isLight_horizontal_lefttoright_button == true)   // 번개 직선 왼쪽에서 오른쪽으로
+        {
+            Light_horizontal_lefttoright_button();
+        }
+        if(isLight_horizontal_righttoleft_button == true)   // 번개 직선 오른쪽에서 왼쪽으로
+        {
+            Light_horizontal_righttoleft_button();
+        }
+        if(isLight_horizontal_righttoleft_synthesize_button == true)    // 번개 직선 오른쪽 왼쪽 동시
+        {
+            Light_horizontal_lefttoright_button();
+            Light_horizontal_righttoleft_button();
+        }
     }
-    public void Light_vertical_downup()        // 아래 -> 위
+
+    public void Light_horizontal_righttoleft_button()
+    {
+        if (reset_2 == true)
+        {
+            can_lightning_ready_2 = false;                  // ready 초기화
+            reset_2 = false;                                // reset 초기화
+            lightning_count_2 = 0;                          // 번개개수 카운트 초기화
+        }
+        StartCoroutine("Light_horizontal_righttoleft");     // 코루틴 시작
+    }   
+
+    IEnumerator Light_horizontal_righttoleft()
+    {
+        yield return null;
+        if (isLight_horizontal_righttoleft) yield break;        // 코루틴이 실행중일경우에는 두개이상의 코루틴이 실행 불가능하도록 만들어줌
+        isLight_horizontal_righttoleft = true;                  // 이게 코루틴 여러번 실행중인경우를 막아줌
+
+        while (lightning_count_1 < (int)(endpoint_right_down.transform.position.x - startpoint_left_up.transform.position.x))       // 좌우 이동이라서 x 값으로 거리 계싼
+        {
+            for (int i = 0; i < (int)(startpoint_left_up.transform.position.y - endpoint_right_down.transform.position.y) * 0.5; i++)       // y값으로 계산  
+            {
+                if (can_lightning_ready_1 == false)                                                                                         // ready= false -. preview true lightning
+                {
+                    Instantiate(lightning_preview, transform.position + (new Vector3(endpoint_right_down.transform.position.x - lightning_count_1, startpoint_left_up.transform.position.y - i * 2, 0)), Quaternion.identity);
+                }
+                else if (can_lightning_ready_1 == true)
+                {
+                    Instantiate(lightning, transform.position + (new Vector3(endpoint_right_down.transform.position.x - lightning_count_1, startpoint_left_up.transform.position.y - i * 2, 0)), Quaternion.identity);
+                }
+            }
+            lightning_count_1++;
+            yield return new WaitForSeconds(maxlightning);                  // 다음 번개 나올때까지 실행 시간 이를 조절해 실행 시간을 조절 해줄수 있음
+            if (can_lightning_ready_1 == false && lightning_count_1 == (int)(endpoint_right_down.transform.position.x - startpoint_left_up.transform.position.x))       // preview 에서 real lightning으로 넘어갈때 쓰이는 것
+            {
+                can_lightning_ready_1 = true;
+                lightning_count_1 = 0;
+            }
+        }
+        reset_2 = true;                                                     // 리셋 초기화
+        isLight_horizontal_righttoleft = false;                             // 코루틴 초기화
+        isLight_horizontal_righttoleft_button = false;                      // 버튼 초기화
+        isLight_horizontal_righttoleft_synthesize_button = false;           // synthesize 인경우 초기화
+        StopCoroutine("Light_horizontal_righttoleft");
+
+    }
+
+    public void Light_horizontal_lefttoright_button()
+    {
+        if (reset_1 == true)
+        {
+            can_lightning_ready_1 = false;
+            reset_1 = false;
+            lightning_count_1 = 0;
+        }
+        StartCoroutine("Light_horizontal_lefttoright");
+    }
+
+    IEnumerator Light_horizontal_lefttoright()
+    {
+        yield return null;
+        if (isLight_horizontal_lefttoright) yield break;
+        isLight_horizontal_lefttoright = true;
+
+        while (lightning_count_1 < (int)(endpoint_right_down.transform.position.x - startpoint_left_up.transform.position.x))
+        {
+            //for (int i = 0; i < (int)((endpoint_right_down.transform.position.x - startpoint_left_up.transform.position.x) * 0.5); i++)
+            for (int i = 0; i < (int)(startpoint_left_up.transform.position.y - endpoint_right_down.transform.position.y)*0.5; i++)
+            {
+                if (can_lightning_ready_1 == false)
+                {
+                    Instantiate(lightning_preview, transform.position + (new Vector3(startpoint_left_up.transform.position.x + lightning_count_1, startpoint_left_up.transform.position.y- i*2-1, 0)), Quaternion.identity);
+                }
+                else if (can_lightning_ready_1 == true)
+                {
+                    Instantiate(lightning, transform.position + (new Vector3(startpoint_left_up.transform.position.x + lightning_count_1, startpoint_left_up.transform.position.y - i*2-1, 0)), Quaternion.identity);
+                }
+            }
+            lightning_count_1++;
+            yield return new WaitForSeconds(maxlightning);
+            if (can_lightning_ready_1 == false && lightning_count_1 == (int)(endpoint_right_down.transform.position.x - startpoint_left_up.transform.position.x))
+            {
+                can_lightning_ready_1 = true;
+                lightning_count_1 = 0;
+            }
+        }
+        reset_1 = true;
+        isLight_horizontal_lefttoright = false;
+        isLight_horizontal_lefttoright_button = false;
+        isLight_horizontal_righttoleft_synthesize_button = false;
+        StopCoroutine("Light_horizontal_lefttoright");
+
+    }
+    public void Light_vertical_uptodown_button()
+    {
+        if (isLight_vertical_uptodown_reset == true)
+        {
+            can_lightning_ready_1 = false;
+            isLight_vertical_uptodown_reset = false;
+            lightning_count_1 = 0;
+        }
+        StartCoroutine("Light_vertical_uptodown");
+    }
+
+    IEnumerator Light_vertical_uptodown()
+    {
+        yield return null;
+        if (isLight_vertical_uptodown) yield break;
+        isLight_vertical_uptodown = true;
+
+
+        while (lightning_count_1 < (int)(startpoint_left_up.transform.position.y - endpoint_right_down.transform.position.y))
+        {
+            for (int i = 0; i < (int)((endpoint_right_down.transform.position.x - startpoint_left_up.transform.position.x) * 0.5); i++)
+            {
+                if (can_lightning_ready_1 == false)
+                {
+                    Instantiate(lightning_preview, transform.position + (new Vector3(i * 2 + startpoint_left_up.transform.position.x+1, startpoint_left_up.transform.position.y-lightning_count_1, 0)), Quaternion.identity);
+                }
+                else if (can_lightning_ready_1 == true)
+                {
+                    Instantiate(lightning, transform.position + (new Vector3(i * 2 + startpoint_left_up.transform.position.x+1, startpoint_left_up.transform.position.y- lightning_count_1, 0)), Quaternion.identity);
+                }
+            }
+            lightning_count_1++;
+            yield return new WaitForSeconds(maxlightning);
+            if (can_lightning_ready_1 == false && lightning_count_1 == (int)(startpoint_left_up.transform.position.y - endpoint_right_down.transform.position.y))
+            {
+                can_lightning_ready_1 = true;
+                lightning_count_1 = 0;
+            }
+        }
+        isLight_vertical_uptodown_reset = true;
+        isLight_vertical_uptodown = false;
+        isLight_vertical_uptodown_button = false;
+        isLight_vertical_synthesize_button = false;
+        StopCoroutine("Light_vertical_uptodown");
+    }
+
+    public void Light_vertical_downtoup_button()
+    {
+        if (isLight_vertical_downtoup_reset == true)
+        {
+            can_lightning_ready_2 = false;
+            isLight_vertical_downtoup_reset = false;
+            lightning_count_2 = 0;
+        }
+        StartCoroutine("Light_vertical_downtoup");
+    }
+
+
+    IEnumerator Light_vertical_downtoup()        // 아래 -> 위
+    {
+        yield return null;
+        if (isLight_vertical_downtoup) yield break;
+        isLight_vertical_downtoup = true;
+
+        
+        while(lightning_count_2 < (int)(startpoint_left_up.transform.position.y - endpoint_right_down.transform.position.y))
+        {
+            for (int i = 0; i < (int)((endpoint_right_down.transform.position.x - startpoint_left_up.transform.position.x) * 0.5); i++)
+            {
+                if (can_lightning_ready_2 == false)
+                {
+                    Instantiate(lightning_preview, transform.position + (new Vector3(i * 2 + startpoint_left_up.transform.position.x, lightning_count_2 + endpoint_right_down.transform.position.y, 0)), Quaternion.identity);
+                }
+                else if (can_lightning_ready_2 == true)
+                {
+                    Instantiate(lightning, transform.position + (new Vector3(i * 2 + startpoint_left_up.transform.position.x, lightning_count_2 + endpoint_right_down.transform.position.y, 0)), Quaternion.identity);
+                }
+            }
+            lightning_count_2++;
+            yield return new WaitForSeconds(maxlightning);
+            if (can_lightning_ready_2 == false && lightning_count_2 == (int)(startpoint_left_up.transform.position.y - endpoint_right_down.transform.position.y))
+            {
+                
+                can_lightning_ready_2 = true;
+                lightning_count_2 = 0;
+            }
+        }
+
+        isLight_vertical_downtoup_reset = true;
+        isLight_vertical_downtoup = false;
+        isLight_vertical_downtoup_button = false;
+        isLight_vertical_synthesize_button = false;
+        StopCoroutine("Light_chess_downtoup");
+    }
+    /*
+      IEnumerator Light_vertical_downup()        // 아래 -> 위
     {
         for (int i = 0; i < (int)(endpoint_right_down.transform.position.x - startpoint_left_up.transform.position.x); i++)
         {
-            if (lightning_count % 2 == 0)
-            {
-                if (isLight_chess_uptodown == true)             // 아래에서 위로
-                {
-                    Instantiate(lightning_preview, transform.position + (new Vector3(i * 2 - 7, lightning_count * 1 - 7, 0)), Quaternion.identity);
-                }
-                else if (isLight_chess_uptodown == false)       // 위에서 아래로
-                {
-                    Instantiate(lightning, transform.position + (new Vector3(i * 2 + startpoint_left_up.transform.position.x, lightning_count + endpoint_right_down.transform.position.y, 0)), Quaternion.identity);
-                } 
-            }
-            else if (lightning_count % 2 != 0)
-            {
-                if (i == (int)(endpoint_right_down.transform.position.x - startpoint_left_up.transform.position.x - 1)) break;
-                //Instantiate(lightning_preview, transform.position + (new Vector3(i * 2 - 6, lightning_count * 1 - 7, 0)), Quaternion.identity);
-                Instantiate(lightning, transform.position + (new Vector3(i * 2 + startpoint_left_up.transform.position.x, lightning_count + endpoint_right_down.transform.position.y, 0)), Quaternion.identity);
-            }
+            //Instantiate(lightning_preview, transform.position + (new Vector3(i * 2 - 6, lightning_count * 1 - 7, 0)), Quaternion.identity);
+            Instantiate(lightning, transform.position + (new Vector3(i * 2 + startpoint_left_up.transform.position.x, lightning_count + endpoint_right_down.transform.position.y, 0)), Quaternion.identity);
         }
         lightning_count++;
-        if (lightning_count == (int)(startpoint_left_up.transform.position.y - endpoint_right_down.transform.position.y))
+        if (can_lightning_ready == false &&lightning_count == (int)(startpoint_left_up.transform.position.y - endpoint_right_down.transform.position.y))
         {
-            //isLight_chess_button = false;
+            yield return new WaitForSeconds(maxlightning);
+            can_lightning_ready = true;
+        }
+
+        if (can_lightning_ready == true && lightning_count == (int)(startpoint_left_up.transform.position.y - endpoint_right_down.transform.position.y))
+        {
             reset = true;
         }
+
+        yield return 0;
     }
+     */
 
     
-
     public void Light_chess_button_downtoup()
     {
         if (isLight_chess_downtoup_reset == true)
@@ -149,10 +376,10 @@ public class boss_nachal : MonoBehaviour
             lightning_chess_uptodown_count++;  // 세로줄
             yield return new WaitForSeconds(maxlightning);
         }
-        isLight_chess_button_uptodown = false;
-        isLight_chess_uptodown = false;
-        isLight_chess_uptodown_reset = true;
-        isLight_chess_button_vertical = false;
+        isLight_chess_button_uptodown = false;      // 위에서 아래 버튼 활성화
+        isLight_chess_uptodown = false;             //  코루틴 진입 활성화
+        isLight_chess_uptodown_reset = true;        // 리셋 활성화
+        isLight_chess_button_vertical = false;      // 가로 세로 동시일때를 위해서 false값
         StopCoroutine("Light_chess_uptodown");
     }
 
@@ -192,18 +419,20 @@ public class boss_nachal : MonoBehaviour
         if (reset == true)
         {
             reset = false;
+            isLight_chess_exphase = false;
             can_lightning_ready = false;
             lightning_count = 0;
         }
-        Light_chess_exphase();                  // 체스 강화 공격 
-
+        StartCoroutine("Light_chess_exphase");      // 체스 강화 공격 
     }
-
-    public void Light_chess_exphase()
+    IEnumerator Light_chess_exphase()
     {
+        yield return null;
+        if (isLight_chess_exphase) yield break;
+        isLight_chess_exphase = true;
+
         while (lightning_count < (int)(startpoint_left_up.transform.position.y - endpoint_right_down.transform.position.y))
         {
-            Debug.Log("linghtning_count" + lightning_count);
             if(can_lightning == true)
             {
                 for (int i = 0; i < (int)((endpoint_right_down.transform.position.x - startpoint_left_up.transform.position.x) / 2); i++)
@@ -235,6 +464,7 @@ public class boss_nachal : MonoBehaviour
                 lightning_count++;  // 세로줄
                 if(can_lightning_ready == false && lightning_count == (int)(startpoint_left_up.transform.position.y - endpoint_right_down.transform.position.y))
                 {
+                    Debug.Log("a : ");
                     lightning_count = 0;
                     can_lightning = false;
                     can_lightning_ready = true;
@@ -243,11 +473,13 @@ public class boss_nachal : MonoBehaviour
             }
             else if(can_lightning == false)
             {
-                cooltime_to_lightning();        // 텀 조절 예상 공격 지점 나오고 나서 피할 시간을 주기 위함임
+                yield return new WaitForSeconds(maxlightning);
+                can_lightning = true;
             }
         }
         isLight_chess_button_ex_phase = false;
         reset = true;
+        StopCoroutine("Light_chess_exphase");
     }
 
     public void Light_circle_button()       // 일반 lightning circle 

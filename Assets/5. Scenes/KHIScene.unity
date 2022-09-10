@@ -35992,6 +35992,10 @@ PrefabInstance:
       propertyPath: isLight_chess_button_vertical
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 611383723, guid: 7d9d2254ad7650f47bb2cd1cc2d7ffbc, type: 3}
+      propertyPath: isLight_vertical_downtoup_button
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 241947956510941505, guid: 7d9d2254ad7650f47bb2cd1cc2d7ffbc,
         type: 3}
       propertyPath: m_LocalPosition.x
