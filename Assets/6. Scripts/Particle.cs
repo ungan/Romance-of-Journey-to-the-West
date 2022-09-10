@@ -10,6 +10,7 @@ using UnityEngine;
 
 public class Particle : MonoBehaviour
 {
+    public bool canFlipFlop;
     public bool playAura = true; //파티클 제어 bool
     public ParticleSystem particleObject; //파티클시스템
     public GameObject Mother;
@@ -29,12 +30,18 @@ public class Particle : MonoBehaviour
         z = Mother.transform.eulerAngles.z;
         float ladianZ = -(z * Mathf.Deg2Rad);
 
-        //main.startRotation = ladianZ; //일반 startRotation 사용 시
-        if (z >= 0 && z < 90 || z > 270 && z <= 360) //flip-flop
-            particleObject.startRotation3D = new Vector3(0, 0, ladianZ);//StartRotation3D 사용 시
+        if (canFlipFlop)
+        {
+            if (z >= 0 && z < 90 || z > 270 && z <= 360) //flip-flop
+                particleObject.startRotation3D = new Vector3(0, 0, ladianZ);//StartRotation3D 사용 시
+            else
+            {
+                particleObject.startRotation3D = new Vector3((180 * Mathf.Deg2Rad), 0, -ladianZ);
+            }
+        }
         else
         {
-            particleObject.startRotation3D = new Vector3((180 * Mathf.Deg2Rad), 0, -ladianZ);
+            particleObject.startRotation3D = new Vector3(0, 0, ladianZ);//StartRotation3D 사용 시
         }
 
         if (playAura) particleObject.Play();

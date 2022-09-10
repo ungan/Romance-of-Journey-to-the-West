@@ -74,7 +74,7 @@ public class Enemy_ai : MonoBehaviour
 
     public status_abnormality stab;        // 상태이상
     Enemy_ai enemy_ai;
-    int stab_type = 0;                // 어떤 상태이상의 종류인지
+    public int stab_type = 0;                // 어떤 상태이상의 종류인지
     float holding_time = 10f;     // 얼마나 상태이상을 지속할것이냐
     float play_time = 11f;             // 얼마나 대기중이였는지
     //특수상태 카운트
@@ -621,8 +621,6 @@ public class Enemy_ai : MonoBehaviour
             }
             curHealth = 0;
 
-            eventManager.curMonsterCount--; //씬 안에 몬스터 카운팅 -1 SJM
-
             Destroy(gameObject);
             //사망, 누움
             //transform.rotation = Quaternion.Euler(0, 0, -90);
@@ -757,24 +755,23 @@ public class Enemy_ai : MonoBehaviour
         //장판 스킬
         if (collision.gameObject.tag == "Magicline") //마법진
         {
+            StartCoroutine(OnDamage(bullet.damage));
             switch (bullet.value)
             {
                 case 1:
-                    StartCoroutine(OnDamage(bullet.damage));
                     StartCoroutine(BePushed());
                     break;
                 case 30:
-                    StartCoroutine(OnDamage(bullet.damage));
                     StartCoroutine(BePushed());
                     break;
                 case 20:
-                    StartCoroutine(OnDamage(bullet.damage));
                     break;
             }
         }
 
         if (collision.gameObject.tag == "Explosive") //폭발
         {
+            StartCoroutine(OnDamage(bullet.damage));
             switch (bullet.value)
             {
                 case 10: //속박됨

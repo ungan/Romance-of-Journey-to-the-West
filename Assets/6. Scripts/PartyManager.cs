@@ -10,7 +10,7 @@ public class PartyManager : MonoBehaviour
     CameraController cam;
 
     //이동
-    public float speed;
+    public float speed = 10f;
 
     public GameObject[] characters;
     public GameObject[] characterLists;
@@ -39,6 +39,8 @@ public class PartyManager : MonoBehaviour
     bool sDown3;
     bool sDown4;
     bool qDown;
+    bool fStay;
+    bool fUp;
     bool t;
     bool tUp;
 
@@ -46,7 +48,7 @@ public class PartyManager : MonoBehaviour
     public bool isRunning;
     public bool isDashing;
     public bool isStopping;
-    bool isAttacking;
+    public bool isAttacking;
 
     //컨트롤
     public bool canSwap; //true시 스왑 가능
@@ -57,6 +59,8 @@ public class PartyManager : MonoBehaviour
     float curSwapDelay = 0;
     float maxAliveDelay = 0.4f;
     float curAliveDelay = 0;
+    float maxUseDelay = 0.4f;
+    float curUseDelay = 0;
 
     //거리 계산
     float range;
@@ -76,7 +80,12 @@ public class PartyManager : MonoBehaviour
     //표시
     public GameObject playerPosition;
 
-    
+    //여의주
+    public int curDragonBall = 0;
+    public int maxDragonBall = 3;
+
+    //기타
+    bool fCheck = false;
 
     void Awake()
     {
@@ -96,11 +105,11 @@ public class PartyManager : MonoBehaviour
     {
         GetInput();
         Interaction(); //상호작용
+        Use(); //사용
         Swap(); //캐릭터 스왑
         Passive(); //패시브
-        Delay();
+        Delay(); //딜레이++
         GameOver(); //게임오버
-
     }
 
     void FixedUpdate()
@@ -128,29 +137,32 @@ public class PartyManager : MonoBehaviour
         sDown3 = Input.GetButtonDown("Swap3");
         sDown4 = Input.GetButtonDown("Swap4");
         qDown = Input.GetButtonDown("PreChange");
+        fStay = Input.GetButton("Use");
+        fUp = Input.GetButtonUp("Use");
         t = cPanel.t;
         tUp = cPanel.tUp;
     }
 
     void Move()
     {
-        if (characterScripts[charactersIndex].isAttacking == true) isAttacking = true; //공격중 체크
-        else isAttacking = false;
+        //if (characterScripts[charactersIndex].isAttacking == true) isAttacking = true; //공격중 체크
+        //else isAttacking = false;
 
         //방향키 이동
         dirXY = Vector3.right * h + Vector3.up * v;
         dirXY.Normalize();
 
 
-        if (curCharactersCount != 0) //&& !isAttacking
+        if (curCharactersCount != 0)
         {
-            if(isDashing == false)
+            if (isAttacking == true && isDashing == false && isRunning)
+                rigid.velocity = new Vector2(dirXY.x, dirXY.y) * (speed / 2);
+            if (isAttacking == false && isDashing == false && isRunning)
                 rigid.velocity = new Vector2(dirXY.x, dirXY.y) * speed;
             if(isDashing == true)
                 rigid.velocity = new Vector2(dirXY.x, dirXY.y) * (speed * 4f);
             if (isStopping == true)
                 rigid.velocity = Vector2.zero;
-                //rigid.velocity = new Vector2(dirXY.x, dirXY.y) * (speed / 4f);
         }
         
         if(curCharactersCount == 0)
@@ -225,7 +237,6 @@ public class PartyManager : MonoBehaviour
         if (curCharactersCount <= 1 && (mWheel > 0 || mWheel < 0)) //1이고 휠
         {
             //휠 안써짐
-            Debug.Log("혼자 남았기 때문에 휠을 쓸 수 없습니다!");
         }
         if (curCharactersCount > 1) //현재 인원이 1보다 클 때 + 휠
         {
@@ -282,11 +293,6 @@ public class PartyManager : MonoBehaviour
             }
         }
     }
-    /*
-    public void get_enemy(Enemy_ai ene)        // enemy가 있는이유 여러 종류의 enemy가 존재하고 그 존재하는 정보값을 가져와야하므로 
-    {
-        characterScripts[charactersIndex].enemy = ene;
-    }*/
     void Delay()
     {
         curSwapDelay += Time.deltaTime;
@@ -311,15 +317,30 @@ public class PartyManager : MonoBehaviour
                 controlList[hasCharactersCount - 1] = true;
                 Destroy(nearObject);
             }
+            //아이템 먹기
+            else if(nearObject.tag == "Item")
+            {
+                Item item = nearObject.GetComponent<Item>();
+                switch (item.value)
+                {
+                    case 5:
+                        if(curDragonBall < maxDragonBall)
+                        {
+                            curDragonBall++;
+                            Destroy(nearObject);
+                        }
+                        break;
+                } 
+            }
         }
 
-        if(iStay && nearObject != null)
+        if (iStay && nearObject != null)
         {
             if (nearObject != null && nearObject.tag == "Downed") //살리기
             {
                 curAliveDelay += Time.deltaTime;
 
-                if(curAliveDelay >= maxAliveDelay)
+                if (curAliveDelay >= maxAliveDelay)
                 {
                     Character character = nearObject.GetComponent<Character>();
                     StartCoroutine(character.Alive(character.posValue));
@@ -330,8 +351,32 @@ public class PartyManager : MonoBehaviour
         {
             curAliveDelay = 0;
         }
+    }
 
-        //마우스 클릭 후 이동 좌표
+    void Use()
+    {
+        if (fStay && fCheck == false)
+        {
+            Character curChar = characterScripts[charactersIndex];
+            if (curDragonBall > 0 && curChar.curHealth < curChar.maxHealth)
+            {
+                curUseDelay += Time.deltaTime;
+
+                if(curUseDelay >= maxUseDelay)
+                {
+                    StartCoroutine(curChar.Heal(curChar.maxHealth)); //전체회복
+
+                    curDragonBall--;
+                    curUseDelay = 0;
+                    fCheck = true;
+                }
+            }
+        }
+
+        if (fUp)
+        {
+            fCheck = false;
+        }
     }
 
     void SlowDownStay()
@@ -434,26 +479,11 @@ public class PartyManager : MonoBehaviour
     {
         characterScripts[charactersIndex].OnDamage_bullet(damage);
     }
-    /*void OnCollisionEnter2D(Collision2D collision)
-    {
-        if ((collision.gameObject.tag == "EnemySwing" || collision.gameObject.tag == "EnemyBullet") && !isDashing && canSwap)
-        {
-            // gameobject.tag == enemy 공격 준비 시작
-           // Enemy_ai enem = collision.gameObject.GetComponent<Enemy_ai>();
-            //if(enem.can_attack) enem.enemy_state = e_state.attack_ready;
-
-
-                //enem.enemy_state = e_state.Follow;
-            characterScripts[charactersIndex].StartCoroutine("OnDamage");
-            
-        }
-    }*/
-
 
     void OnTriggerStay2D(Collider2D collision)
     {
 
-        if (collision.gameObject.tag == "Character" || collision.gameObject.tag == "Downed")
+        if (collision.gameObject.tag == "Character" || collision.gameObject.tag == "Item" || collision.gameObject.tag == "Downed")
         {
             nearObject = collision.gameObject;
         }
@@ -462,7 +492,7 @@ public class PartyManager : MonoBehaviour
 
     void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Character" || collision.gameObject.tag == "Downed")
+        if (collision.gameObject.tag == "Character" || collision.gameObject.tag == "Item" || collision.gameObject.tag == "Downed")
             nearObject = null;
     }
 }

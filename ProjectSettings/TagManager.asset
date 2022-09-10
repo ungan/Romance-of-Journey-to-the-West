@@ -9,10 +9,6 @@ TagManager:
   - Floor
   - Border
   - Bullet
-  - follower0
-  - follower1
-  - follower2
-  - follower3
   - Leader
   - Party
   - Member
@@ -26,6 +22,7 @@ TagManager:
   - Explosive
   - EnemySwing
   - EnemyBullet
+  - AutoTakeItem
   layers:
   - Default
   - TransparentFX
@@ -84,12 +81,15 @@ TagManager:
   - name: Enemy
     uniqueID: 3877242483
     locked: 0
-  - name: effect
+  - name: Item
     uniqueID: 2824527
     locked: 0
-  - name: Panel
+  - name: effect
     uniqueID: 304880467
     locked: 0
-  - name: Crosshair
+  - name: Panel
     uniqueID: 3120504099
+    locked: 0
+  - name: Crosshair
+    uniqueID: 821509591
     locked: 0

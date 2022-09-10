@@ -4863,7 +4863,7 @@ ParticleSystemRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 304880467
-  m_SortingLayer: 8
+  m_SortingLayer: 9
   m_SortingOrder: 5
   m_RenderMode: 0
   m_SortMode: 0
@@ -4900,6 +4900,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59843aa4c0af0774d8bfe7df0d809487, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canFlipFlop: 1
   playAura: 1
   particleObject: {fileID: 4133692333482310047}
   Mother: {fileID: 4133692333224117086}
@@ -9634,7 +9635,7 @@ ParticleSystemRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 304880467
-  m_SortingLayer: 8
+  m_SortingLayer: 9
   m_SortingOrder: 2
   m_RenderMode: 0
   m_SortMode: 0
@@ -9671,6 +9672,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59843aa4c0af0774d8bfe7df0d809487, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canFlipFlop: 1
   playAura: 1
   particleObject: {fileID: 4133692333526038556}
   Mother: {fileID: 4133692333224117086}
@@ -14405,7 +14407,7 @@ ParticleSystemRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 304880467
-  m_SortingLayer: 8
+  m_SortingLayer: 9
   m_SortingOrder: 8
   m_RenderMode: 0
   m_SortMode: 0
@@ -14442,6 +14444,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59843aa4c0af0774d8bfe7df0d809487, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canFlipFlop: 1
   playAura: 1
   particleObject: {fileID: 4133692333568784949}
   Mother: {fileID: 4133692333224117086}
@@ -19176,7 +19179,7 @@ ParticleSystemRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 304880467
-  m_SortingLayer: 8
+  m_SortingLayer: 9
   m_SortingOrder: 4
   m_RenderMode: 0
   m_SortMode: 0
@@ -19213,6 +19216,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59843aa4c0af0774d8bfe7df0d809487, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canFlipFlop: 1
   playAura: 1
   particleObject: {fileID: 4133692333668711020}
   Mother: {fileID: 4133692333224117086}
@@ -23947,7 +23951,7 @@ ParticleSystemRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 304880467
-  m_SortingLayer: 8
+  m_SortingLayer: 9
   m_SortingOrder: 7
   m_RenderMode: 0
   m_SortMode: 0
@@ -23984,6 +23988,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59843aa4c0af0774d8bfe7df0d809487, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canFlipFlop: 1
   playAura: 1
   particleObject: {fileID: 4133692333843437091}
   Mother: {fileID: 4133692333224117086}
@@ -28718,7 +28723,7 @@ ParticleSystemRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 304880467
-  m_SortingLayer: 8
+  m_SortingLayer: 9
   m_SortingOrder: 1
   m_RenderMode: 0
   m_SortMode: 0
@@ -28755,6 +28760,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59843aa4c0af0774d8bfe7df0d809487, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canFlipFlop: 1
   playAura: 1
   particleObject: {fileID: 4133692333921171851}
   Mother: {fileID: 4133692333224117086}
@@ -33563,7 +33569,7 @@ ParticleSystemRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 304880467
-  m_SortingLayer: 8
+  m_SortingLayer: 9
   m_SortingOrder: 0
   m_RenderMode: 0
   m_SortMode: 0
@@ -33600,6 +33606,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59843aa4c0af0774d8bfe7df0d809487, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canFlipFlop: 1
   playAura: 1
   particleObject: {fileID: 4133692334046777440}
   Mother: {fileID: 4133692333224117086}
@@ -38408,7 +38415,7 @@ ParticleSystemRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 304880467
-  m_SortingLayer: 8
+  m_SortingLayer: 9
   m_SortingOrder: 3
   m_RenderMode: 0
   m_SortMode: 0
@@ -38445,6 +38452,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59843aa4c0af0774d8bfe7df0d809487, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canFlipFlop: 1
   playAura: 1
   particleObject: {fileID: 6913297236477194769}
   Mother: {fileID: 4133692333224117086}
@@ -43179,7 +43187,7 @@ ParticleSystemRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 304880467
-  m_SortingLayer: 8
+  m_SortingLayer: 9
   m_SortingOrder: 6
   m_RenderMode: 0
   m_SortMode: 0
@@ -43216,6 +43224,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59843aa4c0af0774d8bfe7df0d809487, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canFlipFlop: 1
   playAura: 1
   particleObject: {fileID: 7934052108605251486}
   Mother: {fileID: 4133692333224117086}

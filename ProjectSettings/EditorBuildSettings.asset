@@ -12,6 +12,6 @@ EditorBuildSettings:
     path: Assets/5. Scenes/SJMScene.unity
     guid: 9c6d79e5998ffe442ab026a22692823c
   - enabled: 0
-    path: Assets/5. Scenes/KHIScene.unity
+    path: Assets/5. Scenes/SampleScene.unity
     guid: 2cda990e2423bbf4892e6590ba056729
   m_configObjects: {}

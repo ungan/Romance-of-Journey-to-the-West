@@ -114,5 +114,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 5
   value: 12
-  damage: 50
+  damage: 75
   skillObject: []

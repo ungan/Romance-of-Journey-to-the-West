@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
+    AudioManager audioManager;
+
     public enum Type { Swing, Shoot, Magic, Magicline, Trap, Explosive, Effect }
     public Type type;
     public int value;
@@ -11,12 +13,26 @@ public class Bullet : MonoBehaviour
 
     public GameObject[] skillObject;
 
+
     bool trapOn = false; //트랩 활성화 bool
 
     void Start()
     {
-        if(value == 9)
-            Invoke("TrapOn", 1f);
+        audioManager = GameObject.Find("AudioManager").GetComponent<AudioManager>();
+
+        switch (value)
+        {
+            case 9:
+                Invoke("TrapOn", 1f);
+                break;
+            case 11:
+                audioManager.PlayBgm("Sa Member 2");
+                break;
+            case 99999:
+                audioManager.PlayBgm("Sa Member 3");
+                break;
+
+        }
     }
     void Update()
     {
@@ -42,7 +58,7 @@ public class Bullet : MonoBehaviour
         }
         else if(type == Type.Effect)
         {
-            Invoke("Gone", 1f);
+            Invoke("Gone", 1.1f);
         }
     }
 

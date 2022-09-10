@@ -11,6 +11,7 @@ public class Character : MonoBehaviour
 
     //조작키
     bool fire1; //마우스1
+    bool fire1Up; //마우스1Up
     bool fire2; //마우스2
     bool fire2Down; //마우스2down
     bool rDown; //r
@@ -32,8 +33,8 @@ public class Character : MonoBehaviour
     public float curHealth; //현재체력
     public int maxAmmo; //최대탄약
     public int curAmmo; //현재탄약
-    public float maxShield = 0; //최대쉴드(저팔계 전용) //SJM
-    public float curShield = 0; //현재쉴드(저팔계 전용) //SJM
+    public int curSoul; //현재 영혼 수집량(저팔계 전용)
+    public int maxSoul; //최대 영혼 수집량(저팔계 전용)
 
     public int followValue; //캐릭터의 기차 위치
     public int posValue; //
@@ -50,6 +51,7 @@ public class Character : MonoBehaviour
     public float curMSkillDelay; //현재-맴버액티브스킬딜레이
     public float maxMemberShotDelay; //최대멤버공격딜레이
     public float curMemberShotDelay; //현재멤버공격딜레이
+    public float curPutButtonFire1Delay; //현재Fire1누른 시간
 
     public Vector3 followPos; //따라가려는 기차의 위치
     public Transform parent; //파티 중심(선봉)
@@ -87,6 +89,10 @@ public class Character : MonoBehaviour
     //중복스킬 방지
     bool noMoreOverlapSkill = true;
 
+    //오디오
+    public AudioManager audioManager;
+    public AudioClip[] audioClip;
+    //public AudioSource[] audioSource;
 
     void Awake()
     {
@@ -94,6 +100,7 @@ public class Character : MonoBehaviour
         parentPos = new Queue<Vector3>();
         sortingGroup = GetComponentInChildren<SortingGroup>();
         anim = GetComponentInChildren<Animator>();
+        audioManager = GameObject.Find("AudioManager").GetComponent<AudioManager>();
     }
 
     void Start()
@@ -129,16 +136,9 @@ public class Character : MonoBehaviour
                 if (partyManager.isRunning) isRunning = true;
                 if (!partyManager.isRunning) isRunning = false;
 
-                //if(isAttacking == true) //공격중
-                //{
+                //Flip-Flop
                 if ((z > 0f && z < 90f) || (z <= 0f && z > -90f)) unitRoot.transform.localScale = new Vector3(-1, 1, 1);
                 if ((z >= 90f && z < 180f) || (z <= -90 && z > -180f)) unitRoot.transform.localScale = new Vector3(1, 1, 1);
-                //}
-                /*if(isAttacking == false) //이동중
-                {
-                    if (partyManager.x > 0) unitRoot.transform.localScale = new Vector3(-1, 1, 1);
-                    if (partyManager.x < 0) unitRoot.transform.localScale = new Vector3(1, 1, 1);
-                }*/
             }
             if (followValue != 1)
             {
@@ -181,15 +181,13 @@ public class Character : MonoBehaviour
 
     void GetInput()
     {
-        //if (!partyManager.t)
-        //{
         fire1 = Input.GetButton("Fire1");
+        fire1Up = Input.GetButtonUp("Fire1");
         fire2 = Input.GetButton("Fire2");
         fire2Down = Input.GetButtonDown("Fire2");
         rDown = Input.GetButtonDown("Reload");
         skill1Down = Input.GetButtonDown("Skill1");
         skill2Down = Input.GetButtonDown("Skill2");
-        //}
     }
 
     void Stats() //스탯
@@ -209,10 +207,8 @@ public class Character : MonoBehaviour
                 curHealth = 200;
                 maxAmmo = 2;
                 curAmmo = 2;
-                maxLSkillDelay = 5f;
-                maxMSkillDelay = 5f;
-                maxShield = 1000;
-                curShield = maxShield;
+                maxLSkillDelay = 10f;
+                maxMSkillDelay = 15f;
                 break;
             case 2: //사오정
                 maxHealth = 75;
@@ -444,12 +440,26 @@ public class Character : MonoBehaviour
             switch (value)
             {
                 case 0: //손오공
-                    if (fire1 && !isReloading) //일반공격(근접)
+                    if (fire1Up && curPutButtonFire1Delay <= 0.2f && !isReloading) //일반공격(근접)
                     {
-                        if (curShotDelay < maxShotDelay || !partyManager.canSwap)
+                        if (curShotDelay < maxShotDelay || !partyManager.canSwap || curAmmo <= 0)
                             return;
 
                         StartCoroutine(NormalAttack(rotateDg));
+                    }
+                    if(fire1 && curPutButtonFire1Delay > 0.2f && !isReloading) //차지 공격 차지(근접)
+                    {
+                        if (curShotDelay < maxShotDelay || !partyManager.canSwap || curAmmo <= 0)
+                            return;
+
+                        StartCoroutine(ChargeAttackReady(rotateDg));
+                    }
+                    if(fire1Up && curPutButtonFire1Delay > 0.2f && !isReloading) //차지 공격(근접)
+                    {
+                        if (curShotDelay < maxShotDelay || !partyManager.canSwap || curAmmo <= 0)
+                            return;
+
+                        StartCoroutine(ChargeAttack(rotateDg));
                     }
                     if (fire2Down) //리더 액티브 스킬-회피(대시)
                     {
@@ -460,15 +470,30 @@ public class Character : MonoBehaviour
                         curDashCount--;
                         curDashDelay = 0;
                         partyManager.StartCoroutine("Dash"); //닷지
+                        audioManager.PlayBgm("Son Leader");
                         StartCoroutine(Push(0)); //닷지
                     }
                     break;
                 case 1: //저팔계
-                    if (fire1 && !isReloading) //화염구
+                    if (fire1Up && curPutButtonFire1Delay <= 0.2f && !isReloading) //다연화창 발사
                     {
-                        if (curShotDelay < maxShotDelay || !partyManager.canSwap)
+                        if (curShotDelay < maxShotDelay || !partyManager.canSwap || curAmmo <= 0)
                             return;
                         StartCoroutine(NormalAttack(rotateDg));
+                    }
+                    if (fire1 && curPutButtonFire1Delay > 0.2f && !isReloading) //차지 공격 차지(근접)
+                    {
+                        if (curShotDelay < maxShotDelay || !partyManager.canSwap || curAmmo <= 0)
+                            return;
+
+                        StartCoroutine(ChargeAttackReady(rotateDg));
+                    }
+                    if (fire1Up && curPutButtonFire1Delay > 0.2f && !isReloading) //차지 공격(근접)
+                    {
+                        if (curShotDelay < maxShotDelay || !partyManager.canSwap || curAmmo <= 0)
+                            return;
+
+                        StartCoroutine(ChargeAttack(rotateDg));
                     }
                     if (fire2Down) //리더 액티브 스킬-이탈형 스킬, 어그로
                     {
@@ -543,7 +568,7 @@ public class Character : MonoBehaviour
                             return;
                         else if (curMSkillDelay >= maxMSkillDelay)
                         {
-
+                            StartCoroutine("SupportSkill");
                         }
                         break;
                     case 2: //사오정
@@ -551,6 +576,7 @@ public class Character : MonoBehaviour
                             return;
                         else if (curMSkillDelay >= maxMSkillDelay)
                         {
+                            audioManager.PlayBgm("Sa Member 1");
                             bullet = Instantiate(skillObject[3], this.transform.position, Quaternion.Euler(0, 0, 0));
                             curMSkillDelay = 0;
                         }
@@ -577,12 +603,25 @@ public class Character : MonoBehaviour
 
     void Reload()
     {
-        if ((rDown && partyManager.charactersIndex == posValue || curAmmo == 0) && !isReloading)
+        if ((rDown && partyManager.charactersIndex == posValue || curAmmo <= 0 && curShotDelay >= maxShotDelay) && !isReloading)
         {
             if (curAmmo >= maxAmmo)
                 return;
             else if (curAmmo < maxAmmo)
             {
+                int ranAudio;
+                switch (value)
+                {
+                    case 0: //손오공
+                        break;
+                    case 1: //저팔계
+                        ranAudio = Random.Range(1, 3);
+                        if (!isReloading) audioManager.PlayBgm("Jeo Reload " + ranAudio);
+                        break;
+                    case 2: //사오정
+                        break;
+                }
+                if (!isReloading) audioManager.PlayBgm("");
                 isReloading = true;
                 Invoke("ReloadOut", reloadTime);
             }
@@ -593,6 +632,25 @@ public class Character : MonoBehaviour
     {
         this.curAmmo = this.maxAmmo;
         isReloading = false;
+    }
+
+    public IEnumerator Heal(float healAmount)
+    {
+        float remainingAmount = maxHealth - curHealth;
+
+        if(healAmount >= remainingAmount)
+        {
+            curHealth += remainingAmount;
+        }
+        else
+        {
+            curHealth += healAmount;
+        }
+
+        skillObject[5].SetActive(true);
+        audioManager.PlayBgm("Healing");
+        yield return new WaitForSeconds(1f);
+        skillObject[5].SetActive(false);
     }
 
     void Delay()
@@ -624,24 +682,25 @@ public class Character : MonoBehaviour
         {
             curMemberShotDelay = 0f;
         }
+
+        if (fire1) //fire1 누르는 시간 체크
+        {
+            curPutButtonFire1Delay += Time.deltaTime;
+        }
+        else
+        {
+            curPutButtonFire1Delay = 0f;
+        }
     }
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Enemy" && isLeaving && value == 1)
-        {
-            StartCoroutine("ShieldDamaged");
-        }
-    }
 
-    IEnumerator ShieldDamaged()
-    {
-        curShield -= enemy.damage;
-        yield return null;
     }
 
     IEnumerator NormalAttack(float rotateDg) //일반공격
     {
+        int ranAudio;
 
         GameObject bullet;
         Rigidbody2D rigid;
@@ -650,10 +709,13 @@ public class Character : MonoBehaviour
         {
             case 0: //손오공
                 curAmmo--;
+                ranAudio = Random.Range(1, 3); //1~2
                 skillObject[0].SetActive(true);
                 skillObject[0].transform.rotation = Quaternion.Euler(0, 0, rotateDg);
                 isAttacking = true;
                 anim.SetTrigger("ClosedAttack");
+                audioManager.PlayBgm("Son Attack Chain");
+                audioManager.PlayBgm("Son Attack " + ranAudio);
                 curShotDelay = 0;
                 yield return new WaitForSeconds(0.25f);
                 AttackFinished();
@@ -668,6 +730,7 @@ public class Character : MonoBehaviour
                     rigid.AddForce(dir.normalized * Random.Range(20f, 38f), ForceMode2D.Impulse);
                 }
                 isAttacking = true;
+                audioManager.PlayBgm("Jeo Attack");
                 anim.SetTrigger("MagicAttack");
 
                 curShotDelay = 0;
@@ -678,6 +741,7 @@ public class Character : MonoBehaviour
             case 2: //사오정
                 isAttacking = true;
                 anim.SetTrigger("MagicSkill");
+                audioManager.PlayBgm("Sa Attack 1");
                 skillObject[0].SetActive(true);
 
                 curShotDelay = 0;
@@ -689,6 +753,68 @@ public class Character : MonoBehaviour
         }
 
         isAttacking = false;
+    }
+
+    IEnumerator ChargeAttackReady(float rotateDg) //차지공격 준비
+    {
+        GameObject bullet;
+        Rigidbody2D rigid;
+
+        switch (value)
+        {
+            case 0: //손오공
+                skillObject[3].SetActive(true);
+                if(skillObject[3].transform.localScale.x <= 25)
+                    skillObject[3].transform.localScale += new Vector3(0.05f, 0.05f, 0);
+                if (!partyManager.isAttacking) audioManager.PlayBgm("Son Charge Ready");
+                break;
+            case 1: //저팔계
+                
+                break;
+
+        }
+
+        partyManager.isAttacking = true;
+        yield return null;
+    }
+    IEnumerator ChargeAttack(float rotateDg) //차지공격 발사
+    {
+        GameObject bullet;
+        Rigidbody2D rigid;
+
+        switch (value)
+        {
+            case 0: //손오공
+                curAmmo = 0;
+                audioManager.StopBgm("Son Charge Ready");
+                skillObject[3].SetActive(false);
+                skillObject[4].transform.localScale = skillObject[3].transform.localScale;
+                skillObject[3].transform.localScale = new Vector3(15f, 15f, 15f);
+                yield return new WaitForSeconds(0.05f);
+                skillObject[4].SetActive(true);
+                audioManager.PlayBgm("Son Charge");
+                yield return new WaitForSeconds(0.3f);
+                skillObject[4].SetActive(false);
+                partyManager.isAttacking = false;
+                curShotDelay = 0;
+                break;
+            case 1: //저팔계
+                curAmmo = 0;
+                curShotDelay = 0;
+                skillObject[2].transform.rotation = Quaternion.Euler(0, 0, rotateDg);
+                skillObject[2].SetActive(true);
+                audioManager.PlayBgm("Jeo Charge");
+                cam.Shake(0.3f, 2f);
+                yield return new WaitForSeconds(0.25f);
+                curShotDelay = 0;
+                yield return new WaitForSeconds(0.25f);
+                curShotDelay = 0;
+                skillObject[2].SetActive(false);
+                partyManager.isAttacking = false;
+                break;
+        }
+
+        yield return null;
     }
 
     IEnumerator LeavingSkill()
@@ -726,7 +852,9 @@ public class Character : MonoBehaviour
             if (value == 1) //저팔계
             {
                 anim.SetTrigger("MagicSkill");
+                audioManager.PlayBgm("Jeo Leader 1");
                 yield return new WaitForSeconds(0.2f);
+                audioManager.PlayBgm("Jeo Leader 2");
                 skillObject[1].SetActive(true);
                 cam.Shake(0.4f, 1);
 
@@ -743,7 +871,6 @@ public class Character : MonoBehaviour
         {
             skillObject[1].SetActive(false);
             partyManager.controlList[leavingIndex] = true;
-            curShield = maxShield;
         }
 
         yield return null;
@@ -757,11 +884,6 @@ public class Character : MonoBehaviour
             isLeaving = false;
             Debug.Log("혼자 남았기 때문에 스킬을 쓸 수 없습니다!");
         }
-        if (curShield <= 0)
-        {
-            isLeaving = false;
-            Debug.Log("쉴드 깨짐!");
-        }
 
         if (!isLeaving)
         {
@@ -774,12 +896,32 @@ public class Character : MonoBehaviour
 
     IEnumerator SupportSkill()
     {
-        if (value == 2)
+        curMSkillDelay = 0;
+
+        switch (value)
         {
-            partyManager.speed += (partyManager.speed / 4);
-            yield return new WaitForSeconds(5f);
-            partyManager.speed = 10f;
+            case 1:
+                audioManager.PlayBgm("Jeo Member 1");
+                if (curSoul >= 0 && curSoul < 25) // 0 <= soul < 25
+                {
+                    Debug.Log("영혼 1단계");
+                }
+                else if (curSoul >= 25 && curSoul < 50) // 25 <= soul < 50
+                {
+                    Debug.Log("영혼 2단계");
+                }
+                else if (curSoul >= 50 && curSoul < 75) // 50 <= soul < 75
+                {
+                    Debug.Log("영혼 3단계");
+                }
+                else if (curSoul >= 75) // 75 <= soul
+                {
+                    Debug.Log("영혼 4단계");
+                }
+                curSoul = 0;
+                break;
         }
+        yield return null;
     } //지원형 스킬
 
     IEnumerator Push(float rotateDg)
@@ -796,9 +938,13 @@ public class Character : MonoBehaviour
         {
             partyManager.isStopping = true;
             skillObject[1].SetActive(true);
+            audioManager.PlayBgm("Sa Leader Ready");
             yield return new WaitForSeconds(0.3f);
             skillObject[1].SetActive(false);
+            audioManager.StopBgm("Sa Leader Ready");
             GameObject bullet = Instantiate(skillObject[2], skillPositionCenter.transform.position, Quaternion.Euler(0, 0, rotateDg));
+            audioManager.PlayBgm("Sa Leader 1");
+            audioManager.PlayBgm("Sa Leader 2");
             yield return new WaitForSeconds(0.1f);
             partyManager.isStopping = false;
             cam.Shake(0.6f, 2);
@@ -871,7 +1017,6 @@ public class Character : MonoBehaviour
             StartCoroutine(DownednDead());
         }
     }
-
 
     IEnumerator DownednDead() //사망
     {
