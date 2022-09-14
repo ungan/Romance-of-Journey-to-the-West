@@ -123,7 +123,7 @@ public class AudioManager : MonoBehaviour
     {
         for (int i = 0; i < bgms.Length; i++)
         {
-            GameObject bgmObject = new GameObject("Audio No." + i + bgms[i].name);
+            GameObject bgmObject = new GameObject("Audio No." + i + " " + bgms[i].name);
             bgms[i].SetSource(bgmObject.AddComponent<AudioSource>());
             bgmObject.transform.SetParent(transform);
         }

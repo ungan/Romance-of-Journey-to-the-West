@@ -94,6 +94,9 @@ public class Character : MonoBehaviour
     public AudioClip[] audioClip;
     //public AudioSource[] audioSource;
 
+    //오브젝트매니저
+    ObjectManager objectManager;
+
     void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
@@ -101,6 +104,7 @@ public class Character : MonoBehaviour
         sortingGroup = GetComponentInChildren<SortingGroup>();
         anim = GetComponentInChildren<Animator>();
         audioManager = GameObject.Find("AudioManager").GetComponent<AudioManager>();
+        objectManager = GameObject.Find("ObjectManager").GetComponent<ObjectManager>();
     }
 
     void Start()
@@ -577,7 +581,7 @@ public class Character : MonoBehaviour
                         else if (curMSkillDelay >= maxMSkillDelay)
                         {
                             audioManager.PlayBgm("Sa Member 1");
-                            bullet = Instantiate(skillObject[3], this.transform.position, Quaternion.Euler(0, 0, 0));
+                            bullet = objectManager.MakeObj("Trap Seed", this.transform.position, Quaternion.Euler(0, 0, 0));
                             curMSkillDelay = 0;
                         }
                         break;
@@ -724,7 +728,7 @@ public class Character : MonoBehaviour
                 curAmmo--;
                 for (int index = 0; index < 7; index++)
                 {
-                    bullet = Instantiate(skillObject[0], skillPositionCenter.transform.position, Quaternion.Euler(0, 0, rotateDg));
+                    bullet = objectManager.MakeObj("Shotgun Bullet", skillPositionCenter.transform.position, Quaternion.Euler(0, 0, rotateDg));
                     rigid = bullet.GetComponent<Rigidbody2D>();
                     dir += ran;
                     rigid.AddForce(dir.normalized * Random.Range(20f, 38f), ForceMode2D.Impulse);
@@ -942,7 +946,7 @@ public class Character : MonoBehaviour
             yield return new WaitForSeconds(0.3f);
             skillObject[1].SetActive(false);
             audioManager.StopBgm("Sa Leader Ready");
-            GameObject bullet = Instantiate(skillObject[2], skillPositionCenter.transform.position, Quaternion.Euler(0, 0, rotateDg));
+            GameObject bullet = objectManager.MakeObj("SnipeSkillShot", skillPositionCenter.transform.position, Quaternion.Euler(0, 0, rotateDg));
             audioManager.PlayBgm("Sa Leader 1");
             audioManager.PlayBgm("Sa Leader 2");
             yield return new WaitForSeconds(0.1f);
@@ -960,8 +964,8 @@ public class Character : MonoBehaviour
     }
     IEnumerator DashRail()
     {
-        yield return new WaitForSeconds(0.01f);
-        GameObject bullet = Instantiate(skillObject[1], skillPositionCenter.transform.position, Quaternion.Euler(0, 0, 0));
+        yield return new WaitForSeconds(0.05f);
+        GameObject bullet = objectManager.MakeObj("FireRail", skillPositionCenter.transform.position, Quaternion.Euler(0, 0, 0));
     }
 
     void AttackFinished()
