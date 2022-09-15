@@ -16,7 +16,7 @@ public class enemey_ani : MonoBehaviour
     float curonDelay;               // 공격 이펙트가 얼마나 보였는지 세어주는 변수
     void Start()
     {
-        
+
         particle_position_right = attack_mark.transform.localPosition.x * -1;
         particle_position_left = attack_mark.transform.localPosition.x;
     }
@@ -24,18 +24,16 @@ public class enemey_ani : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     void particle_start()
     {
-        pc.isTrigger = false;
-        //Debug.Log("enemy.sight_right" + enemy.sight_right);
         if (enemy.sight_right == true)
         {
-            
-            if(attack_mark.transform.localScale.x<0) attack_mark.transform.localScale = new Vector3(attack_mark.transform.localScale.x*-1, attack_mark.transform.localScale.y, attack_mark.transform.localScale.z);
-            if (attack_mark.transform.localPosition.x <  0) attack_mark.transform.localPosition = new Vector3(particle_position_right, attack_mark.transform.localPosition.y, 1f);
+
+            if (attack_mark.transform.localScale.x < 0) attack_mark.transform.localScale = new Vector3(attack_mark.transform.localScale.x * -1, attack_mark.transform.localScale.y, attack_mark.transform.localScale.z);
+            if (attack_mark.transform.localPosition.x < 0) attack_mark.transform.localPosition = new Vector3(particle_position_right, attack_mark.transform.localPosition.y, 1f);
 
             attack_mark.SetActive(true);
         }
@@ -49,10 +47,10 @@ public class enemey_ani : MonoBehaviour
 
     void atk_end()
     {
-        
+
         attack_range.SetActive(false);
         attack_mark.SetActive(false);
-        if (enemy.issight_range == true)
+        if (enemy.issight_range == true && enemy.inrange_dash == true)
         {
             enemy.enemy_state = e_state.attack_ready;
         }
@@ -61,12 +59,12 @@ public class enemey_ani : MonoBehaviour
             enemy.enemy_state = e_state.Follow;
         }
 
-       
+
     }
     void atk_start()
     {
         attack_range.SetActive(true);
-        
+
     }
 
     void atkready_end()
