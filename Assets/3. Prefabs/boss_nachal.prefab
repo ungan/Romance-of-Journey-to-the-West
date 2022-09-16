@@ -1,0 +1,220 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &135929496
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 135929497}
+  m_Layer: 0
+  m_Name: endpoint_right_down
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &135929497
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 135929496}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 28.8, y: -3.4, z: -110.88483}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 241947956510941505}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1337168442
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1337168443}
+  m_Layer: 0
+  m_Name: startpoint_left_up
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1337168443
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1337168442}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -27.98, y: 21.35, z: -110.88483}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 241947956510941505}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &5161893504635840760
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 241947956510941505}
+  - component: {fileID: 2581118212212024636}
+  - component: {fileID: 611383723}
+  m_Layer: 0
+  m_Name: boss_nachal
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &241947956510941505
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5161893504635840760}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1, y: 8, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1337168443}
+  - {fileID: 135929497}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!212 &2581118212212024636
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5161893504635840760}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_Sprite: {fileID: 21300000, guid: 99820f4c5e20d01479e455211efb8629, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 2, y: 2}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
+  m_SpriteSortPoint: 0
+--- !u!114 &611383723
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5161893504635840760}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4edb19491636c7f439ac5fc812b6c528, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  radiius: 2
+  maxlightning: 0.25
+  curlightning: 0
+  curpatton_time: 0
+  maxpatton_time: 5
+  curstoptime_patton: 0
+  maxstoptime_patton: 10
+  numchild: 12
+  lightning_count: 0
+  lightning_count_1: 0
+  lightning_count_2: 0
+  lightning_chess_downtoup_count: 0
+  lightning_chess_uptodown_count: 0
+  c: 0
+  n: 0
+  can_lightning: 1
+  can_lightning_ready: 0
+  can_lightning_ready_1: 0
+  can_lightning_ready_2: 0
+  ex_phase: 0
+  isLight_circle_button: 0
+  isLight_circle_button_ex_phase: 0
+  isLight_chess_button_downtoup: 0
+  isLight_chess_button_uptodown: 0
+  isLight_chess_button_vertical: 0
+  isLight_chess_button_ex_phase: 0
+  isLight_vertical_downtoup_button: 0
+  isLight_vertical_uptodown_button: 0
+  isLight_vertical_synthesize_button: 0
+  isLight_horizontal_lefttoright_button: 0
+  isLight_horizontal_righttoleft_button: 0
+  isLight_horizontal_righttoleft_synthesize_button: 0
+  isbutton: 0
+  isgod_hand_button: 0
+  isgod_hand_grab: 0
+  isLight_chess: 0
+  isboss_patton: 0
+  isLight_chess_uptodown: 0
+  isLight_chess_downtoup: 0
+  isLight_vertical_downtoup: 0
+  isLight_vertical_uptodown: 0
+  isLight_horizontal_lefttoright: 0
+  isLight_horizontal_righttoleft: 0
+  isboss_delay: 0
+  iscooltime_to_lightning_co: 0
+  isLight_chess_exphase: 0
+  reset: 1
+  reset_1: 1
+  reset_2: 1
+  isLight_chess_uptodown_reset: 1
+  isLight_chess_downtoup_reset: 1
+  isLight_vertical_uptodown_reset: 1
+  isLight_vertical_downtoup_reset: 1
+  lightning: {fileID: 0}
+  lightning_preview: {fileID: 0}
+  go: {fileID: 0}
+  startpoint_left_up: {fileID: 1337168442}
+  endpoint_right_down: {fileID: 135929496}
+  god_hand: {fileID: 8091189659598125716, guid: 06c2df2b8eb86a544be2d2f701978d74,
+    type: 3}
+  god_hand_grab_gob: {fileID: 0}
+  partyManager: {fileID: 0}
