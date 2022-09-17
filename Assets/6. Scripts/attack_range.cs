@@ -18,10 +18,10 @@ public class attack_range : MonoBehaviour
             if (enemy_ai.isdead == false)
             {
                 enemy_ai.inrange = true;
-
                 crash_point.transform.position = collision.gameObject.GetComponent<Collider2D>().ClosestPoint(transform.position);
                 if (enemy_ai.enemy_state == e_state.attack)
                 {
+                    Debug.Log("aaQQ");
                     enemy_ai.enemy_atk();
                     crash_point.SetActive(true);
                     gameObject.SetActive(false);

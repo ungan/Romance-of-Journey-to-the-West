@@ -355,7 +355,8 @@ public class Enemy_ai : MonoBehaviour
             dash_target = partyManager.transform.position;
             move_false();       // a* 움직임 봉쇄
         }
-
+        Debug.Log("asd" + ADS.target);
+        Debug.Log("dash_target : " + dash_target);
         transform.position = Vector3.MoveTowards(transform.position, dash_target, 5f * Time.deltaTime);
 
         if (Mathf.Round(transform.position.x * 100) == Mathf.Round(dash_target.x * 100) && Mathf.Round(transform.position.y * 100) == Mathf.Round(dash_target.y * 100))        // 목적지 도착
@@ -363,10 +364,12 @@ public class Enemy_ai : MonoBehaviour
             move_true();        // a* 움직임 활성화
             if (issight_range == true)
             {
+                Debug.Log("ready");
                 enemy_state = e_state.attack_ready;
             }
             else if (issight_range == false)
             {
+                Debug.Log("follow");
                 enemy_state = e_state.Follow;
             }
         }

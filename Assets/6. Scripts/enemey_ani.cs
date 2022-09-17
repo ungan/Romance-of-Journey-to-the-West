@@ -17,8 +17,8 @@ public class enemey_ani : MonoBehaviour
     void Start()
     {
 
-        particle_position_right = attack_mark.transform.localPosition.x * -1;
-        particle_position_left = attack_mark.transform.localPosition.x;
+        //particle_position_right = attack_mark.transform.localPosition.x * -1;
+        //particle_position_left = attack_mark.transform.localPosition.x;
     }
 
     // Update is called once per frame
@@ -29,6 +29,7 @@ public class enemey_ani : MonoBehaviour
 
     void particle_start()
     {
+        /*
         if (enemy.sight_right == true)
         {
 
@@ -42,14 +43,14 @@ public class enemey_ani : MonoBehaviour
             if (attack_mark.transform.localScale.x > 0) attack_mark.transform.localScale = new Vector3(attack_mark.transform.localScale.x * -1, attack_mark.transform.localScale.y, attack_mark.transform.localScale.z);
             if (attack_mark.transform.localPosition.x > 0) attack_mark.transform.localPosition = new Vector3(particle_position_left, attack_mark.transform.localPosition.y, 1f);
             attack_mark.SetActive(true);
-        }
+        }*/
     }
 
     void atk_end()
     {
 
         attack_range.SetActive(false);
-        attack_mark.SetActive(false);
+        //attack_mark.SetActive(false);
         if (enemy.issight_range == true && enemy.inrange_dash == true)
         {
             enemy.enemy_state = e_state.attack_ready;

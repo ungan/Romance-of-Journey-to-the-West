@@ -22,7 +22,16 @@ public class dash : MonoBehaviour
                     enemy_ai.dash_crash();
                     dash_effect.SetActive(false);
                     enemy_ai.isdash_effect = false;
-                    enemy_ai.enemy_state = e_state.Follow;
+                    if (enemy_ai.issight_range == true)
+                    {
+                        Debug.Log("ready");
+                        enemy_ai.enemy_state = e_state.attack_ready;
+                    }
+                    else if (enemy_ai.issight_range == false)
+                    {
+                        Debug.Log("follow");
+                        enemy_ai.enemy_state = e_state.Follow;
+                    }
                 }
             }
         }
