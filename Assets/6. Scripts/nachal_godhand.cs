@@ -6,14 +6,20 @@ public class nachal_godhand : MonoBehaviour
 {
     public SpriteRenderer hand_sprite;
     public GameObject hand;
-    
+    public GameObject hand_smoke;
+    public GameObject godhand;
     float Dist = 2f;
     float Speed = 1f;
     float count = 0;
     Vector3 destination;
 
-    
 
+
+    private void OnEnable()     // 이 오브젝트가 켜질때 사용될 것
+    {
+        hand_smoke.SetActive(false);
+        destination = new Vector3(hand.transform.position.x, hand.transform.position.y - 4f, 0f);
+    }
     // Start is called before the first frame update
     void Start()
     {
@@ -40,6 +46,16 @@ public class nachal_godhand : MonoBehaviour
         else
         {
             hand_sprite.color = new Color(hand_sprite.color.r, hand_sprite.color.g, hand_sprite.color.b, hand_sprite.color.a - Time.deltaTime);
+            hand_smoke.transform.position = new Vector3(transform.position.x, transform.position.y-0.3f, transform.position.z);
+            hand_smoke.SetActive(true);
+        }
+
+
+        //Debug.Log("a : " + hand_sprite.color.a);
+        if (hand_sprite.color.a <= 0)
+        {
+            Debug.Log("a");
+            Destroy(godhand);
         }
 
         /*

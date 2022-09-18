@@ -65,7 +65,7 @@ public class boss_nachal : MonoBehaviour
     public GameObject startpoint_left_up;        // 시작 지점 왼쪽 위   
     public GameObject endpoint_right_down;       // 아래 지점 왼쪽 아래
     public GameObject god_hand;
-    public GameObject god_hand_grab_gob;
+    public GameObject god_hand_grab_obj;
     public GameObject partyManager;
 
     // Start is called before the first frame update
@@ -152,7 +152,8 @@ public class boss_nachal : MonoBehaviour
     public void god_hand_grab()
     {
         
-        Instantiate(god_hand, partyManager.transform.position , Quaternion.identity);
+        Instantiate(god_hand_grab_obj, partyManager.transform.position , Quaternion.identity);
+        
         isgod_hand_grab = false;
     }
 

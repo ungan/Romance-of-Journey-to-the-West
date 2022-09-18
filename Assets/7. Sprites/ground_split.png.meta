@@ -1,16 +1,16 @@
 fileFormatVersion: 2
-guid: d903f4107f63c5949ab1533126bdf31a
+guid: 8cd71668b203ab24c812a6b97fdc8d96
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -5240385926584321282
-    second: split_ground_0
+      213: -6002727374275579971
+    second: ground_split_0
   - first:
-      213: 8257767091856323806
-    second: split_ground_1
+      213: -2508405015266568188
+    second: ground_split_1
   - first:
-      213: -7722978372509038338
-    second: split_ground_2
+      213: -858082005231473665
+    second: ground_split_2
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -96,13 +96,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: split_ground_0
+      name: ground_split_0
       rect:
         serializedVersion: 2
-        x: 116
-        y: 151
-        width: 76
-        height: 89
+        x: 15
+        y: 43
+        width: 8
+        height: 8
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -110,20 +110,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: efa3cf7b3c86647b0800000000000000
-      internalID: -5240385926584321282
+      spriteID: dbf6ac4c14702bca0800000000000000
+      internalID: -6002727374275579971
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: split_ground_1
+      name: ground_split_1
       rect:
         serializedVersion: 2
-        x: 308
-        y: 104
-        width: 167
-        height: 173
+        x: 32
+        y: 39
+        width: 16
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -131,20 +131,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ed4b1042b6b799270800000000000000
-      internalID: 8257767091856323806
+      spriteID: 4085a30cdea503dd0800000000000000
+      internalID: -2508405015266568188
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: split_ground_2
+      name: ground_split_2
       rect:
         serializedVersion: 2
-        x: 650
-        y: 58
-        width: 232
-        height: 258
+        x: 60
+        y: 35
+        width: 23
+        height: 23
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -152,8 +152,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ef8039a961872d490800000000000000
-      internalID: -7722978372509038338
+      spriteID: ffbe50a66fa7714f0800000000000000
+      internalID: -858082005231473665
       vertices: []
       indices: 
       edges: []

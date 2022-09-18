@@ -37,6 +37,12 @@ public class nachal_godhand_grab : MonoBehaviour
 
     }
 
+    private void OnEnable()     // 이 오브젝트가 켜질때 사용될 것
+    {
+        partyManager = GameObject.Find("Party").GetComponent<PartyManager>();  //파티(플레이어)찾기 SJM
+        destination = new Vector3(hand.transform.position.x, hand.transform.position.y + 4f, 0f);
+    }
+
     // Start is called before the first frame update
     void Start()
     {
