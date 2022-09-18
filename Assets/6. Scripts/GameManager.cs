@@ -1,11 +1,22 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
+[System.Serializable]
+public class ClassInfo //프리펩 정보 클래스
+{
+    public string characterName; //캐릭터 이름
+    public GameObject group;
+    public RectTransform[] skillTransform; //스킬이미지
+    public Text[] skillDelay; //스킬딜레이
+}
+
 public class GameManager : MonoBehaviour
 {
+
     //scripts
     public PartyManager partyManager;
     public Character[] character;
@@ -35,8 +46,14 @@ public class GameManager : MonoBehaviour
     //bool
     public bool[] swapChoice;
 
+    //Skill
+    [SerializeField]
+    public ClassInfo[] classInfos = null;
+
     void LateUpdate()
     {
+        StartCoroutine(CoolTime());
+
         health.text = character[partyManager.list[partyManager.charactersIndex]].curHealth + " / " + character[partyManager.list[partyManager.charactersIndex]].maxHealth;
         playerHealthBar.localScale = new Vector3(character[partyManager.list[partyManager.charactersIndex]].curHealth / character[partyManager.list[partyManager.charactersIndex]].maxHealth, 1, 1);
         ammo.text = character[partyManager.list[partyManager.charactersIndex]].curAmmo + " / " + character[partyManager.list[partyManager.charactersIndex]].maxAmmo;
@@ -138,5 +155,72 @@ public class GameManager : MonoBehaviour
     public void GameRetry()
     {
         SceneManager.LoadScene(1);
+    }
+
+    IEnumerator CoolTime()
+    {
+        Character curChar = partyManager.characterScripts[partyManager.charactersIndex];
+
+        for(int i = 0; i < classInfos.Length; i++)
+        {
+            if (i == partyManager.charactersIndex) classInfos[i].group.SetActive(true);
+            else classInfos[i].group.SetActive(false);
+        }
+
+        if (curChar.maxChargeDelay > curChar.curChargeDelay) //Charge
+        {
+            int max = (int)Math.Ceiling(curChar.maxChargeDelay);
+            int cur = (int)Math.Ceiling(curChar.curChargeDelay);
+
+            //classInfos[partyManager.charactersIndex].skillTransform[1].gameObject.SetActive(true);
+            //classInfos[partyManager.charactersIndex].skillDelay[1].gameObject.SetActive(true);
+
+            //classInfos[partyManager.charactersIndex].skillTransform[1].localScale = new Vector3(1, 1 - curChar.curChargeDelay / curChar.maxChargeDelay, 1);
+            //classInfos[partyManager.charactersIndex].skillDelay[1].text = (max + 1 - cur) + "";
+
+        }
+        else
+        {
+            classInfos[partyManager.charactersIndex].skillTransform[1].gameObject.SetActive(false);
+            classInfos[partyManager.charactersIndex].skillDelay[1].gameObject.SetActive(false);
+        }
+        if (curChar.maxLSkillDelay > curChar.curLSkillDelay) //LSkill
+        {
+            int max = (int)Math.Ceiling(curChar.maxLSkillDelay);
+            int cur = (int)Math.Ceiling(curChar.curLSkillDelay);
+
+            classInfos[partyManager.charactersIndex].skillTransform[2].gameObject.SetActive(true);
+            classInfos[partyManager.charactersIndex].skillDelay[2].gameObject.SetActive(true);
+
+            classInfos[partyManager.charactersIndex].skillTransform[2].localScale = new Vector3(1, 1 - curChar.curLSkillDelay / curChar.maxLSkillDelay, 1);
+            classInfos[partyManager.charactersIndex].skillDelay[2].text = (max+1 - cur) + ""; //LeaderSkill
+
+        }
+        else
+        {
+            classInfos[partyManager.charactersIndex].skillTransform[2].gameObject.SetActive(false);
+            classInfos[partyManager.charactersIndex].skillDelay[2].gameObject.SetActive(false);
+        }
+        if (curChar.maxMSkillDelay > curChar.curMSkillDelay) //MSkill
+        {
+            int max = (int)Math.Ceiling(curChar.maxMSkillDelay);
+            int cur = (int)Math.Ceiling(curChar.curMSkillDelay);
+
+            classInfos[partyManager.charactersIndex].skillTransform[3].gameObject.SetActive(true);
+            classInfos[partyManager.charactersIndex].skillDelay[3].gameObject.SetActive(true);
+
+            classInfos[partyManager.charactersIndex].skillTransform[3].localScale = new Vector3(1, 1 - curChar.curMSkillDelay / curChar.maxMSkillDelay, 1);
+            classInfos[partyManager.charactersIndex].skillDelay[3].text = (max + 1 - cur) + ""; //LeaderSkill
+
+        }
+        else
+        {
+            classInfos[partyManager.charactersIndex].skillTransform[3].gameObject.SetActive(false);
+            classInfos[partyManager.charactersIndex].skillDelay[3].gameObject.SetActive(false);
+        }
+
+
+
+        yield return null;
     }
 }

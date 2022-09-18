@@ -1,0 +1,560 @@
+fileFormatVersion: 2
+guid: dbf02d74c0a147347a8b5aa8b2cd8330
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 7028812044657470792
+    second: ogong_fix_0
+  - first:
+      213: 6886456943074838304
+    second: ogong_fix_1
+  - first:
+      213: 6719861542170335513
+    second: ogong_fix_2
+  - first:
+      213: 8553973047300331946
+    second: ogong_fix_3
+  - first:
+      213: 3962192382408330324
+    second: ogong_fix_4
+  - first:
+      213: 4271699044294518084
+    second: ogong_fix_5
+  - first:
+      213: -7988452177075853485
+    second: ogong_fix_6
+  - first:
+      213: -3608802453645952975
+    second: ogong_fix_7
+  - first:
+      213: 8534754180583901136
+    second: ogong_fix_8
+  - first:
+      213: -1775367257465426954
+    second: ogong_fix_9
+  - first:
+      213: 6336154255678190097
+    second: ogong_fix_10
+  - first:
+      213: 4328360363222777897
+    second: ogong_fix_11
+  - first:
+      213: 3362036106117614517
+    second: ogong_fix_12
+  - first:
+      213: 6209725711302368789
+    second: ogong_fix_13
+  - first:
+      213: 7765318828645146375
+    second: ogong_fix_14
+  - first:
+      213: 8550941071138651544
+    second: ogong_fix_15
+  - first:
+      213: 1032598857605636198
+    second: ogong_fix_16
+  - first:
+      213: 3010831000737934987
+    second: ogong_fix_17
+  - first:
+      213: -2237396355925429842
+    second: ogong_fix_18
+  externalObjects: {}
+  serializedVersion: 11
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: -1
+    mipBias: -100
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  applyGammaDecoding: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: ogong_fix_0
+      rect:
+        serializedVersion: 2
+        x: 60
+        y: 26
+        width: 9
+        height: 72
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 84dabca705b5b8160800000000000000
+      internalID: 7028812044657470792
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ogong_fix_1
+      rect:
+        serializedVersion: 2
+        x: 89
+        y: 91
+        width: 8
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0278ffc8a1c919f50800000000000000
+      internalID: 6886456943074838304
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ogong_fix_2
+      rect:
+        serializedVersion: 2
+        x: 112
+        y: 87
+        width: 8
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9191fd0287eb14d50800000000000000
+      internalID: 6719861542170335513
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ogong_fix_3
+      rect:
+        serializedVersion: 2
+        x: 133
+        y: 77
+        width: 23
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: aa91a966a21d5b670800000000000000
+      internalID: 8553973047300331946
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ogong_fix_4
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 12
+        width: 47
+        height: 77
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 45c053daaf88cf630800000000000000
+      internalID: 3962192382408330324
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ogong_fix_5
+      rect:
+        serializedVersion: 2
+        x: 168
+        y: 86
+        width: 23
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 445ec8af5af184b30800000000000000
+      internalID: 4271699044294518084
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ogong_fix_6
+      rect:
+        serializedVersion: 2
+        x: 83
+        y: 72
+        width: 10
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 357a230d111532190800000000000000
+      internalID: -7988452177075853485
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ogong_fix_7
+      rect:
+        serializedVersion: 2
+        x: 111
+        y: 66
+        width: 10
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 138ffd5e945faedc0800000000000000
+      internalID: -3608802453645952975
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ogong_fix_8
+      rect:
+        serializedVersion: 2
+        x: 77
+        y: 61
+        width: 8
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0d7cbfa45b9817670800000000000000
+      internalID: 8534754180583901136
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ogong_fix_9
+      rect:
+        serializedVersion: 2
+        x: 91
+        y: 57
+        width: 8
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6fbe9e8b2e0ac57e0800000000000000
+      internalID: -1775367257465426954
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ogong_fix_10
+      rect:
+        serializedVersion: 2
+        x: 134
+        y: 49
+        width: 21
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 11237c3a9ba8ee750800000000000000
+      internalID: 6336154255678190097
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ogong_fix_11
+      rect:
+        serializedVersion: 2
+        x: 105
+        y: 53
+        width: 8
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 92046c551dc611c30800000000000000
+      internalID: 4328360363222777897
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ogong_fix_12
+      rect:
+        serializedVersion: 2
+        x: 170
+        y: 27
+        width: 65
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5bb8d23960a58ae20800000000000000
+      internalID: 3362036106117614517
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ogong_fix_13
+      rect:
+        serializedVersion: 2
+        x: 86
+        y: 35
+        width: 21
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 51e99c642a06d2650800000000000000
+      internalID: 6209725711302368789
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ogong_fix_14
+      rect:
+        serializedVersion: 2
+        x: 137
+        y: 38
+        width: 16
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 70fdb0d0554f3cb60800000000000000
+      internalID: 7765318828645146375
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ogong_fix_15
+      rect:
+        serializedVersion: 2
+        x: 79
+        y: 9
+        width: 11
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 89d7480799b0ba670800000000000000
+      internalID: 8550941071138651544
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ogong_fix_16
+      rect:
+        serializedVersion: 2
+        x: 98
+        y: 9
+        width: 11
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 660ee07a037845e00800000000000000
+      internalID: 1032598857605636198
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ogong_fix_17
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 10
+        width: 11
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b8ee7b5d7de98c920800000000000000
+      internalID: 3010831000737934987
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ogong_fix_18
+      rect:
+        serializedVersion: 2
+        x: 146
+        y: 10
+        width: 11
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ea1bf475edb23f0e0800000000000000
+      internalID: -2237396355925429842
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
