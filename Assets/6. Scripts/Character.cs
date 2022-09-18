@@ -821,7 +821,7 @@ public class Character : MonoBehaviour
         yield return null;
     }
 
-    IEnumerator LeavingSkill()
+    public IEnumerator LeavingSkill()
     {
         int leavingIndex = partyManager.charactersIndex; //인덱스 저장
 
