@@ -124,7 +124,7 @@ public class PartyManager : MonoBehaviour
     void GetInput()
     {
         fire2 = Input.GetButtonDown("Fire2");
-        if(isDashing == false)
+        if(!isDashing)
         {
             h = Input.GetAxisRaw("Horizontal");
             v = Input.GetAxisRaw("Vertical");
@@ -161,7 +161,7 @@ public class PartyManager : MonoBehaviour
                 rigid.velocity = new Vector2(dirXY.x, dirXY.y) * speed;
             if(isDashing == true)
                 rigid.velocity = new Vector2(dirXY.x, dirXY.y) * (speed * 4f);
-            if (isStopping == true)
+            if (isStopping == true || !controlList[charactersIndex])
                 rigid.velocity = Vector2.zero;
         }
         
