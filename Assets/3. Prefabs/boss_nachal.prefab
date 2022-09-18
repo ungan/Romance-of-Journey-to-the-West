@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 135929496}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 28.8, y: -3.4, z: -110.88483}
+  m_LocalPosition: {x: 27.66, y: -9.9, z: -110.88483}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 241947956510941505}
@@ -54,7 +54,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1337168442}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -27.98, y: 21.35, z: -110.88483}
+  m_LocalPosition: {x: -28.9, y: 13.87, z: -110.88483}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 241947956510941505}
@@ -209,12 +209,15 @@ MonoBehaviour:
   isLight_chess_downtoup_reset: 1
   isLight_vertical_uptodown_reset: 1
   isLight_vertical_downtoup_reset: 1
-  lightning: {fileID: 0}
-  lightning_preview: {fileID: 0}
+  lightning: {fileID: 4482906470431603876, guid: 51a187dda38e4a84680ca7ed73403e2e,
+    type: 3}
+  lightning_preview: {fileID: 3722112603609700000, guid: d74e8ed413da70142a4761137f504d04,
+    type: 3}
   go: {fileID: 0}
   startpoint_left_up: {fileID: 1337168442}
   endpoint_right_down: {fileID: 135929496}
   god_hand: {fileID: 8091189659598125716, guid: 06c2df2b8eb86a544be2d2f701978d74,
     type: 3}
-  god_hand_grab_gob: {fileID: 0}
+  god_hand_grab_obj: {fileID: 614890018362325546, guid: e7efe136a4a47c64a8a4b12c3f7a2c8b,
+    type: 3}
   partyManager: {fileID: 0}

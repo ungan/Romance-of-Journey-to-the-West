@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Pathfinding;
 
-public class Enemy : MonoBehaviour
+public class enemy_ai_gd : MonoBehaviour
 {
     CameraController cam;
     PartyManager party; //SJM
@@ -32,9 +32,13 @@ public class Enemy : MonoBehaviour
     AIDestinationSetter ADS;
     Rigidbody2D rigid;
 
+    private void OnEnable()
+    {
+        curHealth = maxHealth;
+    }
+
     void Start()
     {
-        /*
         cam = GameObject.Find("Main Camera").GetComponent<CameraController>(); //게임오브젝트를 신 안에서 찾은 후 스크립트 연결(프리펩시 필수!)
         eventManager = GameObject.Find("EventManager").GetComponent<EventManager>();
         party = GameObject.Find("Party").GetComponent<PartyManager>();  //SJM 씬 내 파티찾기
@@ -42,17 +46,15 @@ public class Enemy : MonoBehaviour
         rigid = GetComponent<Rigidbody2D>();
         aiPath = GetComponent<AIPath>();
         //seeker.StartPath(rigid.position, target.position, )
-        */
         ADS = GetComponent<AIDestinationSetter>();
         ADS.target = party.transform;  //SJM, 타겟 지정
         maxSpeed = aiPath.maxSpeed;
 
-        //Stats();
+        Stats();
     }
 
     void Update()
     {
-        /*
         if (isRooted)
         {
             aiPath.maxSpeed = 0;
@@ -64,7 +66,6 @@ public class Enemy : MonoBehaviour
         }
 
         Delay();
-        */
     }
 
     void Stats()
@@ -199,7 +200,7 @@ public class Enemy : MonoBehaviour
                 case 0:
                     ADS.target = party.transform; //SJM
                     break;
-                case 11: 
+                case 11:
                     aiPath.maxSpeed = maxSpeed;
                     break;
             }

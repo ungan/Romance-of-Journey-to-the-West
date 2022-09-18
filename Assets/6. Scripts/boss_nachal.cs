@@ -19,6 +19,8 @@ public class boss_nachal : MonoBehaviour
     public int lightning_chess_uptodown_count = 0;      // uptodown count
     public int c = 0;
     public int n = 0;
+    public int cnt = 0;
+
     public bool can_lightning = true;
     public bool can_lightning_ready = false;     // false면 preview true면 진짜 번개
     public bool can_lightning_ready_1 = false;
@@ -67,11 +69,13 @@ public class boss_nachal : MonoBehaviour
     public GameObject god_hand;
     public GameObject god_hand_grab_obj;
     public GameObject partyManager;
+    public ObjectManager objmanager;
 
     // Start is called before the first frame update
     void Start()
     {
         partyManager = GameObject.Find("Party");  //파티(플레이어)찾기 SJM
+        objmanager = GameObject.Find("ObjectManager").GetComponent<ObjectManager>();
     }
 
     // Update is called once per frame
@@ -590,7 +594,8 @@ public class boss_nachal : MonoBehaviour
                         }
                         else if(can_lightning_ready == true)
                         {
-                            Instantiate(lightning, transform.position + (new Vector3(i * 2 + startpoint_left_up.transform.position.x, lightning_count + endpoint_right_down.transform.position.y, 0)), Quaternion.identity);
+                            objmanager.MakeObj("lightning", transform.position + (new Vector3(i * 2 + startpoint_left_up.transform.position.x, lightning_count + endpoint_right_down.transform.position.y, 0)), Quaternion.identity);
+                            //Instantiate(lightning, transform.position + (new Vector3(i * 2 + startpoint_left_up.transform.position.x, lightning_count + endpoint_right_down.transform.position.y, 0)), Quaternion.identity);
                         }
                     }
                     else if (lightning_count % 2 != 0)
@@ -602,14 +607,14 @@ public class boss_nachal : MonoBehaviour
                         }
                         else if (can_lightning_ready == true)
                         {
-                            Instantiate(lightning, transform.position + (new Vector3(i * 2 + startpoint_left_up.transform.position.x + 1, lightning_count + endpoint_right_down.transform.position.y, 0)), Quaternion.identity);
+                            objmanager.MakeObj("lightning", transform.position + (new Vector3(i * 2 + startpoint_left_up.transform.position.x + 1, lightning_count + endpoint_right_down.transform.position.y, 0)), Quaternion.identity);
+                            //Instantiate(lightning, transform.position + (new Vector3(i * 2 + startpoint_left_up.transform.position.x + 1, lightning_count + endpoint_right_down.transform.position.y, 0)), Quaternion.identity);
                         }
                     }
                 }
                 lightning_count++;  // 세로줄
                 if(can_lightning_ready == false && lightning_count == (int)(startpoint_left_up.transform.position.y - endpoint_right_down.transform.position.y))
                 {
-                    Debug.Log("a : ");
                     lightning_count = 0;
                     can_lightning = false;
                     can_lightning_ready = true;
@@ -624,6 +629,7 @@ public class boss_nachal : MonoBehaviour
         }
         isLight_chess_button_ex_phase = false;
         reset = true;
+        Debug.Log("cnt : " + cnt);
         StartCoroutine("boss_delay");
         StopCoroutine("Light_chess_exphase");
     }

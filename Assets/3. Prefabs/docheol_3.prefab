@@ -1740,7 +1740,7 @@ MonoBehaviour:
   dash_speed: 10
   player: {fileID: 0}
   sprite_render: {fileID: 0}
-  e_ani: {fileID: 0}
+  e_ani: {fileID: 7882152895046465168}
   can_attack: 0
   attack_inrange: 0
   stop: 0
@@ -1776,8 +1776,8 @@ MonoBehaviour:
   atk_range_image: {fileID: 0}
   atk_range: {fileID: 2547941244469839825}
   objparty: {fileID: 0}
-  dash_effect: {fileID: 0}
-  e_ghost: {fileID: 0}
+  dash_effect: {fileID: 2647940124566258562}
+  e_ghost: {fileID: 6303942884783751679}
 --- !u!1 &6852323846790816805
 GameObject:
   m_ObjectHideFlags: 0
