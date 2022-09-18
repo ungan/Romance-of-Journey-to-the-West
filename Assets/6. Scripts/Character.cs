@@ -43,8 +43,8 @@ public class Character : MonoBehaviour
     //딜레이
     public float maxShotDelay; //최대사격딜레이
     public float curShotDelay; //현재사격딜레이
-    public float maxDashDelay; //최대닷지딜레이
-    public float curDashDelay; //현재닷지딜레이
+    public float maxChargeDelay; //최대-차지딜레이
+    public float curChargeDelay; //현재-차지딜레이
     public float maxLSkillDelay; //최대-리더액티브스킬딜레이
     public float curLSkillDelay; //현재-리더액티브스킬딜레이
     public float maxMSkillDelay; //최대-맴버액티브스킬딜레이
@@ -91,8 +91,6 @@ public class Character : MonoBehaviour
 
     //오디오
     public AudioManager audioManager;
-    public AudioClip[] audioClip;
-    //public AudioSource[] audioSource;
 
     //오브젝트매니저
     ObjectManager objectManager;
@@ -203,6 +201,7 @@ public class Character : MonoBehaviour
                 curHealth = 100;
                 maxAmmo = 2;
                 curAmmo = 2;
+                maxChargeDelay = 2f;
                 maxLSkillDelay = 5f;
                 maxMSkillDelay = 5f;
                 break;
@@ -211,6 +210,7 @@ public class Character : MonoBehaviour
                 curHealth = 200;
                 maxAmmo = 2;
                 curAmmo = 2;
+                maxChargeDelay = 2f;
                 maxLSkillDelay = 10f;
                 maxMSkillDelay = 15f;
                 break;
@@ -219,6 +219,7 @@ public class Character : MonoBehaviour
                 curHealth = 75;
                 maxAmmo = 20;
                 curAmmo = 20;
+                maxChargeDelay = 2f;
                 maxLSkillDelay = 5f;
                 maxMSkillDelay = 5f;
                 break;
@@ -455,7 +456,6 @@ public class Character : MonoBehaviour
                     {
                         if (curShotDelay < maxShotDelay || !partyManager.canSwap || curAmmo <= 0)
                             return;
-
                         StartCoroutine(ChargeAttackReady(rotateDg));
                     }
                     if(fire1Up && curPutButtonFire1Delay > 0.2f && !isReloading) //차지 공격(근접)
@@ -467,12 +467,12 @@ public class Character : MonoBehaviour
                     }
                     if (fire2Down) //리더 액티브 스킬-회피(대시)
                     {
-                        if (curDashDelay < maxDashDelay || curDashCount == 0 || !partyManager.canSwap)
+                        if (curLSkillDelay < maxLSkillDelay || curDashCount == 0 || !partyManager.canSwap)
                             return;
 
                         curDashCooldownDelay = 0;
                         curDashCount--;
-                        curDashDelay = 0;
+                        curLSkillDelay = 0;
                         partyManager.StartCoroutine("Dash"); //닷지
                         audioManager.PlayBgm("Son Leader");
                         StartCoroutine(Push(0)); //닷지
@@ -660,7 +660,7 @@ public class Character : MonoBehaviour
     void Delay()
     {
         curShotDelay += Time.deltaTime;
-        curDashDelay += Time.deltaTime;
+        curChargeDelay += Time.deltaTime;
         curLSkillDelay += Time.deltaTime;
         curMSkillDelay += Time.deltaTime;
 
@@ -717,7 +717,7 @@ public class Character : MonoBehaviour
                 skillObject[0].SetActive(true);
                 skillObject[0].transform.rotation = Quaternion.Euler(0, 0, rotateDg);
                 isAttacking = true;
-                anim.SetTrigger("ClosedAttack");
+                anim.SetTrigger("NormalAttack_Front");
                 audioManager.PlayBgm("Son Attack Chain");
                 audioManager.PlayBgm("Son Attack " + ranAudio);
                 curShotDelay = 0;
@@ -796,6 +796,7 @@ public class Character : MonoBehaviour
                 skillObject[3].transform.localScale = new Vector3(15f, 15f, 15f);
                 yield return new WaitForSeconds(0.05f);
                 skillObject[4].SetActive(true);
+                anim.SetTrigger("NormalAttack_Back");
                 audioManager.PlayBgm("Son Charge");
                 yield return new WaitForSeconds(0.3f);
                 skillObject[4].SetActive(false);
@@ -1020,6 +1021,38 @@ public class Character : MonoBehaviour
             //퀵버튼 리셋
             StartCoroutine(DownednDead());
         }
+    }
+
+    public IEnumerator CharactersRoot()
+    {
+        int leavingIndex = partyManager.charactersIndex; //인덱스 저장
+
+        partyManager.CanSwapFalse();
+        isLeaving = true;
+
+        //캐릭터 변경 매커니즘
+        if (partyManager.curCharactersCount > 1)
+        {
+            partyManager.controlList[partyManager.charactersIndex] = false;
+            partyManager.priCharIndex = -1; //퀵버튼 리셋
+
+            while (!partyManager.controlList[partyManager.charactersIndex])
+            {
+                if (partyManager.charactersIndex != partyManager.hasCharactersCount - 1)
+                    partyManager.charactersIndex++;
+                else if (partyManager.charactersIndex == partyManager.hasCharactersCount - 1)
+                    partyManager.charactersIndex = 0;
+            }
+
+        }
+
+        for (int i = 0; i < 5; i++)
+        {
+            yield return new WaitForSeconds(1);
+            StartCoroutine(Check(leavingIndex));
+        }
+
+        yield return null;
     }
 
     IEnumerator DownednDead() //사망
