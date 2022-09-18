@@ -98,6 +98,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 2
   value: 0
+  isFollowing: 0
   speed: 0
   AreaPoint: {fileID: 0}
 --- !u!61 &8252555352404929031
