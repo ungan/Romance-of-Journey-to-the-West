@@ -183,6 +183,7 @@ public class Enemy_ai : MonoBehaviour
             sprite_render.color = new Color(sprite_render.color.r, sprite_render.color.g - Time.deltaTime, sprite_render.color.b - Time.deltaTime);
         }
         dead();
+        StartCoroutine("range");
     }
 
     void ani_state()
@@ -356,41 +357,47 @@ public class Enemy_ai : MonoBehaviour
 
         isrange = true;
 
-        dash_range = DetectInRange(4, "Party", inrange_dash);
-        sight_range = DetectInRange(1.2f, "Party", issight_range);
-
+        dash_range = DetectInRange(4, "Party");
+        if(dash_range != null)
+        {
+            inrange_dash = true;
+        }
+        else
+        {
+            inrange_dash = false;
+        }
+        sight_range = DetectInRange(1.2f, "Party");
+        if (sight_range != null)
+        {
+            if (enemy_ai.enemy_state != e_state.dash)
+            {
+                enemy_ai.enemy_state = e_state.attack;      // attack range 안에 player 감지시 
+            }
+            enemy_ai.issight_range = true;
+            enemy_ai.player = sight_range;
+            enemy_ai.move_false();
+            if (enemy_ai.code == 101)                        // 구미호는 attak range와 sight rage가 같아서 따로 이부분만 sight range에 넣어줌
+            {
+                enemy_ai.inrange = true;
+            }
+        }
+        else
+        {
+            enemy_ai.issight_range = false;
+            enemy_ai.inrange = false;
+        }
         yield return new WaitForSeconds(0.2f);
         isrange = false;
         yield return 0;
     }
 
-    GameObject DetectInRange(float range, string LayerName, bool isbool)       // 거리 내 감지되는 오브젝트를 반환
+    GameObject DetectInRange(float range, string LayerName)       // 거리 내 감지되는 오브젝트를 반환
     {
         int layermask = 1 << LayerMask.NameToLayer(LayerName);
         Collider2D[] cols = Physics2D.OverlapCircleAll(transform.position, 4f, layermask);      // 중심지, 반지름 ,layermask 어떤걸 탐지?
         if (cols.Length != 0)
         {
-            //Debug.Log("leader : " + cols[0].gameObject.name);
-            isbool = true;
             return cols[0].gameObject;
-            if(issight_range == true)
-            {
-                if (enemy_ai.enemy_state != e_state.dash)
-                {
-                    enemy_ai.enemy_state = e_state.attack;      // attack range 안에 player 감지시 
-                }
-                enemy_ai.issight_range = true;
-                //enemy_ai.player = collision.gameObject;
-                enemy_ai.move_false();
-                if (enemy_ai.code == 101)                        // 구미호는 attak range와 sight rage가 같아서 따로 이부분만 sight range에 넣어줌
-                {
-                    enemy_ai.inrange = true;
-                }
-            }
-        }
-        else
-        {
-            isbool = false;
         }
         return null;
 
@@ -406,8 +413,6 @@ public class Enemy_ai : MonoBehaviour
             dash_target = partyManager.transform.position;
             move_false();       // a* 움직임 봉쇄
         }
-        Debug.Log("asd" + ADS.target);
-        Debug.Log("dash_target : " + dash_target);
         transform.position = Vector3.MoveTowards(transform.position, dash_target, 5f * Time.deltaTime);
 
         if (Mathf.Round(transform.position.x * 100) == Mathf.Round(dash_target.x * 100) && Mathf.Round(transform.position.y * 100) == Mathf.Round(dash_target.y * 100))        // 목적지 도착
