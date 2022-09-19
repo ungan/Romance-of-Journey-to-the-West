@@ -23,7 +23,7 @@ public class enemy_ai_gd : MonoBehaviour
 
     //특수상태
     public bool isRooted = false; //속박됨
-
+    public bool isrange = false;
     //특수상태 카운트
     float curRootedDelay = 0f;
     float maxRootedDelay = 5f;
@@ -31,6 +31,9 @@ public class enemy_ai_gd : MonoBehaviour
     AIPath aiPath;
     AIDestinationSetter ADS;
     Rigidbody2D rigid;
+
+    GameObject dash_range;
+    GameObject sight_range;
 
     private void OnEnable()
     {
@@ -68,6 +71,24 @@ public class enemy_ai_gd : MonoBehaviour
         Delay();
     }
 
+    private void FixedUpdate()
+    {
+        StartCoroutine("range");
+    }
+
+    IEnumerator range()
+    {
+        if (isrange == true) yield break;
+
+        isrange = true;
+
+        dash_range = DetectInRange(4, "Party");
+        sight_range = DetectInRange(1.2f, "Party");
+
+        yield return new WaitForSeconds(0.2f);
+        isrange = false;
+        yield return 0;
+    }
     void Stats()
     {
         switch (value)
@@ -85,6 +106,23 @@ public class enemy_ai_gd : MonoBehaviour
         if (isRooted)
             curRootedDelay += Time.deltaTime;
     }
+
+    GameObject DetectInRange(float range, string LayerName)       // 거리 내 감지되는 오브젝트를 반환
+    {
+        int layermask = 1 << LayerMask.NameToLayer(LayerName);
+        //Collider[] cols = Physics.OverlapSphere(transform.position + Vector3.up * high, range, layermask);
+        Collider2D[] cols = Physics2D.OverlapCircleAll(transform.position,4f, layermask);
+        if (cols.Length != 0)
+        {
+            Debug.Log("leader : " + cols[0].gameObject.name);
+
+            return cols[0].gameObject;
+        }
+        return null;
+
+    }
+
+
 
     IEnumerator OnDamage(int damage)
     {
@@ -122,6 +160,7 @@ public class enemy_ai_gd : MonoBehaviour
             aiPath.maxSpeed = maxSpeed;
         }
     }
+
 
     void OnTriggerEnter2D(Collider2D collision)
     {

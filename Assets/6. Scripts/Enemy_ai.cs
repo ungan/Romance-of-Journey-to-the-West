@@ -71,6 +71,8 @@ public class Enemy_ai : MonoBehaviour
     public bool isdash = false;     // dash 중에는 true 아닐경우 false
     public bool isdash_effect = false; // isdash_effect on true off false
     public bool isdead = false;     // 죽었을경우에는 true
+    public bool isrange = false;
+
     public GameObject fox_ball;     // 구미호 bullet prefab
     public Transform fox_ball1;     // 구미호볼 1,2,3 
     public Transform fox_ball2;
@@ -114,6 +116,8 @@ public class Enemy_ai : MonoBehaviour
     public GameObject dash_effect;                     // dash_effect dash상태일때 켜주기 위함임
     public GameObject e_ghost;                      // 유령 오브젝트
     //public GameObject dummy;
+    public GameObject dash_range;
+    public GameObject sight_range;
 
     BoxCollider2D boxcollider2d;
     float[] e_angle = new float[6];
@@ -345,6 +349,53 @@ public class Enemy_ai : MonoBehaviour
         }
 
     }
+
+    IEnumerator range()
+    {
+        if (isrange == true) yield break;
+
+        isrange = true;
+
+        dash_range = DetectInRange(4, "Party", inrange_dash);
+        sight_range = DetectInRange(1.2f, "Party", issight_range);
+
+        yield return new WaitForSeconds(0.2f);
+        isrange = false;
+        yield return 0;
+    }
+
+    GameObject DetectInRange(float range, string LayerName, bool isbool)       // 거리 내 감지되는 오브젝트를 반환
+    {
+        int layermask = 1 << LayerMask.NameToLayer(LayerName);
+        Collider2D[] cols = Physics2D.OverlapCircleAll(transform.position, 4f, layermask);      // 중심지, 반지름 ,layermask 어떤걸 탐지?
+        if (cols.Length != 0)
+        {
+            //Debug.Log("leader : " + cols[0].gameObject.name);
+            isbool = true;
+            return cols[0].gameObject;
+            if(issight_range == true)
+            {
+                if (enemy_ai.enemy_state != e_state.dash)
+                {
+                    enemy_ai.enemy_state = e_state.attack;      // attack range 안에 player 감지시 
+                }
+                enemy_ai.issight_range = true;
+                //enemy_ai.player = collision.gameObject;
+                enemy_ai.move_false();
+                if (enemy_ai.code == 101)                        // 구미호는 attak range와 sight rage가 같아서 따로 이부분만 sight range에 넣어줌
+                {
+                    enemy_ai.inrange = true;
+                }
+            }
+        }
+        else
+        {
+            isbool = false;
+        }
+        return null;
+
+    }
+
 
     void e_dash()       // e_state dash 일때 사용될 함수
     {

@@ -1318,7 +1318,6 @@ GameObject:
   - component: {fileID: 8958931992095593759}
   - component: {fileID: 3279361533050278190}
   - component: {fileID: 8958931992095593755}
-  - component: {fileID: 5468287754848807620}
   m_Layer: 11
   m_Name: docheol_2_new
   m_TagString: Enemy
@@ -1529,7 +1528,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8958931992095593748}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1cdcbe6c75dd31247b6da1904131b636, type: 3}
   m_Name: 
@@ -1568,6 +1567,7 @@ MonoBehaviour:
   isdash: 0
   isdash_effect: 0
   isdead: 0
+  isrange: 0
   fox_ball: {fileID: 0}
   fox_ball1: {fileID: 0}
   fox_ball2: {fileID: 0}
@@ -1590,26 +1590,8 @@ MonoBehaviour:
   objparty: {fileID: 0}
   dash_effect: {fileID: 876258585}
   e_ghost: {fileID: 1678790041}
---- !u!114 &5468287754848807620
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8958931992095593748}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 55d99882dc8e63148bd3fda023dd1587, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  value: 0
-  pushAmount: 12
-  maxHealth: 50
-  curHealth: 50
-  damage: 20
-  defaultSpeed: 0
-  maxSpeed: 8
-  isRooted: 0
+  dash_range: {fileID: 0}
+  sight_range: {fileID: 0}
 --- !u!1 &8958931992269230928
 GameObject:
   m_ObjectHideFlags: 0
