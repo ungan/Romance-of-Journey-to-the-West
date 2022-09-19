@@ -201,7 +201,7 @@ public class Enemy_ai : MonoBehaviour
         if (enemy_state == e_state.Follow)
         {
             move_true();
-            e_ani.Play("walk");
+            //e_ani.Play("walk");
             if (inrange == true)
             {
                 enemy_state = e_state.attack_ready;
@@ -209,7 +209,7 @@ public class Enemy_ai : MonoBehaviour
         }
         else if (enemy_state == e_state.attack_ready)
         {
-            e_ani.Play("idle");
+            //e_ani.Play("idle");
             move_false();
             if (can_attack)
             {
@@ -220,7 +220,7 @@ public class Enemy_ai : MonoBehaviour
         {
             if (can_attack == true)
             {
-                e_ani.Play("attack");
+                //e_ani.Play("attack");
             }
             rigid.constraints = RigidbodyConstraints2D.FreezeAll;       // 공격중일때 enemy를 고정 시켜줌
 
@@ -357,7 +357,7 @@ public class Enemy_ai : MonoBehaviour
 
         isrange = true;
 
-        dash_range = DetectInRange(4, "Party");
+        //dash_range = DetectInRange(4, "Party");
         if(dash_range != null)
         {
             inrange_dash = true;
@@ -366,7 +366,7 @@ public class Enemy_ai : MonoBehaviour
         {
             inrange_dash = false;
         }
-        sight_range = DetectInRange(1.2f, "Party");
+        //sight_range = DetectInRange(1.2f, "Party");
         if (sight_range != null)
         {
             if (enemy_ai.enemy_state != e_state.dash)

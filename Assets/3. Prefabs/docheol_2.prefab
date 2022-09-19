@@ -1175,6 +1175,7 @@ GameObject:
   - component: {fileID: 8958931992095593759}
   - component: {fileID: 3279361533050278190}
   - component: {fileID: 8958931992095593755}
+  - component: {fileID: 3913581464202705349}
   m_Layer: 11
   m_Name: docheol_2
   m_TagString: Enemy
@@ -1381,7 +1382,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8958931992095593748}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1cdcbe6c75dd31247b6da1904131b636, type: 3}
   m_Name: 
@@ -1390,7 +1391,7 @@ MonoBehaviour:
   value: 0
   pushAmount: 12
   defaultSpeed: 0
-  maxSpeed: 8
+  maxSpeed: 5
   maxHealth: 50
   curHealth: 50
   damage: 20
@@ -1445,6 +1446,26 @@ MonoBehaviour:
   e_ghost: {fileID: 1678790041}
   dash_range: {fileID: 0}
   sight_range: {fileID: 0}
+--- !u!114 &3913581464202705349
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8958931992095593748}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b1ff7e506975914e9e34f639f327be2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  value: 0
+  pushAmount: 0
+  maxHealth: 20
+  curHealth: 20
+  damage: 0
+  defaultSpeed: 8
+  maxSpeed: 8
+  isRooted: 0
 --- !u!1001 &6921639211559420669
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1549,15 +1570,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2b2f3cccaa8044c4ea213ca95e8fc56e, type: 3}
---- !u!1 &7721747820900427333 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 803807370751812792, guid: 2b2f3cccaa8044c4ea213ca95e8fc56e,
-    type: 3}
-  m_PrefabInstance: {fileID: 6921639211559420669}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6442355395554679249 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4136910479273597740, guid: 2b2f3cccaa8044c4ea213ca95e8fc56e,
+    type: 3}
+  m_PrefabInstance: {fileID: 6921639211559420669}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &7721747820900427333 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 803807370751812792, guid: 2b2f3cccaa8044c4ea213ca95e8fc56e,
     type: 3}
   m_PrefabInstance: {fileID: 6921639211559420669}
   m_PrefabAsset: {fileID: 0}
