@@ -99,7 +99,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &3283208920971386897
 Transform:
   m_ObjectHideFlags: 0
@@ -180,7 +180,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &3283208921283366274
 Transform:
   m_ObjectHideFlags: 0
@@ -234,7 +234,7 @@ SpriteRenderer:
   m_SortingLayerID: -417724813
   m_SortingLayer: 7
   m_SortingOrder: 5
-  m_Sprite: {fileID: -7052694964768452283, guid: b8a2e3f3043668f48a5cb92b4c1baccb,
+  m_Sprite: {fileID: -6847437370102806062, guid: 70e072c9135e7d64aabab84561c5aad0,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -405,7 +405,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 5.62, y: 5}
+    oldSize: {x: 4.95, y: 5.0401893}
     newSize: {x: 5.62, y: 5}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -486,8 +486,13 @@ MonoBehaviour:
   attack_cooltime: 3
   maxReadyDelay: 1
   maxShotDelay: 2
+  regular_d: 0
+  stab_damge_Cycle: 1
+  stab_damage_curCycle: 0
+  dash_speed: 10
   player: {fileID: 0}
   sprite_render: {fileID: 3283208921527373151}
+  e_ani: {fileID: 0}
   can_attack: 0
   attack_inrange: 0
   stop: 0
@@ -495,10 +500,20 @@ MonoBehaviour:
   stab_fire: 0
   isRooted: 0
   inrange: 0
+  issight_range: 0
+  bullet_attack: 0
+  iskidnap: 0
+  sight_right: 1
+  inrange_dash: 0
+  isdash: 0
+  isdash_effect: 0
+  isdead: 0
   fox_ball: {fileID: 0}
   fox_ball1: {fileID: 0}
   fox_ball2: {fileID: 0}
   fox_ball3: {fileID: 0}
+  dash_target: {x: 0, y: 0, z: 0}
+  bullet1: {fileID: 0}
   stab: {fileID: 0}
   fire_effect: {fileID: 5400863534740554132}
   imae_ew: {fileID: 8286252171310654329, guid: ab598a062634bcf408ab2268123a02aa, type: 3}
@@ -512,6 +527,9 @@ MonoBehaviour:
   enemy_state: 0
   atk_range_image: {fileID: 793914728374422668}
   atk_range: {fileID: 8288667678909440219}
+  objparty: {fileID: 0}
+  dash_effect: {fileID: 0}
+  e_ghost: {fileID: 0}
 --- !u!212 &3283208921527373151
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -551,7 +569,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: -7052694964768452283, guid: b8a2e3f3043668f48a5cb92b4c1baccb,
+  m_Sprite: {fileID: -6847437370102806062, guid: 70e072c9135e7d64aabab84561c5aad0,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -663,7 +681,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4616556966608699470
 Transform:
   m_ObjectHideFlags: 0
@@ -713,6 +731,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemy_ai: {fileID: 0}
+  crash_point: {fileID: 0}
+  pc2: {fileID: 0}
 --- !u!68 &2232870378392555227
 EdgeCollider2D:
   m_ObjectHideFlags: 0
