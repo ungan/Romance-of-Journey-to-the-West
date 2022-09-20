@@ -20,6 +20,7 @@ public class boss_nachal : MonoBehaviour
     public int c = 0;
     public int n = 0;
     public int cnt = 0;
+    public int ln = 0;
 
     public bool can_lightning = true;
     public bool can_lightning_ready = false;     // false면 preview true면 진짜 번개
@@ -61,6 +62,7 @@ public class boss_nachal : MonoBehaviour
     public bool isLight_chess_downtoup_reset = true;        // 체스모양 아래서 위로 리셋
     public bool isLight_vertical_uptodown_reset = true;     // 직선 위서 아래 리셋 
     public bool isLight_vertical_downtoup_reset = true;     // 직선 아래서 위로 리셋
+
     public GameObject lightning;
     public GameObject lightning_preview;
     public GameObject go;
@@ -70,6 +72,7 @@ public class boss_nachal : MonoBehaviour
     public GameObject god_hand_grab_obj;
     public GameObject partyManager;
     public ObjectManager objmanager;
+    public GameObject nachal_nomalball;     // nomal nachal ball
 
     // Start is called before the first frame update
     void Start()
@@ -179,11 +182,60 @@ public class boss_nachal : MonoBehaviour
 
     public void boss_patton()
     {
+        int bn = 0;
         if (isboss_patton) return;
         isboss_patton = true;
+        bn = Random.Range(1, 2);
+
+        if(bn % 2 == 0) // bn은 2 짝수 따라서 번개 실행
+        {
+            lightning_patton_phase1_ani();
+        }
+        else if(bn % 2 == 1)
+        {
+
+        }
+
         n = Random.Range(1, 12);
         patton();
     }
+
+    public void lightning_patton_phase1_ani()
+    {
+        ln = 0;
+        ln = Random.Range(1, 5);
+
+        switch(ln)
+        {
+            case 0:
+                //boss_ani.Play("botharm_swing");
+                break;
+            case 1:
+                //boss_ani.Play("leftarm_swing");
+                break;
+            case 2:
+                //boss_ani.Play("rightarm_swing");
+                break;
+            case 3:
+                //boss_ani.Play("leftarm_swing");
+                break;
+            case 4:
+                //boss_ani.Play("rightarm_swing");
+                break;
+        }
+    }
+
+    public void lightning_patton_phase1()
+    {
+
+    }
+
+
+    public void patton_ball()
+    {
+
+    }
+
 
     IEnumerator boss_delay()
     {
@@ -215,7 +267,7 @@ public class boss_nachal : MonoBehaviour
                 isLight_chess_button_uptodown = true;
                 break;
             case 5:
-                isLight_chess_button_vertical = true;
+                isLight_chess_button_vertical = true;       // exphase에서 사용할것
                 break;
             case 6:
                 isLight_chess_button_ex_phase = true;
@@ -227,7 +279,7 @@ public class boss_nachal : MonoBehaviour
                 isLight_vertical_uptodown_button = true;
                 break;
             case 9:
-                isLight_vertical_synthesize_button = true;
+                isLight_vertical_synthesize_button = true;      // exphase
                 break;
             case 10:
                 isLight_horizontal_lefttoright_button = true;
@@ -248,6 +300,7 @@ public class boss_nachal : MonoBehaviour
     public void Palm_button()
     {
         StartCoroutine("Palm");
+        
     }
 
     /*

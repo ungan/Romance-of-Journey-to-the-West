@@ -38,10 +38,10 @@ public class Enemy : MonoBehaviour
         cam = GameObject.Find("Main Camera").GetComponent<CameraController>(); //게임오브젝트를 신 안에서 찾은 후 스크립트 연결(프리펩시 필수!)
         eventManager = GameObject.Find("EventManager").GetComponent<EventManager>();
 
-        rigid = GetComponent<Rigidbody2D>();
-        //seeker.StartPath(rigid.position, target.position, )
         */
+        //seeker.StartPath(rigid.position, target.position, )
 
+        rigid = GetComponent<Rigidbody2D>();
         aiPath = GetComponent<AIPath>();
         party = GameObject.Find("Party").GetComponent<PartyManager>();  //SJM 씬 내 파티찾기
         ADS = GetComponent<AIDestinationSetter>();

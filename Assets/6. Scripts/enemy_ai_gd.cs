@@ -58,6 +58,7 @@ public class enemy_ai_gd : MonoBehaviour
 
     void Update()
     {
+        /*
         if (isRooted)
         {
             aiPath.maxSpeed = 0;
@@ -69,11 +70,12 @@ public class enemy_ai_gd : MonoBehaviour
         }
 
         Delay();
+        */
     }
 
     private void FixedUpdate()
     {
-        StartCoroutine("range");
+        //StartCoroutine("range");
     }
 
     IEnumerator range()

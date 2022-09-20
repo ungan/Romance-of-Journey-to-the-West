@@ -118,6 +118,7 @@ public class Enemy_ai : MonoBehaviour
     //public GameObject dummy;
     public GameObject dash_range;
     public GameObject sight_range;
+    public GameObject obj;
 
     BoxCollider2D boxcollider2d;
     float[] e_angle = new float[6];
@@ -162,15 +163,18 @@ public class Enemy_ai : MonoBehaviour
                 curRootedDelay = 0;
             }
         }
+        
         else if (isdead == false)
         {
-            rol();      // right or left
+            //rol();      // right or left
             ani_state();        // 상태에 따른 ani 기본 state와 따로 분류 해줌
         }
+        
     }
 
     private void FixedUpdate()
     {
+        /*
         Delay_fixed();
         enemy_ai = this;
         if (!stop)
@@ -184,6 +188,7 @@ public class Enemy_ai : MonoBehaviour
         }
         dead();
         StartCoroutine("range");
+        */
     }
 
     void ani_state()
@@ -191,11 +196,11 @@ public class Enemy_ai : MonoBehaviour
 
         if (sight_right == false)
         {
-            transform.localScale = new Vector3(-1, 1, 1);
+            obj.transform.localScale = new Vector3(-1, 1, 1);
         }
         else
         {
-            transform.localScale = new Vector3(1, 1, 1);
+            obj.transform.localScale = new Vector3(1, 1, 1);
         }
 
         if (enemy_state == e_state.Follow)
