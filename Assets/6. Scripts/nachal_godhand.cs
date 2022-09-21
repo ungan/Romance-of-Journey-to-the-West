@@ -54,7 +54,6 @@ public class nachal_godhand : MonoBehaviour
         //Debug.Log("a : " + hand_sprite.color.a);
         if (hand_sprite.color.a <= 0)
         {
-            Debug.Log("a");
             Destroy(godhand);
         }
 

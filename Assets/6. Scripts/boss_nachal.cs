@@ -26,6 +26,8 @@ public class boss_nachal : MonoBehaviour
     public int n = 0;
     public int cnt = 0;
     public int ln = 0;
+    public int hn = 0;
+    public int lcnt_1 = 0;
 
     public bool can_lightning = true;
     public bool can_lightning_ready = false;     // false면 preview true면 진짜 번개
@@ -70,6 +72,7 @@ public class boss_nachal : MonoBehaviour
 
     public bool isboss_patton_l = false;
     public bool isboss_patton_b = false;
+    public bool isboss_pattern_h = false;
 
     public bool ani_end = false;
 
@@ -91,6 +94,7 @@ public class boss_nachal : MonoBehaviour
     public GameObject nachal_ball;
     public GameObject nachal_ball_left;
     public GameObject nachal_ball_right;
+    public GameObject[] preview = new GameObject[400]; 
 
     // Start is called before the first frame update
     void Start()
@@ -211,6 +215,14 @@ public class boss_nachal : MonoBehaviour
         
     }
 
+    public void boss_pattern_h()
+    {
+        if (isboss_pattern_h) return;
+        isboss_pattern_h = true;
+
+        hand_pattern();
+    }
+
     public void boss_patton_b()
     {
         if (isboss_patton_b) return;
@@ -226,6 +238,22 @@ public class boss_nachal : MonoBehaviour
         isboss_patton_l = true;
 
         lightning_patton_phase1_ani();
+    }
+
+    public void hand_pattern()
+    {
+        hn = 0;
+
+        hn = Random.Range(0, 1);
+        if (hn%2 == 0)
+        {
+              isgod_hand_button = true;              // god hand 소환
+
+        }
+        else if(hn%1 == 1)
+        {
+            isgod_hand_grab = true;     // god grab 소환
+        }
     }
 
     public void ball_patton_phase1()
@@ -444,10 +472,13 @@ public class boss_nachal : MonoBehaviour
             {
                 if (can_lightning_ready_1 == false)                                                                                         // ready= false -. preview true lightning
                 {
+
+                    // gameobject 배열 생성 cnt 셈
                     Instantiate(lightning_preview, transform.position + (new Vector3(endpoint_right_down.transform.position.x - lightning_count_2, startpoint_left_up.transform.position.y - i * 2, 0)), Quaternion.identity);
                 }
                 else if (can_lightning_ready_1 == true)
                 {
+                    // gameobject 생성된 배열에서 cnt 값 set active false
                     Instantiate(lightning, transform.position + (new Vector3(endpoint_right_down.transform.position.x - lightning_count_2, startpoint_left_up.transform.position.y - i * 2, 0)), Quaternion.identity);
                 }
             }
@@ -756,8 +787,8 @@ public class boss_nachal : MonoBehaviour
                         }
                         else if(can_lightning_ready == true)
                         {
-                            objmanager.MakeObj("lightning", transform.position + (new Vector3(i * 2 + startpoint_left_up.transform.position.x, lightning_count + endpoint_right_down.transform.position.y, 0)), Quaternion.identity);
-                            //Instantiate(lightning, transform.position + (new Vector3(i * 2 + startpoint_left_up.transform.position.x, lightning_count + endpoint_right_down.transform.position.y, 0)), Quaternion.identity);
+                            //objmanager.MakeObj("lightning", transform.position + (new Vector3(i * 2 + startpoint_left_up.transform.position.x, lightning_count + endpoint_right_down.transform.position.y, 0)), Quaternion.identity);
+                            Instantiate(lightning, transform.position + (new Vector3(i * 2 + startpoint_left_up.transform.position.x, lightning_count + endpoint_right_down.transform.position.y, 0)), Quaternion.identity);
                         }
                     }
                     else if (lightning_count % 2 != 0)
@@ -769,8 +800,8 @@ public class boss_nachal : MonoBehaviour
                         }
                         else if (can_lightning_ready == true)
                         {
-                            objmanager.MakeObj("lightning", transform.position + (new Vector3(i * 2 + startpoint_left_up.transform.position.x + 1, lightning_count + endpoint_right_down.transform.position.y, 0)), Quaternion.identity);
-                            //Instantiate(lightning, transform.position + (new Vector3(i * 2 + startpoint_left_up.transform.position.x + 1, lightning_count + endpoint_right_down.transform.position.y, 0)), Quaternion.identity);
+                            //objmanager.MakeObj("lightning", transform.position + (new Vector3(i * 2 + startpoint_left_up.transform.position.x + 1, lightning_count + endpoint_right_down.transform.position.y, 0)), Quaternion.identity);
+                            Instantiate(lightning, transform.position + (new Vector3(i * 2 + startpoint_left_up.transform.position.x + 1, lightning_count + endpoint_right_down.transform.position.y, 0)), Quaternion.identity);
                         }
                     }
                 }

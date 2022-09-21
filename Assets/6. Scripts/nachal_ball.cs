@@ -7,7 +7,7 @@ public class nachal_ball : MonoBehaviour
 
     public float speed = 0.01f;
     public float x, y;
-
+    public float z=0;
     public int damage = 20;
 
     public bool exphase = false;
@@ -18,7 +18,7 @@ public class nachal_ball : MonoBehaviour
     public PartyManager character;
     public GameObject explosion;
     public GameObject ball;
-
+    public GameObject ball_collection;      // 밖을 직접 돌리면 문제가 생겨서 이걸 돌려서 문제를 해결함
 
     Vector3 destination;
 
@@ -50,6 +50,7 @@ public class nachal_ball : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //transform.rotation = Quaternion.Euler(transform.rotation.x, transform.rotation.y, 90);
         transform.localScale = new Vector3(0.1f, 0.1f, 1);
         party = GameObject.Find("Party");  //SJM 씬 내 파티찾기
         nachal = GameObject.Find("boss_nachal").GetComponent<boss_nachal>();
@@ -67,7 +68,11 @@ public class nachal_ball : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-         transform.rotation =  Quaternion.Euler(transform.rotation.x, transform.rotation.y, transform.rotation.z + 1f);
+        if (exphase == true)
+        {
+            z += 5f;
+            ball_collection.transform.rotation =  Quaternion.Euler(transform.rotation.x, transform.rotation.y, z);
+        }
         
     }
 
@@ -89,7 +94,7 @@ public class nachal_ball : MonoBehaviour
 
             if(exphase == true)
             {
-                Debug.Log("aaaQ");
+                //Debug.Log("aaaQ");
             }
         }
 

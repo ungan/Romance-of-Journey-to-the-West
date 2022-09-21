@@ -114,4 +114,75 @@ public class nachal_godhand_grab : MonoBehaviour
         
 
     }
+
+
+    /*
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "PlayerBullet")
+        {
+            Bullet bullet = collision.gameObject.GetComponent<Bullet>();
+            StartCoroutine(OnDamage(bullet.damage));
+            //StartCoroutine(BePushed());
+            //Destroy(collision.gameObject);
+        }
+        if (collision.gameObject.tag == "PlayerSwing")
+        {
+            //Debug.Log("닿음");
+            Bullet bullet = collision.gameObject.GetComponent<Bullet>();
+            StartCoroutine(OnDamage(bullet.damage));
+            //StartCoroutine(BePushed());
+            cam.Shake(0.12f, 1);
+        }
+
+        //장판 스킬
+        if (collision.gameObject.tag == "Magicline")
+        {
+            Bullet bullet = collision.gameObject.GetComponent<Bullet>();
+            switch (bullet.value)
+            {
+                case 1:
+                    StartCoroutine(OnDamage(bullet.damage));
+                    //StartCoroutine(BePushed());
+                    break;
+                case 30:
+                    StartCoroutine(OnDamage(bullet.damage));
+                    //StartCoroutine(BePushed());
+                    break;
+                case 20:
+                    StartCoroutine(OnDamage(bullet.damage));
+                    break;
+            }
+        }
+
+        if (collision.gameObject.tag == "Explosive") //폭발
+        {
+            Bullet bullet = collision.gameObject.GetComponent<Bullet>();
+            switch (bullet.value)
+            {
+                case 10: //속박됨
+                    //isRooted = true;
+                    break;
+            }
+        }
+    }
+
+
+    void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Magicline")
+        {
+            Bullet bullet = collision.gameObject.GetComponent<Bullet>();
+            switch (bullet.value)
+            {
+                case 0:
+                    //ADS.target = party.transform; //SJM
+                    break;
+                case 11:
+                    //aiPath.maxSpeed = maxSpeed;
+                    break;
+            }
+        }
+    }*/
+
 }
