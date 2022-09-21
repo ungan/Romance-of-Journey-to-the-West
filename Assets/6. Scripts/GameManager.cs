@@ -74,10 +74,12 @@ public class GameManager : MonoBehaviour
             BossSet.SetActive(false);
         }
 
-        if(boss.isDead)
-        {
-            WinSet.SetActive(true);
-        }
+        //if(boss.isDead) //보스가 사망했을 경우 발동. 보스전 만들었으면 이거 // 제거해서 활성화하셈
+        //{
+        //    WinSet.SetActive(true);
+        //}
+
+        if (eventManager.EnemyKiller.activeSelf) WinSet.SetActive(true); //보스전 덜만들었을 시 사용. 보스전 만들었음 삭제 처리하셈
 
         StartCoroutine(CoolTime());
 

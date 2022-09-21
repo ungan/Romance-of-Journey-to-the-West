@@ -78,7 +78,7 @@ public class EventManager : MonoBehaviour
             musicManager.playMusic = true;
             curHordeDelayIntro = 0;
         }
-        if(curHordeDelay >= maxHordeDelay || curPhase >= maxPhase) //Horde -> Normal
+        if(curHordeDelay >= maxHordeDelay || curPhase >= maxPhase) //Horde -> Normal (데모버전 보스전 활성화하고 싶으면 이거 보셈)
         {
             ActiveNormalEvent(); //노말 전환
             EnemyKiller.SetActive(true);
@@ -86,7 +86,7 @@ public class EventManager : MonoBehaviour
             curHordeDelay = 0;
             curPhase = 0;
             Invoke("EnemyKillerActive", 0.2f);
-            Invoke("ActiveBossEvent", 2f);
+            //Invoke("ActiveBossEvent", 2f); 보스 이벤트 전환(보스전 돌입하고 싶으면 이거 활성화
         }
 
         if (normalEvent)

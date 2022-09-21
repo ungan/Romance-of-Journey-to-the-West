@@ -11,6 +11,8 @@ public class Enemy : MonoBehaviour
     ObjectManager objectManager;
     AudioManager audioManager;
 
+    public GameObject obj;
+
     //밸류
     public int value;
 
@@ -24,6 +26,7 @@ public class Enemy : MonoBehaviour
     public float maxSpeed;
 
     public bool a;
+    bool sight_right;
 
     //특수상태
     public bool isRooted = false; //속박됨
@@ -80,6 +83,17 @@ public class Enemy : MonoBehaviour
             }
         }
 
+        rol();
+
+        if (sight_right == false)
+        {
+            obj.transform.localScale = new Vector3(-1, 1, 1);
+        }
+        else
+        {
+            obj.transform.localScale = new Vector3(1, 1, 1);
+        }
+
         if (a) { aiPath.canMove = true; aiPath.maxSpeed = maxSpeed; a = false; }
         Delay();
     }
@@ -100,6 +114,18 @@ public class Enemy : MonoBehaviour
     {
         if (isRooted)
             curRootedDelay += Time.deltaTime;
+    }
+
+    void rol()
+    {
+        if (ADS.target.position.x - transform.position.x > 0)        //  목적지가 우측에 존재
+        {
+            sight_right = true;
+        }
+        else                                                        // 목적지가 좌측에 존재
+        {
+            sight_right = false;
+        }
     }
 
     IEnumerator OnDamage(int damage)
