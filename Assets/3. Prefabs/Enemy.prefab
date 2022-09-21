@@ -140,9 +140,11 @@ MonoBehaviour:
   damage: 20
   defaultSpeed: 0
   maxSpeed: 0
+
   a: 0
   isRooted: 0
   isDead: 0
+
 --- !u!114 &7211357729383418188
 MonoBehaviour:
   m_ObjectHideFlags: 0

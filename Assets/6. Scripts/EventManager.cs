@@ -50,6 +50,7 @@ public class EventManager : MonoBehaviour
     void Start()
     {
 
+
         enemyList = new List<int>();
     }
     void Update()
@@ -133,7 +134,9 @@ public class EventManager : MonoBehaviour
         {
             int ranPosition = Random.Range(0, enemySpawnZone[0].transform.childCount);
             int ran = Random.Range(0, enemies_Normal.Length);
+
             GameObject instantEnemy = objectManager.MakeObj(enemies_Normal[ran].name, enemySpawnZone[0].transform.GetChild(ranPosition).position, Quaternion.Euler(0, 0, 0));
+
             Enemy_ai enemy = instantEnemy.GetComponent<Enemy_ai>();
             curSpawnDelay = 0f;
             curMonsterCount++;
