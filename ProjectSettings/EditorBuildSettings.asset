@@ -9,7 +9,7 @@ EditorBuildSettings:
     path: Assets/5. Scenes/StartScene.unity
     guid: 67689cdcd29fc1346945c87f101aee0a
   - enabled: 1
-    path: Assets/5. Scenes/SJMScene.unity
+    path: Assets/5. Scenes/SJMScene2.unity
     guid: 9c6d79e5998ffe442ab026a22692823c
   - enabled: 0
     path: Assets/5. Scenes/SampleScene.unity
