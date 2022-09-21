@@ -21,16 +21,13 @@ public class bulletmove_khi : MonoBehaviour
         {
             Destroy(gameObject);
         }
-
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "Leader")
         {
-            //Debug.Log("tri");
             partymanager.onDamabe_bullet_party(damage);
             Destroy(gameObject);
-            
         }
     }
     // Start is called before the first frame update

@@ -71,6 +71,8 @@ public class Enemy_ai : MonoBehaviour
     public bool isdash = false;     // dash 중에는 true 아닐경우 false
     public bool isdash_effect = false; // isdash_effect on true off false
     public bool isdead = false;     // 죽었을경우에는 true
+    public bool isrange = false;
+
     public GameObject fox_ball;     // 구미호 bullet prefab
     public Transform fox_ball1;     // 구미호볼 1,2,3 
     public Transform fox_ball2;
@@ -114,6 +116,9 @@ public class Enemy_ai : MonoBehaviour
     public GameObject dash_effect;                     // dash_effect dash상태일때 켜주기 위함임
     public GameObject e_ghost;                      // 유령 오브젝트
     //public GameObject dummy;
+    public GameObject dash_range;
+    public GameObject sight_range;
+    public GameObject obj;
 
     BoxCollider2D boxcollider2d;
     float[] e_angle = new float[6];
@@ -158,15 +163,18 @@ public class Enemy_ai : MonoBehaviour
                 curRootedDelay = 0;
             }
         }
+        
         else if (isdead == false)
         {
-            rol();      // right or left
+            //rol();      // right or left
             ani_state();        // 상태에 따른 ani 기본 state와 따로 분류 해줌
         }
+        
     }
 
     private void FixedUpdate()
     {
+        /*
         Delay_fixed();
         enemy_ai = this;
         if (!stop)
@@ -179,6 +187,8 @@ public class Enemy_ai : MonoBehaviour
             sprite_render.color = new Color(sprite_render.color.r, sprite_render.color.g - Time.deltaTime, sprite_render.color.b - Time.deltaTime);
         }
         dead();
+        StartCoroutine("range");
+        */
     }
 
     void ani_state()
@@ -186,17 +196,17 @@ public class Enemy_ai : MonoBehaviour
 
         if (sight_right == false)
         {
-            transform.localScale = new Vector3(-1, 1, 1);
+            obj.transform.localScale = new Vector3(-1, 1, 1);
         }
         else
         {
-            transform.localScale = new Vector3(1, 1, 1);
+            obj.transform.localScale = new Vector3(1, 1, 1);
         }
 
         if (enemy_state == e_state.Follow)
         {
             move_true();
-            e_ani.Play("walk");
+            //e_ani.Play("walk");
             if (inrange == true)
             {
                 enemy_state = e_state.attack_ready;
@@ -204,7 +214,7 @@ public class Enemy_ai : MonoBehaviour
         }
         else if (enemy_state == e_state.attack_ready)
         {
-            e_ani.Play("idle");
+            //e_ani.Play("idle");
             move_false();
             if (can_attack)
             {
@@ -215,7 +225,7 @@ public class Enemy_ai : MonoBehaviour
         {
             if (can_attack == true)
             {
-                e_ani.Play("attack");
+                //e_ani.Play("attack");
             }
             rigid.constraints = RigidbodyConstraints2D.FreezeAll;       // 공격중일때 enemy를 고정 시켜줌
 
@@ -346,6 +356,59 @@ public class Enemy_ai : MonoBehaviour
 
     }
 
+    IEnumerator range()
+    {
+        if (isrange == true) yield break;
+
+        isrange = true;
+
+        //dash_range = DetectInRange(4, "Party");
+        if(dash_range != null)
+        {
+            inrange_dash = true;
+        }
+        else
+        {
+            inrange_dash = false;
+        }
+        //sight_range = DetectInRange(1.2f, "Party");
+        if (sight_range != null)
+        {
+            if (enemy_ai.enemy_state != e_state.dash)
+            {
+                enemy_ai.enemy_state = e_state.attack;      // attack range 안에 player 감지시 
+            }
+            enemy_ai.issight_range = true;
+            enemy_ai.player = sight_range;
+            enemy_ai.move_false();
+            if (enemy_ai.code == 101)                        // 구미호는 attak range와 sight rage가 같아서 따로 이부분만 sight range에 넣어줌
+            {
+                enemy_ai.inrange = true;
+            }
+        }
+        else
+        {
+            enemy_ai.issight_range = false;
+            enemy_ai.inrange = false;
+        }
+        yield return new WaitForSeconds(0.2f);
+        isrange = false;
+        yield return 0;
+    }
+
+    GameObject DetectInRange(float range, string LayerName)       // 거리 내 감지되는 오브젝트를 반환
+    {
+        int layermask = 1 << LayerMask.NameToLayer(LayerName);
+        Collider2D[] cols = Physics2D.OverlapCircleAll(transform.position, 4f, layermask);      // 중심지, 반지름 ,layermask 어떤걸 탐지?
+        if (cols.Length != 0)
+        {
+            return cols[0].gameObject;
+        }
+        return null;
+
+    }
+
+
     void e_dash()       // e_state dash 일때 사용될 함수
     {
         //ADS.target = partyManager.transform;
@@ -355,8 +418,7 @@ public class Enemy_ai : MonoBehaviour
             dash_target = partyManager.transform.position;
             move_false();       // a* 움직임 봉쇄
         }
-        //Debug.Log("asd" + ADS.target);
-        ////debug.Log("dash_target : " + dash_target);
+
         transform.position = Vector3.MoveTowards(transform.position, dash_target, 5f * Time.deltaTime);
 
         if (Mathf.Round(transform.position.x * 100) == Mathf.Round(dash_target.x * 100) && Mathf.Round(transform.position.y * 100) == Mathf.Round(dash_target.y * 100))        // 목적지 도착

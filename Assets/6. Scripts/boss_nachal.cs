@@ -3,14 +3,19 @@ using UnityEngine;
 
 public class boss_nachal : MonoBehaviour
 {
+    CameraController cam;
+
     public float radiius = 2.0f;
     public float maxlightning = 0.25f;
     public float curlightning = 0;
     public float curpatton_time = 0;
-    public float maxpatton_time = 5f;
+    public float maxpatton_time_l = 5f;         // 번개패턴 max time
+    public float maxpatton_time_b = 2f;         // ball pattton maxtime
     public float curstoptime_patton = 0;
     public float maxstoptime_patton = 10f;
 
+    public int phase = 2;
+    public int curHealth = 200;
     public int numchild = 12;
     public int lightning_count=0;
     public int lightning_count_1 = 0;
@@ -19,6 +24,11 @@ public class boss_nachal : MonoBehaviour
     public int lightning_chess_uptodown_count = 0;      // uptodown count
     public int c = 0;
     public int n = 0;
+    public int cnt = 0;
+    public int ln = 0;
+    public int hn = 0;
+    public int lcnt_1 = 0;
+
     public bool can_lightning = true;
     public bool can_lightning_ready = false;     // false면 preview true면 진짜 번개
     public bool can_lightning_ready_1 = false;
@@ -41,14 +51,14 @@ public class boss_nachal : MonoBehaviour
     public bool isgod_hand_grab = false;                // god hand grab
 
     public bool isLight_chess = false;
-    public bool isboss_patton = false;
     public bool isLight_chess_uptodown = false;     // 코루틴 돌때 사용 
     public bool isLight_chess_downtoup = false;     // 코루틴 돌때 사용
     public bool isLight_vertical_downtoup = false;      // 코루틴 돌때 사용
     public bool isLight_vertical_uptodown = false;      // 코루틴 돌때 사용
     public bool isLight_horizontal_lefttoright = false;      // 직선 좌에서 우로 코루틴
     public bool isLight_horizontal_righttoleft = false;      // 직선 우에서 좌로 코루틴
-    public bool isboss_delay = false;
+    public bool isboss_delay_l = false;
+    public bool isboss_delay_b = false;
 
     public bool iscooltime_to_lightning_co = false; // prewview -> lightning cooltime corutine 사용시 사용됨
     public bool isLight_chess_exphase = false;        //
@@ -59,6 +69,15 @@ public class boss_nachal : MonoBehaviour
     public bool isLight_chess_downtoup_reset = true;        // 체스모양 아래서 위로 리셋
     public bool isLight_vertical_uptodown_reset = true;     // 직선 위서 아래 리셋 
     public bool isLight_vertical_downtoup_reset = true;     // 직선 아래서 위로 리셋
+
+    public bool isboss_patton_l = false;
+    public bool isboss_patton_b = false;
+    public bool isboss_pattern_h = false;
+
+    public bool ani_end = false;
+
+    public int cnt2 = 0;
+
     public GameObject lightning;
     public GameObject lightning_preview;
     public GameObject go;
@@ -67,22 +86,35 @@ public class boss_nachal : MonoBehaviour
     public GameObject god_hand;
     public GameObject god_hand_grab_obj;
     public GameObject partyManager;
+    public ObjectManager objmanager;
+    public GameObject nachal_nomalball;     // nomal nachal ball
+    public GameObject nachal_exphaseball;   // nachal 강화 볼
+    public Animator nachal_ani;
+
+    public GameObject nachal_ball;
+    public GameObject nachal_ball_left;
+    public GameObject nachal_ball_right;
+    public GameObject[] preview = new GameObject[400]; 
 
     // Start is called before the first frame update
     void Start()
     {
+        cam = GameObject.Find("Main Camera").GetComponent<CameraController>(); //게임오브젝트를 신 안에서 찾은 후 스크립트 연결(프리펩시 필수!)
         partyManager = GameObject.Find("Party");  //파티(플레이어)찾기 SJM
+        objmanager = GameObject.Find("ObjectManager").GetComponent<ObjectManager>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        Debug.Log("curhealth : " + curHealth);
+        state(); 
     }
 
     private void FixedUpdate()
     {
-        //boss_patton();
+        boss_patton_l();
+        boss_patton_b();
         if(isLight_circle_button == true)       // 일반 lightning_circle 이 나감
         {
             Light_circle_button();
@@ -149,6 +181,16 @@ public class boss_nachal : MonoBehaviour
         }
     }
 
+    public void state()
+    {
+        if(phase == 1 && curHealth <= 0)
+        {
+            phase = 2;          // 다음페이즈로 넘어감
+            curHealth = 200;    // 
+        }
+
+    }
+
     public void god_hand_grab()
     {
         
@@ -173,26 +215,178 @@ public class boss_nachal : MonoBehaviour
         
     }
 
-    public void boss_patton()
+    public void boss_pattern_h()
     {
-        if (isboss_patton) return;
-        isboss_patton = true;
-        n = Random.Range(1, 12);
-        patton();
+        if (isboss_pattern_h) return;
+        isboss_pattern_h = true;
+
+        hand_pattern();
     }
 
-    IEnumerator boss_delay()
+    public void boss_patton_b()
+    {
+        if (isboss_patton_b) return;
+        isboss_patton_b = true;
+        
+        
+        ball_patton_phase1();
+    }
+
+    public void boss_patton_l()
+    {
+        if (isboss_patton_l) return;
+        isboss_patton_l = true;
+
+        lightning_patton_phase1_ani();
+    }
+
+    public void hand_pattern()
+    {
+        hn = 0;
+
+        hn = Random.Range(0, 1);
+        if (hn%2 == 0)
+        {
+              isgod_hand_button = true;              // god hand 소환
+
+        }
+        else if(hn%1 == 1)
+        {
+            isgod_hand_grab = true;     // god grab 소환
+        }
+    }
+
+    public void ball_patton_phase1()
+    {
+        if(phase == 1)
+        {
+            Instantiate(nachal_nomalball,nachal_ball_left.transform.position, Quaternion.identity);
+            Instantiate(nachal_nomalball, nachal_ball_right.transform.position, Quaternion.identity);
+        }
+        else if(phase == 2)
+        {
+            Instantiate(nachal_exphaseball, nachal_ball_left.transform.position, Quaternion.identity);
+            Instantiate(nachal_exphaseball, nachal_ball_right.transform.position, Quaternion.identity);
+        }
+    }
+
+    public void lightning_patton_phase1_ani()
+    {
+        ln = 0;
+
+        if(phase == 1)
+        {
+            ln = Random.Range(0, 4);
+            switch (ln)
+            {
+                case 0:
+                    nachal_ani.Play("arm3both_swing");
+                    break;
+                case 1:
+                    nachal_ani.Play("arm2left_swing");
+                    break;
+                case 2:
+                    nachal_ani.Play("arm2right_swing");
+
+                    break;
+                case 3:
+                    nachal_ani.Play("arm2left_swing");
+                    break;
+                case 4:
+                    nachal_ani.Play("arm2right_swing");
+                    break;
+            }
+        }
+        else if(phase == 2)
+        {
+            ln = Random.Range(0, 3);
+            switch (ln)
+            {
+                case 0:
+                    nachal_ani.Play("arm3both_swing");
+                    break;
+                case 1:
+                    nachal_ani.Play("arm3both_swing");
+                    break;
+                case 2:
+                    nachal_ani.Play("arm3both_swing");
+
+                    break;
+                case 3:
+                    nachal_ani.Play("arm3both_swing");
+                    break;
+            }
+        }
+ 
+    }
+
+    public void lightning_patton_phase1()
+    {
+        if(phase == 1)
+        {
+            switch (ln)
+            {
+                case 0:
+                    isLight_circle_button = true;
+                    break;
+                case 1:
+                    isLight_chess_button_downtoup = true;
+                    break;
+                case 2:
+                    isLight_chess_button_uptodown = true;
+                    break;
+                case 3:
+                    isLight_vertical_downtoup_button = true;
+                    break;
+                case 4:
+                    isLight_vertical_uptodown_button = true;
+                    break;
+            }
+        }
+        else if(phase == 2)
+        {
+            switch (ln)
+            {
+                case 0:
+                    isLight_circle_button_ex_phase = true;
+                    break;
+                case 1:
+                    isLight_chess_button_ex_phase = true;
+                    break;
+                case 2:
+                    isLight_chess_button_vertical = true;
+                    break;
+                case 3:
+                    isLight_vertical_synthesize_button = true;
+                    break;
+            }
+        }
+        
+    }
+
+
+    IEnumerator boss_delay_l()
     {
         yield return null;
-        if (isboss_delay) yield break;        // 코루틴이 실행중일경우에는 두개이상의 코루틴이 실행 불가능하도록 만들어줌
-        isboss_delay = true;                  // 이게 코루틴 여러번 실행중인경우를 막아줌
-
-        Debug.Log("boss_delay");
-        yield return new WaitForSeconds(maxpatton_time);
-        isboss_patton = false;
-        isboss_delay = false;
-        StopCoroutine("boss_delay");
+        if (isboss_delay_l) yield break;        // 코루틴이 실행중일경우에는 두개이상의 코루틴이 실행 불가능하도록 만들어줌
+        isboss_delay_l = true;                  // 이게 코루틴 여러번 실행중인경우를 막아줌
+        yield return new WaitForSeconds(maxpatton_time_l);
+        isboss_patton_l = false;
+        isboss_delay_l = false;
+        StopCoroutine("boss_delay_l");
     }
+
+    IEnumerator boss_delay_b()
+    {
+        yield return null;
+        if (isboss_delay_b) yield break;        // 코루틴이 실행중일경우에는 두개이상의 코루틴이 실행 불가능하도록 만들어줌
+        isboss_delay_b = true;                  // 이게 코루틴 여러번 실행중인경우를 막아줌
+        yield return new WaitForSeconds(maxpatton_time_b);
+        isboss_patton_b = false;
+        isboss_delay_b = false;
+        StopCoroutine("boss_delay_b");
+    }
+
 
     void patton()
     {
@@ -211,7 +405,7 @@ public class boss_nachal : MonoBehaviour
                 isLight_chess_button_uptodown = true;
                 break;
             case 5:
-                isLight_chess_button_vertical = true;
+                isLight_chess_button_vertical = true;       // exphase에서 사용할것
                 break;
             case 6:
                 isLight_chess_button_ex_phase = true;
@@ -223,7 +417,7 @@ public class boss_nachal : MonoBehaviour
                 isLight_vertical_uptodown_button = true;
                 break;
             case 9:
-                isLight_vertical_synthesize_button = true;
+                isLight_vertical_synthesize_button = true;      // exphase
                 break;
             case 10:
                 isLight_horizontal_lefttoright_button = true;
@@ -244,6 +438,7 @@ public class boss_nachal : MonoBehaviour
     public void Palm_button()
     {
         StartCoroutine("Palm");
+        
     }
 
     /*
@@ -277,10 +472,13 @@ public class boss_nachal : MonoBehaviour
             {
                 if (can_lightning_ready_1 == false)                                                                                         // ready= false -. preview true lightning
                 {
+
+                    // gameobject 배열 생성 cnt 셈
                     Instantiate(lightning_preview, transform.position + (new Vector3(endpoint_right_down.transform.position.x - lightning_count_2, startpoint_left_up.transform.position.y - i * 2, 0)), Quaternion.identity);
                 }
                 else if (can_lightning_ready_1 == true)
                 {
+                    // gameobject 생성된 배열에서 cnt 값 set active false
                     Instantiate(lightning, transform.position + (new Vector3(endpoint_right_down.transform.position.x - lightning_count_2, startpoint_left_up.transform.position.y - i * 2, 0)), Quaternion.identity);
                 }
             }
@@ -296,8 +494,7 @@ public class boss_nachal : MonoBehaviour
         isLight_horizontal_righttoleft = false;                             // 코루틴 초기화
         isLight_horizontal_righttoleft_button = false;                      // 버튼 초기화
         isLight_horizontal_righttoleft_synthesize_button = false;           // synthesize 인경우 초기화
-        isboss_patton = false;
-        StartCoroutine("boss_delay");
+        StartCoroutine("boss_delay_l");
         StopCoroutine("Light_horizontal_righttoleft");
 
     }
@@ -346,7 +543,7 @@ public class boss_nachal : MonoBehaviour
         isLight_horizontal_lefttoright = false;
         isLight_horizontal_lefttoright_button = false;
         isLight_horizontal_righttoleft_synthesize_button = false;
-        StartCoroutine("boss_delay");
+        StartCoroutine("boss_delay_l");
         StopCoroutine("Light_horizontal_lefttoright");
 
     }
@@ -394,7 +591,7 @@ public class boss_nachal : MonoBehaviour
         isLight_vertical_uptodown = false;
         isLight_vertical_uptodown_button = false;
         isLight_vertical_synthesize_button = false;
-        StartCoroutine("boss_delay");
+        StartCoroutine("boss_delay_l");
         StopCoroutine("Light_vertical_uptodown");
     }
 
@@ -445,7 +642,7 @@ public class boss_nachal : MonoBehaviour
         isLight_vertical_downtoup = false;
         isLight_vertical_downtoup_button = false;
         isLight_vertical_synthesize_button = false;
-        StartCoroutine("boss_delay");
+        StartCoroutine("boss_delay_l");
         StopCoroutine("Light_chess_downtoup");
     }
     /*
@@ -523,7 +720,7 @@ public class boss_nachal : MonoBehaviour
         isLight_chess_uptodown = false;             //  코루틴 진입 활성화
         isLight_chess_uptodown_reset = true;        // 리셋 활성화
         isLight_chess_button_vertical = false;      // 가로 세로 동시일때를 위해서 false값
-        StartCoroutine("boss_delay");
+        StartCoroutine("boss_delay_l");
         StopCoroutine("Light_chess_uptodown");
     }
 
@@ -555,7 +752,7 @@ public class boss_nachal : MonoBehaviour
         isLight_chess_downtoup = false;
         isLight_chess_downtoup_reset = true;
         isLight_chess_button_vertical = false;
-        StartCoroutine("boss_delay");
+        StartCoroutine("boss_delay_l");
         StopCoroutine("Light_chess_downtoup");
     }
 
@@ -590,6 +787,7 @@ public class boss_nachal : MonoBehaviour
                         }
                         else if(can_lightning_ready == true)
                         {
+                            //objmanager.MakeObj("lightning", transform.position + (new Vector3(i * 2 + startpoint_left_up.transform.position.x, lightning_count + endpoint_right_down.transform.position.y, 0)), Quaternion.identity);
                             Instantiate(lightning, transform.position + (new Vector3(i * 2 + startpoint_left_up.transform.position.x, lightning_count + endpoint_right_down.transform.position.y, 0)), Quaternion.identity);
                         }
                     }
@@ -602,6 +800,7 @@ public class boss_nachal : MonoBehaviour
                         }
                         else if (can_lightning_ready == true)
                         {
+                            //objmanager.MakeObj("lightning", transform.position + (new Vector3(i * 2 + startpoint_left_up.transform.position.x + 1, lightning_count + endpoint_right_down.transform.position.y, 0)), Quaternion.identity);
                             Instantiate(lightning, transform.position + (new Vector3(i * 2 + startpoint_left_up.transform.position.x + 1, lightning_count + endpoint_right_down.transform.position.y, 0)), Quaternion.identity);
                         }
                     }
@@ -609,7 +808,6 @@ public class boss_nachal : MonoBehaviour
                 lightning_count++;  // 세로줄
                 if(can_lightning_ready == false && lightning_count == (int)(startpoint_left_up.transform.position.y - endpoint_right_down.transform.position.y))
                 {
-                    Debug.Log("a : ");
                     lightning_count = 0;
                     can_lightning = false;
                     can_lightning_ready = true;
@@ -624,7 +822,7 @@ public class boss_nachal : MonoBehaviour
         }
         isLight_chess_button_ex_phase = false;
         reset = true;
-        StartCoroutine("boss_delay");
+        StartCoroutine("boss_delay_l");
         StopCoroutine("Light_chess_exphase");
     }
 
@@ -719,7 +917,7 @@ public class boss_nachal : MonoBehaviour
             isLight_circle_button_ex_phase = false;
             isLight_circle_button = false;
             reset = true;
-            StartCoroutine("boss_delay");
+            StartCoroutine("boss_delay_l");
         }
 
     }
@@ -733,6 +931,113 @@ public class boss_nachal : MonoBehaviour
         else
         {
             curlightning += Time.deltaTime;
+        }
+    }
+
+
+    IEnumerator OnDamage(int damage)
+    {
+        if (curHealth > 0)
+            curHealth -= damage;
+        if (curHealth <= 0)
+        {
+            curHealth = 0;
+            //Destroy(gameObject);
+            //사망, 누움
+            //transform.rotation = Quaternion.Euler(0, 0, -90);
+            //gameObject.layer = 17;
+        }
+        yield return null;
+    }
+
+    /*
+    IEnumerator BePushed()
+    {
+        if (isRooted) //속박시 불가
+            yield return null;
+        else
+        {
+            aiPath.canMove = false;
+            Vector2 direction = this.transform.position - ADS.target.position;
+            direction = direction.normalized * (pushAmount / 2);
+            rigid.AddForce(direction, ForceMode2D.Impulse);
+
+            yield return new WaitForSeconds(0.2f);
+            rigid.velocity = Vector3.zero;
+            aiPath.canMove = true;
+            aiPath.maxSpeed = 1f;
+
+            yield return new WaitForSeconds(0.1f);
+            aiPath.maxSpeed = maxSpeed;
+        }
+    }
+    */
+
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "PlayerBullet")
+        {
+            Bullet bullet = collision.gameObject.GetComponent<Bullet>();
+            StartCoroutine(OnDamage(bullet.damage));
+            //StartCoroutine(BePushed());
+            //Destroy(collision.gameObject);
+        }
+        if (collision.gameObject.tag == "PlayerSwing")
+        {
+            //Debug.Log("닿음");
+            Bullet bullet = collision.gameObject.GetComponent<Bullet>();
+            StartCoroutine(OnDamage(bullet.damage));
+            //StartCoroutine(BePushed());
+            cam.Shake(0.12f, 1);
+        }
+
+        //장판 스킬
+        if (collision.gameObject.tag == "Magicline")
+        {
+            Bullet bullet = collision.gameObject.GetComponent<Bullet>();
+            switch (bullet.value)
+            {
+                case 1:
+                    StartCoroutine(OnDamage(bullet.damage));
+                    //StartCoroutine(BePushed());
+                    break;
+                case 30:
+                    StartCoroutine(OnDamage(bullet.damage));
+                    //StartCoroutine(BePushed());
+                    break;
+                case 20:
+                    StartCoroutine(OnDamage(bullet.damage));
+                    break;
+            }
+        }
+
+        if (collision.gameObject.tag == "Explosive") //폭발
+        {
+            Bullet bullet = collision.gameObject.GetComponent<Bullet>();
+            switch (bullet.value)
+            {
+                case 10: //속박됨
+                    //isRooted = true;
+                    break;
+            }
+        }
+    }
+
+
+    void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Magicline")
+        {
+            Bullet bullet = collision.gameObject.GetComponent<Bullet>();
+            switch (bullet.value)
+            {
+                case 0:
+                    //ADS.target = party.transform; //SJM
+                    break;
+                case 11:
+                    //aiPath.maxSpeed = maxSpeed;
+                    break;
+            }
         }
     }
 }
