@@ -210,8 +210,8 @@ public class Character : MonoBehaviour
                 curHealth = 200;
                 maxAmmo = 2;
                 curAmmo = 2;
-                maxChargeDelay = 2f;
-                maxLSkillDelay = 10f;
+                maxChargeDelay = 3f;
+                maxLSkillDelay = 7f;
                 maxMSkillDelay = 15f;
                 break;
             case 2: //사오정
@@ -219,9 +219,9 @@ public class Character : MonoBehaviour
                 curHealth = 75;
                 maxAmmo = 20;
                 curAmmo = 20;
-                maxChargeDelay = 2f;
-                maxLSkillDelay = 5f;
-                maxMSkillDelay = 5f;
+                maxChargeDelay = 5f;
+                maxLSkillDelay = 10f;
+                maxMSkillDelay = 7f;
                 break;
             case 3: //??
                 break;
@@ -445,22 +445,22 @@ public class Character : MonoBehaviour
             switch (value)
             {
                 case 0: //손오공
-                    if (fire1Up && curPutButtonFire1Delay <= 0.2f && !isReloading) //일반공격(근접)
+                    if (fire1Up && curPutButtonFire1Delay <= 0.3f && !isReloading) //일반공격(근접)
                     {
                         if (curShotDelay < maxShotDelay || !partyManager.canSwap || curAmmo <= 0)
                             return;
 
                         StartCoroutine(NormalAttack(rotateDg));
                     }
-                    if(fire1 && curPutButtonFire1Delay > 0.2f && !isReloading) //차지 공격 차지(근접)
+                    if(fire1 && curPutButtonFire1Delay > 0.3f && !isReloading) //차지 공격 차지(근접)
                     {
-                        if (curShotDelay < maxShotDelay || !partyManager.canSwap || curAmmo <= 0)
+                        if (curShotDelay < maxShotDelay || curChargeDelay < maxChargeDelay || !partyManager.canSwap || curAmmo <= 0)
                             return;
                         StartCoroutine(ChargeAttackReady(rotateDg));
                     }
-                    if(fire1Up && curPutButtonFire1Delay > 0.2f && !isReloading) //차지 공격(근접)
+                    if(fire1Up && curPutButtonFire1Delay > 0.3f && !isReloading) //차지 공격(근접)
                     {
-                        if (curShotDelay < maxShotDelay || !partyManager.canSwap || curAmmo <= 0)
+                        if (curShotDelay < maxShotDelay || curChargeDelay < maxChargeDelay || !partyManager.canSwap || curAmmo <= 0)
                             return;
 
                         StartCoroutine(ChargeAttack(rotateDg));
@@ -479,29 +479,29 @@ public class Character : MonoBehaviour
                     }
                     break;
                 case 1: //저팔계
-                    if (fire1Up && curPutButtonFire1Delay <= 0.2f && !isReloading) //다연화창 발사
+                    if (fire1Up && curPutButtonFire1Delay <= 0.3f && !isReloading) //다연화창 발사
                     {
                         if (curShotDelay < maxShotDelay || !partyManager.canSwap || curAmmo <= 0)
                             return;
                         StartCoroutine(NormalAttack(rotateDg));
                     }
-                    if (fire1 && curPutButtonFire1Delay > 0.2f && !isReloading) //차지 공격 차지(근접)
+                    if (fire1 && curPutButtonFire1Delay > 0.3f && !isReloading) //차지 공격 차지(근접)
                     {
-                        if (curShotDelay < maxShotDelay || !partyManager.canSwap || curAmmo <= 0)
+                        if (curShotDelay < maxShotDelay || curChargeDelay < maxChargeDelay || !partyManager.canSwap || curAmmo <= 0)
                             return;
 
                         StartCoroutine(ChargeAttackReady(rotateDg));
                     }
-                    if (fire1Up && curPutButtonFire1Delay > 0.2f && !isReloading) //차지 공격(근접)
+                    if (fire1Up && curPutButtonFire1Delay > 0.3f && !isReloading) //차지 공격(근접)
                     {
-                        if (curShotDelay < maxShotDelay || !partyManager.canSwap || curAmmo <= 0)
+                        if (curShotDelay < maxShotDelay || curChargeDelay < maxChargeDelay || !partyManager.canSwap || curAmmo <= 0)
                             return;
 
                         StartCoroutine(ChargeAttack(rotateDg));
                     }
                     if (fire2Down) //리더 액티브 스킬-이탈형 스킬, 어그로
                     {
-                        if (!partyManager.canSwap)
+                        if (curLSkillDelay < maxLSkillDelay || !partyManager.canSwap)
                             return;
                         StartCoroutine(LeavingSkill());
                     }
@@ -697,11 +697,6 @@ public class Character : MonoBehaviour
         }
     }
 
-    void OnTriggerEnter2D(Collider2D collision)
-    {
-
-    }
-
     IEnumerator NormalAttack(float rotateDg) //일반공격
     {
         int ranAudio;
@@ -735,7 +730,7 @@ public class Character : MonoBehaviour
                 }
                 isAttacking = true;
                 audioManager.PlayBgm("Jeo Attack");
-                anim.SetTrigger("MagicAttack");
+                anim.SetTrigger("NormalAttack");
 
                 curShotDelay = 0;
 
@@ -744,7 +739,7 @@ public class Character : MonoBehaviour
                 break;
             case 2: //사오정
                 isAttacking = true;
-                anim.SetTrigger("MagicSkill");
+                //anim.SetTrigger("MagicSkill");
                 audioManager.PlayBgm("Sa Attack 1");
                 skillObject[0].SetActive(true);
 
@@ -773,7 +768,7 @@ public class Character : MonoBehaviour
                 if (!partyManager.isAttacking) audioManager.PlayBgm("Son Charge Ready");
                 break;
             case 1: //저팔계
-                
+                if(!partyManager.isAttacking) audioManager.PlayBgm("Jeo Charge Ready");
                 break;
 
         }
@@ -802,9 +797,12 @@ public class Character : MonoBehaviour
                 skillObject[4].SetActive(false);
                 partyManager.isAttacking = false;
                 curShotDelay = 0;
+                curChargeDelay = 0;
                 break;
             case 1: //저팔계
                 curAmmo = 0;
+                audioManager.StopBgm("Jeo Charge Ready");
+                anim.SetTrigger("NormalAttack");
                 curShotDelay = 0;
                 skillObject[2].transform.rotation = Quaternion.Euler(0, 0, rotateDg);
                 skillObject[2].SetActive(true);
@@ -814,6 +812,7 @@ public class Character : MonoBehaviour
                 curShotDelay = 0;
                 yield return new WaitForSeconds(0.25f);
                 curShotDelay = 0;
+                curChargeDelay = 0;
                 skillObject[2].SetActive(false);
                 partyManager.isAttacking = false;
                 break;
@@ -835,9 +834,9 @@ public class Character : MonoBehaviour
             partyManager.controlList[partyManager.charactersIndex] = false;
             partyManager.priCharIndex = -1; //퀵버튼 리셋
 
-            while (!partyManager.controlList[partyManager.charactersIndex])
+            while (!partyManager.controlList[partyManager.charactersIndex]) 
             {
-                if (partyManager.charactersIndex != partyManager.hasCharactersCount - 1)
+                if (partyManager.charactersIndex != partyManager.hasCharactersCount - 1) 
                     partyManager.charactersIndex++;
                 else if (partyManager.charactersIndex == partyManager.hasCharactersCount - 1)
                     partyManager.charactersIndex = 0;
@@ -856,7 +855,8 @@ public class Character : MonoBehaviour
         {
             if (value == 1) //저팔계
             {
-                anim.SetTrigger("MagicSkill");
+                anim.SetTrigger("LeaderSkillTrigger");
+                anim.SetBool("LeaderSkill", true);
                 audioManager.PlayBgm("Jeo Leader 1");
                 yield return new WaitForSeconds(0.2f);
                 audioManager.PlayBgm("Jeo Leader 2");
@@ -874,6 +874,8 @@ public class Character : MonoBehaviour
         }
         if (!isLeaving) //파티에 돌아옴
         {
+            anim.SetBool("LeaderSkill", false);
+            curLSkillDelay = 0f;
             skillObject[1].SetActive(false);
             partyManager.controlList[leavingIndex] = true;
         }
@@ -944,6 +946,7 @@ public class Character : MonoBehaviour
             partyManager.isStopping = true;
             skillObject[1].SetActive(true);
             audioManager.PlayBgm("Sa Leader Ready");
+            anim.SetTrigger("LeaderSKill");
             yield return new WaitForSeconds(0.3f);
             skillObject[1].SetActive(false);
             audioManager.StopBgm("Sa Leader Ready");

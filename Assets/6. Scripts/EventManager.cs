@@ -5,6 +5,7 @@ using UnityEngine;
 public class EventManager : MonoBehaviour
 {
     public MusicManager musicManager;
+    public ObjectManager objectManager;
 
     //Event
     public float curEChangeDelay = 0f; //현재 노말->호드 이벤트 체인지 딜레이
@@ -48,6 +49,8 @@ public class EventManager : MonoBehaviour
 
     void Start()
     {
+
+
         enemyList = new List<int>();
     }
     void Update()
@@ -100,7 +103,7 @@ public class EventManager : MonoBehaviour
     void Delay()
     {
         if(hordeEvent) { curHordeDelay += Time.deltaTime; curSpawnDelay += Time.deltaTime; curEliteSpawnDelay += Time.deltaTime; }
-        if(normalEvent) curEChangeDelay += Time.deltaTime;
+        //if(normalEvent) curEChangeDelay += Time.deltaTime; 
         if(hordeEventIntro) curHordeDelayIntro += Time.deltaTime;
         if(hordeBreakTime && hordeEvent) curBreakTimeDelay += Time.deltaTime;
     }
@@ -129,12 +132,12 @@ public class EventManager : MonoBehaviour
         //스폰
         if(curSpawnDelay >= maxSpawnDelay && !hordeBreakTime)
         {
-            int ranPosition = Random.Range(0, enemySpawnZone[ranZone].transform.childCount);
+            int ranPosition = Random.Range(0, enemySpawnZone[0].transform.childCount);
             int ran = Random.Range(0, enemies_Normal.Length);
-            GameObject instantEnemy = Instantiate(enemies_Normal[ran], enemySpawnZone[ranZone].transform.GetChild(ranPosition));
+
+            GameObject instantEnemy = objectManager.MakeObj(enemies_Normal[ran].name, enemySpawnZone[0].transform.GetChild(ranPosition).position, Quaternion.Euler(0, 0, 0));
+
             Enemy_ai enemy = instantEnemy.GetComponent<Enemy_ai>();
-            //GameObject instantEnemy = Instantiate(enemies_Normal[ran], enemySpawnZone[ranZone]);
-            //Enemy_ai enemy = instantEnemy.GetComponent<Enemy_ai>();
             curSpawnDelay = 0f;
             curMonsterCount++;
         }
@@ -143,8 +146,8 @@ public class EventManager : MonoBehaviour
         {
             int ranPosition = Random.Range(0, enemySpawnZone[ranZone].transform.childCount);
             int ran = Random.Range(0, enemies_Normal.Length);
-            GameObject instantEnemy = Instantiate(enemies_Elite[ran], enemySpawnZone[ranZone].transform.GetChild(ranPosition));
-            Enemy_ai enemy = instantEnemy.GetComponent<Enemy_ai>();
+            //GameObject instantEnemy = objectManager.MakeObj(enemies_Elite[ran].name, enemySpawnZone[ranZone].transform.GetChild(ranPosition).position, Quaternion.Euler(0, 0, 0));
+            //Enemy_ai enemy = instantEnemy.GetComponent<Enemy_ai>();
             curEliteSpawnDelay = 0f;
         }
     }

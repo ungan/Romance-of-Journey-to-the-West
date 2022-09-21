@@ -29,6 +29,7 @@ public class MusicManager : MonoBehaviour
 
         if (eventManager.normalEvent)
         {
+            audioSource.Stop();
             playMusic = false;
         }
         if (eventManager.hordeEventIntro)
@@ -40,7 +41,7 @@ public class MusicManager : MonoBehaviour
             audioSource.clip = Theme[1];
         }
 
-        if(playMusic == true)
+        if (playMusic == true)
         {
             audioSource.Play();
             playMusic = false;

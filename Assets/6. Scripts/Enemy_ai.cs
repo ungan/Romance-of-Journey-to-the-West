@@ -418,6 +418,7 @@ public class Enemy_ai : MonoBehaviour
             dash_target = partyManager.transform.position;
             move_false();       // a* 움직임 봉쇄
         }
+
         transform.position = Vector3.MoveTowards(transform.position, dash_target, 5f * Time.deltaTime);
 
         if (Mathf.Round(transform.position.x * 100) == Mathf.Round(dash_target.x * 100) && Mathf.Round(transform.position.y * 100) == Mathf.Round(dash_target.y * 100))        // 목적지 도착
@@ -425,12 +426,12 @@ public class Enemy_ai : MonoBehaviour
             move_true();        // a* 움직임 활성화
             if (issight_range == true)
             {
-                Debug.Log("ready");
+                //debug.Log("ready");
                 enemy_state = e_state.attack_ready;
             }
             else if (issight_range == false)
             {
-                Debug.Log("follow");
+                //debug.Log("follow");
                 enemy_state = e_state.Follow;
             }
         }
@@ -525,8 +526,8 @@ public class Enemy_ai : MonoBehaviour
             }
             else
             {
-                Debug.Log("e_angle.length : " + e_angle.Length);
-                Debug.Log("i : " + i);
+                //debug.Log("e_angle.length : " + e_angle.Length);
+                //debug.Log("i : " + i);
                 if (e_angle[i] < e_angle[min_engle])
                 {
                     min_engle = i;
@@ -603,7 +604,7 @@ public class Enemy_ai : MonoBehaviour
     public void kid_nap()
     {
         objparty = GameObject.Find("Party");
-        //Debug.Log("objparty : " + objparty.transform.position);
+        ////debug.Log("objparty : " + objparty.transform.position);
         r = Random.Range(0, partyManager.curCharactersCount);
         if (partyManager.aliveList[r] == true && partyManager.characterLists[r].tag == "Leader")                                                     // leader 납치
         {
@@ -666,10 +667,10 @@ public class Enemy_ai : MonoBehaviour
             }
             else if (code == 1001)
             {
-                Debug.Log("nap" + nap);
+                //debug.Log("nap" + nap);
                 if (nap != null)
                 {
-                    Debug.Log("돌았슈");
+                    //debug.Log("돌았슈");
                     iskidnap = false;                       // 납치중 아님
                     nap.isLeaving = false;                  // leaving 상태 아님
                     partyManager.controlList[r] = true;     // control 허용
@@ -794,7 +795,7 @@ public class Enemy_ai : MonoBehaviour
             }
             else if (code == 1001)
             {
-                //Debug.Log("nap" + nap);
+                ////debug.Log("nap" + nap);
                 if (nap != null)
                 {
                     //Debug.Log("돌았슈");

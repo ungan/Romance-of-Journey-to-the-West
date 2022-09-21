@@ -46,12 +46,17 @@ public class GameManager : MonoBehaviour
     //bool
     public bool[] swapChoice;
 
+    bool lDown;
+
     //Skill
     [SerializeField]
     public ClassInfo[] classInfos = null;
 
     void LateUpdate()
     {
+        lDown = Input.GetButtonDown("LButton");
+        if (lDown) GameRetry();
+
         StartCoroutine(CoolTime());
 
         health.text = character[partyManager.list[partyManager.charactersIndex]].curHealth + " / " + character[partyManager.list[partyManager.charactersIndex]].maxHealth;
@@ -154,7 +159,7 @@ public class GameManager : MonoBehaviour
 
     public void GameRetry()
     {
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(0);
     }
 
     IEnumerator CoolTime()
@@ -163,7 +168,7 @@ public class GameManager : MonoBehaviour
 
         for(int i = 0; i < classInfos.Length; i++)
         {
-            if (i == partyManager.charactersIndex) classInfos[i].group.SetActive(true);
+            if (i == partyManager.list[partyManager.charactersIndex]) classInfos[i].group.SetActive(true);
             else classInfos[i].group.SetActive(false);
         }
 
@@ -172,51 +177,51 @@ public class GameManager : MonoBehaviour
             int max = (int)Math.Ceiling(curChar.maxChargeDelay);
             int cur = (int)Math.Ceiling(curChar.curChargeDelay);
 
-            //classInfos[partyManager.charactersIndex].skillTransform[1].gameObject.SetActive(true);
-            //classInfos[partyManager.charactersIndex].skillDelay[1].gameObject.SetActive(true);
+            classInfos[partyManager.list[partyManager.charactersIndex]].skillTransform[1].gameObject.SetActive(true);
+            classInfos[partyManager.list[partyManager.charactersIndex]].skillDelay[1].gameObject.SetActive(true);
 
-            //classInfos[partyManager.charactersIndex].skillTransform[1].localScale = new Vector3(1, 1 - curChar.curChargeDelay / curChar.maxChargeDelay, 1);
-            //classInfos[partyManager.charactersIndex].skillDelay[1].text = (max + 1 - cur) + "";
+            classInfos[partyManager.list[partyManager.charactersIndex]].skillTransform[1].localScale = new Vector3(1, 1 - curChar.curChargeDelay / curChar.maxChargeDelay, 1);
+            classInfos[partyManager.list[partyManager.charactersIndex]].skillDelay[1].text = (max + 1 - cur) + ""; //LeaderSkill
 
         }
         else
         {
-            classInfos[partyManager.charactersIndex].skillTransform[1].gameObject.SetActive(false);
-            classInfos[partyManager.charactersIndex].skillDelay[1].gameObject.SetActive(false);
+            classInfos[partyManager.list[partyManager.charactersIndex]].skillTransform[1].gameObject.SetActive(false);
+            classInfos[partyManager.list[partyManager.charactersIndex]].skillDelay[1].gameObject.SetActive(false);
         }
         if (curChar.maxLSkillDelay > curChar.curLSkillDelay) //LSkill
         {
             int max = (int)Math.Ceiling(curChar.maxLSkillDelay);
             int cur = (int)Math.Ceiling(curChar.curLSkillDelay);
 
-            classInfos[partyManager.charactersIndex].skillTransform[2].gameObject.SetActive(true);
-            classInfos[partyManager.charactersIndex].skillDelay[2].gameObject.SetActive(true);
+            classInfos[partyManager.list[partyManager.charactersIndex]].skillTransform[2].gameObject.SetActive(true);
+            classInfos[partyManager.list[partyManager.charactersIndex]].skillDelay[2].gameObject.SetActive(true);
 
-            classInfos[partyManager.charactersIndex].skillTransform[2].localScale = new Vector3(1, 1 - curChar.curLSkillDelay / curChar.maxLSkillDelay, 1);
-            classInfos[partyManager.charactersIndex].skillDelay[2].text = (max+1 - cur) + ""; //LeaderSkill
+            classInfos[partyManager.list[partyManager.charactersIndex]].skillTransform[2].localScale = new Vector3(1, 1 - curChar.curLSkillDelay / curChar.maxLSkillDelay, 1);
+            classInfos[partyManager.list[partyManager.charactersIndex]].skillDelay[2].text = (max+1 - cur) + ""; //LeaderSkill
 
         }
         else
         {
-            classInfos[partyManager.charactersIndex].skillTransform[2].gameObject.SetActive(false);
-            classInfos[partyManager.charactersIndex].skillDelay[2].gameObject.SetActive(false);
+            classInfos[partyManager.list[partyManager.charactersIndex]].skillTransform[2].gameObject.SetActive(false);
+            classInfos[partyManager.list[partyManager.charactersIndex]].skillDelay[2].gameObject.SetActive(false);
         }
         if (curChar.maxMSkillDelay > curChar.curMSkillDelay) //MSkill
         {
             int max = (int)Math.Ceiling(curChar.maxMSkillDelay);
             int cur = (int)Math.Ceiling(curChar.curMSkillDelay);
 
-            classInfos[partyManager.charactersIndex].skillTransform[3].gameObject.SetActive(true);
-            classInfos[partyManager.charactersIndex].skillDelay[3].gameObject.SetActive(true);
+            classInfos[partyManager.list[partyManager.charactersIndex]].skillTransform[3].gameObject.SetActive(true);
+            classInfos[partyManager.list[partyManager.charactersIndex]].skillDelay[3].gameObject.SetActive(true);
 
-            classInfos[partyManager.charactersIndex].skillTransform[3].localScale = new Vector3(1, 1 - curChar.curMSkillDelay / curChar.maxMSkillDelay, 1);
-            classInfos[partyManager.charactersIndex].skillDelay[3].text = (max + 1 - cur) + ""; //LeaderSkill
+            classInfos[partyManager.list[partyManager.charactersIndex]].skillTransform[3].localScale = new Vector3(1, 1 - curChar.curMSkillDelay / curChar.maxMSkillDelay, 1);
+            classInfos[partyManager.list[partyManager.charactersIndex]].skillDelay[3].text = (max + 1 - cur) + ""; //LeaderSkill
 
         }
         else
         {
-            classInfos[partyManager.charactersIndex].skillTransform[3].gameObject.SetActive(false);
-            classInfos[partyManager.charactersIndex].skillDelay[3].gameObject.SetActive(false);
+            classInfos[partyManager.list[partyManager.charactersIndex]].skillTransform[3].gameObject.SetActive(false);
+            classInfos[partyManager.list[partyManager.charactersIndex]].skillDelay[3].gameObject.SetActive(false);
         }
 
 

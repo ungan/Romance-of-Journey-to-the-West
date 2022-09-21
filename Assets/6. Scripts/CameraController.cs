@@ -19,6 +19,11 @@ public class CameraController : MonoBehaviour
     public bool dying = false;
     public bool t = false;
 
+    public float zoomCamera;
+    public float normalCamera;
+
+    public Vector3 leftBottom, rightTop;
+
     void Start()
     {
         mainCamera = GetComponent<Camera>();
@@ -77,22 +82,34 @@ public class CameraController : MonoBehaviour
         if (dying) //사망시 줌인+플레이어로 시선 고정 or 무기 변환중
         {
             tempPos = Vector3.SmoothDamp(transform.position, playerPos, ref refvel, smoothTime);
-            if(mainCamera.orthographicSize > 6f)
+            if(mainCamera.orthographicSize > zoomCamera)
                 mainCamera.orthographicSize -= 0.15f;
         }
         else if (t)
         {
             tempPos = Vector3.SmoothDamp(transform.position, playerPos, ref refvel, smoothTime);
-            if (mainCamera.orthographicSize < 10f)
+            if (mainCamera.orthographicSize < normalCamera)
                 mainCamera.orthographicSize += 0.15f;
         }
         else //평시
         {
             tempPos = Vector3.SmoothDamp(transform.position, target, ref refvel, smoothTime);
-            if (mainCamera.orthographicSize < 10f)
+
+            if (mainCamera.orthographicSize < normalCamera)
                 mainCamera.orthographicSize += 0.15f;
         }
         transform.position = tempPos;
+        isMoveRange();
+    }
+    void isMoveRange()
+    {
+        Vector3 tmp = transform.position;
+        if (tmp.x > rightTop.x) tmp.x = rightTop.x;
+        if (tmp.x < leftBottom.x) tmp.x = leftBottom.x;
+        if (tmp.y > rightTop.y) tmp.y = rightTop.y;
+        if (tmp.y < leftBottom.y) tmp.y = leftBottom.y;
+
+        transform.position = tmp;
     }
 
     public void Shake(float length, float power)

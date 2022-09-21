@@ -40934,7 +40934,7 @@ MonoBehaviour:
   eventManager: {fileID: 2070688221}
   gameManager: {fileID: 783539141}
   Theme:
-  - {fileID: 8300000, guid: 5262143b526ca6c4a85ad6cdb6b7a107, type: 3}
+  - {fileID: 8300000, guid: 74d878d9857c9b7419739c054a8a0829, type: 3}
   - {fileID: 8300000, guid: 4d51ebc3996685d4ab5f8aafc37355b7, type: 3}
   playMusic: 0
 --- !u!4 &826022831
@@ -66629,8 +66629,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   musicManager: {fileID: 826022830}
+  objectManager: {fileID: 2116731282}
   curEChangeDelay: 13
-  maxEChangeDelay: 20000
+  maxEChangeDelay: 200000
   curSpawnDelay: 0
   maxSpawnDelay: 0.25
   curEliteSpawnDelay: 0
@@ -66640,7 +66641,7 @@ MonoBehaviour:
   hordeEvent: 0
   bossEvent: 0
   curHordeDelayIntro: 0
-  maxHordeDelayIntro: 20
+  maxHordeDelayIntro: 7
   curHordeDelay: 0
   maxHordeDelay: 300
   curBreakTimeDelay: 0
@@ -66657,9 +66658,10 @@ MonoBehaviour:
   - {fileID: 975066990}
   - {fileID: 758822026}
   enemies_Normal:
-  - {fileID: 8958931992095593748, guid: 566fea0288d5ca44dae30dcde3469f3c, type: 3}
-  - {fileID: 8958931992095593748, guid: 519b37c7321a3ab4cb9914d27bc4175c, type: 3}
-  - {fileID: 8958931992095593748, guid: 3477586b88fbd674c8e8f66e548ed11d, type: 3}
+  - {fileID: 8958931992095593748, guid: 84cdc382da70bce46bcb49c37b546f49, type: 3}
+  - {fileID: 8958931992095593748, guid: 0bf36e1b0e938ea4cabc2a0787d2562f, type: 3}
+  - {fileID: 8958931992095593748, guid: c94f71fabe41fbe42b3951c15d8b678d, type: 3}
+  - {fileID: 8958931992095593748, guid: 8735be5de34e1c04da64b8a74db8ef2e, type: 3}
   enemies_Elite: []
   enemies_Special: []
   enemyList: 
@@ -66924,18 +66926,26 @@ MonoBehaviour:
     perfab: {fileID: 8252555352404929035, guid: d0c03b2d78c8d354aa9f9a7161512dc4,
       type: 3}
     count: 100
+  - objectName: gyeong-gi_1
+    perfab: {fileID: 8958931992095593748, guid: 84cdc382da70bce46bcb49c37b546f49,
+      type: 3}
+    count: 50
+  - objectName: gyeong-gi_2
+    perfab: {fileID: 8958931992095593748, guid: 0bf36e1b0e938ea4cabc2a0787d2562f,
+      type: 3}
+    count: 50
   - objectName: docheol_1
-    perfab: {fileID: 8252555352404929035, guid: d0c03b2d78c8d354aa9f9a7161512dc4,
+    perfab: {fileID: 8958931992095593748, guid: 8735be5de34e1c04da64b8a74db8ef2e,
       type: 3}
     count: 50
   - objectName: docheol_2
-    perfab: {fileID: 8252555352404929035, guid: d0c03b2d78c8d354aa9f9a7161512dc4,
+    perfab: {fileID: 8958931992095593748, guid: c94f71fabe41fbe42b3951c15d8b678d,
       type: 3}
     count: 50
-  - objectName: Soul
-    perfab: {fileID: 8252555352404929035, guid: d0c03b2d78c8d354aa9f9a7161512dc4,
+  - objectName: docheol_3
+    perfab: {fileID: 6847897101680865917, guid: 82918f4d1aa88504abf0f2563bafd8ad,
       type: 3}
-    count: 100
+    count: 50
   tfPoolParent: {fileID: 2116731281}
 --- !u!1 &2118133436
 GameObject:

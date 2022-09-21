@@ -23,6 +23,7 @@ TagManager:
   - EnemySwing
   - EnemyBullet
   - AutoTakeItem
+  - Foot
   layers:
   - Default
   - TransparentFX
