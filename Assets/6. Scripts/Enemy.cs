@@ -11,6 +11,8 @@ public class Enemy : MonoBehaviour
     ObjectManager objectManager;
     AudioManager audioManager;
 
+    public GameObject obj;
+
     //밸류
     public int value;
 
@@ -24,6 +26,7 @@ public class Enemy : MonoBehaviour
     public float maxSpeed;
 
     public bool a;
+    bool sight_right;
 
     //특수상태
     public bool isRooted = false; //속박됨
@@ -39,24 +42,21 @@ public class Enemy : MonoBehaviour
 
     void Start()
     {
-        /*
         cam = GameObject.Find("Main Camera").GetComponent<CameraController>(); //게임오브젝트를 신 안에서 찾은 후 스크립트 연결(프리펩시 필수!)
         eventManager = GameObject.Find("EventManager").GetComponent<EventManager>();
-
         objectManager = GameObject.Find("ObjectManager").GetComponent<ObjectManager>();
         audioManager = GameObject.Find("AudioManager").GetComponent<AudioManager>();
         party = GameObject.Find("Party").GetComponent<PartyManager>();  //SJM 씬 내 파티찾기
 
-
         rigid = GetComponent<Rigidbody2D>();
         aiPath = GetComponent<AIPath>();
-        party = GameObject.Find("Party").GetComponent<PartyManager>();  //SJM 씬 내 파티찾기
+        //seeker.StartPath(rigid.position, target.position, )
         ADS = GetComponent<AIDestinationSetter>();
         ADS.target = party.transform;  //SJM, 타겟 지정
         maxSpeed = aiPath.maxSpeed;
         defaultSpeed = maxSpeed;
 
-        //Stats();
+        Stats();
     }
     private void OnEnable()
     {
@@ -68,12 +68,11 @@ public class Enemy : MonoBehaviour
     }
     private void OnDisable()
     {
-        
+
     }
 
     void Update()
     {
-        /*
         if (isRooted)
         {
             aiPath.maxSpeed = 0;
@@ -84,9 +83,19 @@ public class Enemy : MonoBehaviour
             }
         }
 
+        rol();
+
+        if (sight_right == false)
+        {
+            obj.transform.localScale = new Vector3(-1, 1, 1);
+        }
+        else
+        {
+            obj.transform.localScale = new Vector3(1, 1, 1);
+        }
+
         if (a) { aiPath.canMove = true; aiPath.maxSpeed = maxSpeed; a = false; }
         Delay();
-        */
     }
 
     void Stats()
@@ -105,6 +114,18 @@ public class Enemy : MonoBehaviour
     {
         if (isRooted)
             curRootedDelay += Time.deltaTime;
+    }
+
+    void rol()
+    {
+        if (ADS.target.position.x - transform.position.x > 0)        //  목적지가 우측에 존재
+        {
+            sight_right = true;
+        }
+        else                                                        // 목적지가 좌측에 존재
+        {
+            sight_right = false;
+        }
     }
 
     IEnumerator OnDamage(int damage)
@@ -241,7 +262,7 @@ public class Enemy : MonoBehaviour
                 case 0:
                     ADS.target = party.transform; //SJM
                     break;
-                case 11: 
+                case 11:
                     aiPath.maxSpeed = maxSpeed;
                     break;
             }

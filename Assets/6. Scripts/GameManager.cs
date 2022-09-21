@@ -19,12 +19,15 @@ public class GameManager : MonoBehaviour
 
     //scripts
     public PartyManager partyManager;
+    public EventManager eventManager;
     public Character[] character;
+    public boss_nachal boss;
     
 
     //canvas
     public GameObject gamePanel;
     public GameObject gameOverSet;
+    public GameObject WinSet;
     public GameObject choicePanel;
     public Button retryButton;
     public Button[] choiceButton;
@@ -42,6 +45,11 @@ public class GameManager : MonoBehaviour
     public Image[] party2characterImg;
     public Image[] party3characterImg;
     public Image[] party4characterImg;
+    //Boss
+    public GameObject BossSet;
+    public Text bossName;
+    public Text bossHealth;
+    public RectTransform bossHealthBar;
 
     //bool
     public bool[] swapChoice;
@@ -57,11 +65,31 @@ public class GameManager : MonoBehaviour
         lDown = Input.GetButtonDown("LButton");
         if (lDown) GameRetry();
 
+        if (eventManager.Boss.activeSelf)
+        {
+            BossSet.SetActive(true);
+        }
+        else
+        {
+            BossSet.SetActive(false);
+        }
+
+        //if(boss.isDead) //보스가 사망했을 경우 발동. 보스전 만들었으면 이거 // 제거해서 활성화하셈
+        //{
+        //    WinSet.SetActive(true);
+        //}
+
+        if (eventManager.EnemyKiller.activeSelf) WinSet.SetActive(true); //보스전 덜만들었을 시 사용. 보스전 만들었음 삭제 처리하셈
+
         StartCoroutine(CoolTime());
 
         health.text = character[partyManager.list[partyManager.charactersIndex]].curHealth + " / " + character[partyManager.list[partyManager.charactersIndex]].maxHealth;
         playerHealthBar.localScale = new Vector3(character[partyManager.list[partyManager.charactersIndex]].curHealth / character[partyManager.list[partyManager.charactersIndex]].maxHealth, 1, 1);
         ammo.text = character[partyManager.list[partyManager.charactersIndex]].curAmmo + " / " + character[partyManager.list[partyManager.charactersIndex]].maxAmmo;
+
+        //Boss
+        bossHealth.text = boss.curHealth + " / 500";
+        bossHealthBar.localScale = new Vector3(boss.curHealth / 500, 1, 1);
 
         //캐릭터 바꾸기
         characterImg[0].color = new Color(1, 1, 1, character[0].value == partyManager.list[partyManager.charactersIndex] ? 1 : 0);
