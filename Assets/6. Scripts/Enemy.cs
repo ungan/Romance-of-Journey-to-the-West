@@ -8,6 +8,8 @@ public class Enemy : MonoBehaviour
     CameraController cam;
     PartyManager party; //SJM
     EventManager eventManager;
+    ObjectManager objectManager;
+    AudioManager audioManager;
 
     //밸류
     public int value;
@@ -21,8 +23,11 @@ public class Enemy : MonoBehaviour
     public float defaultSpeed;
     public float maxSpeed;
 
+    public bool a;
+
     //특수상태
     public bool isRooted = false; //속박됨
+    public bool isDead = false; //사망
 
     //특수상태 카운트
     float curRootedDelay = 0f;
@@ -36,6 +41,8 @@ public class Enemy : MonoBehaviour
     {
         cam = GameObject.Find("Main Camera").GetComponent<CameraController>(); //게임오브젝트를 신 안에서 찾은 후 스크립트 연결(프리펩시 필수!)
         eventManager = GameObject.Find("EventManager").GetComponent<EventManager>();
+        objectManager = GameObject.Find("ObjectManager").GetComponent<ObjectManager>();
+        audioManager = GameObject.Find("AudioManager").GetComponent<AudioManager>();
         party = GameObject.Find("Party").GetComponent<PartyManager>();  //SJM 씬 내 파티찾기
 
         rigid = GetComponent<Rigidbody2D>();
@@ -44,8 +51,21 @@ public class Enemy : MonoBehaviour
         ADS = GetComponent<AIDestinationSetter>();
         ADS.target = party.transform;  //SJM, 타겟 지정
         maxSpeed = aiPath.maxSpeed;
+        defaultSpeed = maxSpeed;
 
         Stats();
+    }
+    private void OnEnable()
+    {
+        isDead = false;
+        curHealth = maxHealth;
+        maxSpeed = defaultSpeed;
+        isRooted = false;
+        a = true;
+    }
+    private void OnDisable()
+    {
+        
     }
 
     void Update()
@@ -60,6 +80,7 @@ public class Enemy : MonoBehaviour
             }
         }
 
+        if (a) { aiPath.canMove = true; aiPath.maxSpeed = maxSpeed; a = false; }
         Delay();
     }
 
@@ -89,7 +110,20 @@ public class Enemy : MonoBehaviour
         {
             curHealth = 0;
             eventManager.curMonsterCount--;
-            Destroy(gameObject);
+            //Destroy(gameObject);
+            isDead = true;
+            switch (value)
+            {
+                case 9999:
+                    this.gameObject.SetActive(false);
+                    break;
+                default:
+                    objectManager.MakeObj("Soul", this.transform.position, Quaternion.Euler(0, 0, 0));
+                    StartCoroutine(objectManager.ObjReturn(this.gameObject));
+                    break;
+
+            }
+
             //사망, 누움
             //transform.rotation = Quaternion.Euler(0, 0, -90);
             //gameObject.layer = 17;
@@ -99,7 +133,7 @@ public class Enemy : MonoBehaviour
 
     IEnumerator BePushed()
     {
-        if (isRooted) //속박시 불가
+        if (isRooted) //속박, 사망시 불가
             yield return null;
         else
         {
@@ -123,16 +157,20 @@ public class Enemy : MonoBehaviour
         if (collision.gameObject.tag == "PlayerBullet")
         {
             Bullet bullet = collision.gameObject.GetComponent<Bullet>();
-            StartCoroutine(OnDamage(bullet.damage));
-            StartCoroutine(BePushed());
-            //Destroy(collision.gameObject);
+            if (!isDead)
+            {
+                StartCoroutine(BePushed());
+                StartCoroutine(OnDamage(bullet.damage));
+            }
         }
         if (collision.gameObject.tag == "PlayerSwing")
         {
-            //Debug.Log("닿음");
             Bullet bullet = collision.gameObject.GetComponent<Bullet>();
-            StartCoroutine(OnDamage(bullet.damage));
-            StartCoroutine(BePushed());
+            if (!isDead)
+            {
+                StartCoroutine(BePushed());
+                StartCoroutine(OnDamage(bullet.damage));
+            }
             cam.Shake(0.12f, 1);
         }
 
@@ -140,30 +178,33 @@ public class Enemy : MonoBehaviour
         if (collision.gameObject.tag == "Magicline")
         {
             Bullet bullet = collision.gameObject.GetComponent<Bullet>();
-            switch (bullet.value)
+            if (!isDead)
             {
-                case 1:
-                    StartCoroutine(OnDamage(bullet.damage));
-                    StartCoroutine(BePushed());
-                    break;
-                case 30:
-                    StartCoroutine(OnDamage(bullet.damage));
-                    StartCoroutine(BePushed());
-                    break;
-                case 20:
-                    StartCoroutine(OnDamage(bullet.damage));
-                    break;
+                switch (bullet.value)
+                {
+                    case 1:
+                        StartCoroutine(BePushed());
+                        break;
+                    case 30:
+                        StartCoroutine(BePushed());
+                        break;
+                }
+                StartCoroutine(OnDamage(bullet.damage));
             }
         }
 
         if (collision.gameObject.tag == "Explosive") //폭발
         {
             Bullet bullet = collision.gameObject.GetComponent<Bullet>();
-            switch (bullet.value)
+            if (!isDead)
             {
-                case 10: //속박됨
-                    isRooted = true;
-                    break;
+                StartCoroutine(OnDamage(bullet.damage));
+                switch (bullet.value)
+                {
+                    case 10: //속박됨
+                        isRooted = true;
+                        break;
+                }
             }
         }
     }
@@ -176,7 +217,7 @@ public class Enemy : MonoBehaviour
             switch (bullet.value)
             {
                 case 0: //어그로
-                    ADS.target = party.characters[3].transform; //SJM
+                    ADS.target = party.characters[1].transform; //SJM
                     break;
                 case 11: //느려짐
                     aiPath.maxSpeed = 4f;
