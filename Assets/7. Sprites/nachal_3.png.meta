@@ -1,0 +1,1529 @@
+fileFormatVersion: 2
+guid: 98c8b02df333fd64da387e277f79301e
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 5955938704508115842
+    second: nachal_3_0
+  - first:
+      213: -6486899382911582311
+    second: nachal_3_1
+  - first:
+      213: 7991647205041456076
+    second: nachal_3_2
+  - first:
+      213: -6938815999477613221
+    second: nachal_3_3
+  - first:
+      213: 7774957497443791502
+    second: nachal_3_4
+  - first:
+      213: -1065407960326281226
+    second: nachal_3_5
+  - first:
+      213: -380341734661533301
+    second: nachal_3_6
+  - first:
+      213: 7567975815993948697
+    second: nachal_3_7
+  - first:
+      213: -7032975216490814068
+    second: nachal_3_8
+  - first:
+      213: -6854051412793526689
+    second: nachal_3_9
+  - first:
+      213: -5313927050658357615
+    second: nachal_3_10
+  - first:
+      213: -5861935426151634706
+    second: nachal_3_11
+  - first:
+      213: -7474539405088276998
+    second: nachal_3_12
+  - first:
+      213: 3579929472981816759
+    second: nachal_3_13
+  - first:
+      213: -670269603826275267
+    second: nachal_3_14
+  - first:
+      213: 8584425637786485108
+    second: nachal_3_15
+  - first:
+      213: 3183791681484466454
+    second: nachal_3_16
+  - first:
+      213: 4927366151073148305
+    second: nachal_3_17
+  - first:
+      213: 4815970159124087019
+    second: nachal_3_18
+  - first:
+      213: 1248513294945781358
+    second: nachal_3_19
+  - first:
+      213: -1669562126920364587
+    second: nachal_3_20
+  - first:
+      213: 4998532852960567996
+    second: nachal_3_21
+  - first:
+      213: 4932697441596131059
+    second: nachal_3_22
+  - first:
+      213: 2339281531735780934
+    second: nachal_3_23
+  - first:
+      213: -2489571148785008552
+    second: nachal_3_24
+  - first:
+      213: 7717313755099764673
+    second: nachal_3_25
+  - first:
+      213: 4692119261818750567
+    second: nachal_3_26
+  - first:
+      213: -8188808919584136272
+    second: nachal_3_27
+  - first:
+      213: -6906690774604632615
+    second: nachal_3_28
+  - first:
+      213: -2857771842830234418
+    second: nachal_3_29
+  - first:
+      213: -513337085612668282
+    second: nachal_3_30
+  - first:
+      213: 4632314666802333764
+    second: nachal_3_31
+  - first:
+      213: -1507296266817473690
+    second: nachal_3_32
+  - first:
+      213: 1701292395425733136
+    second: nachal_3_33
+  - first:
+      213: -6641230577829186796
+    second: nachal_3_34
+  - first:
+      213: -4556056635314577959
+    second: nachal_3_35
+  - first:
+      213: 5069158818550955740
+    second: nachal_3_36
+  - first:
+      213: -5683948440584632257
+    second: nachal_3_37
+  - first:
+      213: 2889177663336936014
+    second: nachal_3_38
+  - first:
+      213: 1485258059551340271
+    second: nachal_3_39
+  - first:
+      213: -7685519086133290120
+    second: nachal_3_40
+  - first:
+      213: -5508986440182169470
+    second: nachal_3_41
+  - first:
+      213: 6001063333688193254
+    second: nachal_3_42
+  - first:
+      213: 3241691406820931740
+    second: nachal_3_43
+  - first:
+      213: -2485064615745554586
+    second: nachal_3_44
+  - first:
+      213: -9188481164010041519
+    second: nachal_3_45
+  - first:
+      213: 4952017692878402668
+    second: nachal_3_46
+  - first:
+      213: -234429467504339536
+    second: nachal_3_47
+  - first:
+      213: 1500874698333625328
+    second: nachal_3_48
+  - first:
+      213: 1304918171891322888
+    second: nachal_3_49
+  - first:
+      213: -313500258979675083
+    second: nachal_3_50
+  - first:
+      213: -2432302042608846737
+    second: nachal_3_51
+  - first:
+      213: -3732476009850066382
+    second: nachal_3_52
+  - first:
+      213: 2914471188248315264
+    second: nachal_3_53
+  - first:
+      213: -2469730495759526396
+    second: nachal_3_54
+  - first:
+      213: -2902540671518212432
+    second: nachal_3_55
+  - first:
+      213: -1677952974025391596
+    second: nachal_3_56
+  - first:
+      213: 2636181258394473343
+    second: nachal_3_57
+  - first:
+      213: -1897546773888788214
+    second: nachal_3_58
+  - first:
+      213: -9143365022740367579
+    second: nachal_3_59
+  - first:
+      213: 6095945045153976842
+    second: nachal_3_60
+  - first:
+      213: 1087670546730224634
+    second: nachal_3_61
+  - first:
+      213: -6679268897459086381
+    second: nachal_3_62
+  - first:
+      213: 4154349388355641322
+    second: nachal_3_63
+  - first:
+      213: -5490112675398980068
+    second: nachal_3_64
+  - first:
+      213: 2961296998147657255
+    second: nachal_3_65
+  - first:
+      213: -5856783984849380964
+    second: nachal_3_66
+  - first:
+      213: -3748103337260862077
+    second: nachal_3_67
+  - first:
+      213: -41360915340695208
+    second: nachal_3_68
+  - first:
+      213: -5972957173606276349
+    second: nachal_3_69
+  - first:
+      213: -4122478592910791554
+    second: nachal_3_70
+  - first:
+      213: -1449719495855485736
+    second: nachal_3_71
+  - first:
+      213: 2358816860447838480
+    second: nachal_3_72
+  - first:
+      213: 3769217983734150765
+    second: nachal_3_73
+  - first:
+      213: -4635918696891079828
+    second: nachal_3_74
+  - first:
+      213: -7845923809384322075
+    second: nachal_3_75
+  - first:
+      213: -7052698178553135387
+    second: nachal_3_76
+  - first:
+      213: 3311398218191835391
+    second: nachal_3_77
+  - first:
+      213: -4602682686600830357
+    second: nachal_3_78
+  - first:
+      213: 8073227157165934642
+    second: nachal_3_79
+  - first:
+      213: 2634348263850221868
+    second: nachal_3_80
+  - first:
+      213: 4747550874315592752
+    second: nachal_3_81
+  - first:
+      213: 2781917397245234708
+    second: nachal_3_82
+  - first:
+      213: 5878670780003108229
+    second: nachal_3_83
+  - first:
+      213: 5042101283760777403
+    second: nachal_3_84
+  - first:
+      213: 1321095900071787485
+    second: nachal_3_85
+  - first:
+      213: 2985900231344661398
+    second: nachal_3_86
+  - first:
+      213: -5034605764989611024
+    second: nachal_3_87
+  - first:
+      213: 3837326429782829385
+    second: nachal_3_88
+  - first:
+      213: 6772678628808204527
+    second: nachal_3_89
+  - first:
+      213: -1568742747675657944
+    second: nachal_3_90
+  - first:
+      213: -2666874395808216919
+    second: nachal_3_91
+  - first:
+      213: -6102868913617397284
+    second: nachal_3_92
+  - first:
+      213: -7633920182138839660
+    second: nachal_3_93
+  - first:
+      213: 964468423251005078
+    second: nachal_3_94
+  - first:
+      213: -6386618598603150662
+    second: nachal_3_95
+  - first:
+      213: 1071218569299640479
+    second: nachal_3_96
+  - first:
+      213: 6218583344690649385
+    second: nachal_3_97
+  - first:
+      213: 4939215717854677170
+    second: nachal_3_98
+  - first:
+      213: 8560824770353338258
+    second: nachal_3_99
+  - first:
+      213: -6245184734388991957
+    second: nachal_3_100
+  - first:
+      213: -3217209564914776484
+    second: nachal_3_101
+  - first:
+      213: -6333449578483838409
+    second: nachal_3_102
+  - first:
+      213: 8950558025438101716
+    second: nachal_3_103
+  - first:
+      213: 7201073861116002440
+    second: nachal_3_104
+  - first:
+      213: -7163916092068492321
+    second: nachal_3_105
+  - first:
+      213: 1090819729122957569
+    second: nachal_3_106
+  - first:
+      213: 5690489873055936165
+    second: nachal_3_107
+  - first:
+      213: 7539078982793449065
+    second: nachal_3_108
+  - first:
+      213: -5289542798614939680
+    second: nachal_3_109
+  - first:
+      213: 7995798888551978120
+    second: nachal_3_110
+  - first:
+      213: -6366995215135065234
+    second: nachal_3_111
+  - first:
+      213: 4310430997700246042
+    second: nachal_3_112
+  - first:
+      213: -6277863606787344164
+    second: nachal_3_113
+  - first:
+      213: 1455105839039403675
+    second: nachal_3_114
+  - first:
+      213: -9081763169402457038
+    second: nachal_3_115
+  - first:
+      213: 5170121632628250767
+    second: nachal_3_116
+  - first:
+      213: -7267500129791624250
+    second: nachal_3_117
+  - first:
+      213: -6289275544457637797
+    second: nachal_3_118
+  - first:
+      213: -3987757339041029715
+    second: nachal_3_119
+  - first:
+      213: -1783220917845026831
+    second: nachal_3_120
+  - first:
+      213: -8794655272911425711
+    second: nachal_3_121
+  - first:
+      213: -4005810745700830977
+    second: nachal_3_122
+  - first:
+      213: -5949437341189215278
+    second: nachal_3_123
+  - first:
+      213: 8117473341958649062
+    second: nachal_3_124
+  - first:
+      213: -4170777847676567370
+    second: nachal_3_125
+  - first:
+      213: -942546919953845457
+    second: nachal_3_126
+  - first:
+      213: 5982604252053021291
+    second: nachal_3_127
+  - first:
+      213: 238974910985816275
+    second: nachal_3_128
+  - first:
+      213: -5302383845984006708
+    second: nachal_3_129
+  - first:
+      213: -7277107389041121930
+    second: nachal_3_130
+  - first:
+      213: -8656208730442606551
+    second: nachal_3_131
+  - first:
+      213: 9018685044154510874
+    second: nachal_3_132
+  - first:
+      213: -2247547449267002886
+    second: nachal_3_133
+  - first:
+      213: -766027178072107072
+    second: nachal_3_134
+  - first:
+      213: 4320421319313030238
+    second: nachal_3_135
+  - first:
+      213: 5194226083032263147
+    second: nachal_3_136
+  - first:
+      213: 1194041543311098195
+    second: nachal_3_137
+  - first:
+      213: 1935657252942997077
+    second: nachal_3_138
+  - first:
+      213: -7960216984255304056
+    second: nachal_3_139
+  - first:
+      213: 64837164092804233
+    second: nachal_3_140
+  - first:
+      213: -7528541551690456143
+    second: nachal_3_141
+  - first:
+      213: -5691033184123429328
+    second: nachal_3_142
+  - first:
+      213: -4936088440949237452
+    second: nachal_3_143
+  - first:
+      213: 8480409788694863520
+    second: nachal_3_144
+  - first:
+      213: 1788124029347421474
+    second: nachal_3_145
+  - first:
+      213: -5265598859290277262
+    second: nachal_3_146
+  - first:
+      213: -9023216738497641728
+    second: nachal_3_147
+  - first:
+      213: 8092339285300852628
+    second: nachal_3_148
+  - first:
+      213: -311593938144450735
+    second: nachal_3_149
+  - first:
+      213: -7998493923612607738
+    second: nachal_3_150
+  - first:
+      213: 2245016637390617616
+    second: nachal_3_151
+  - first:
+      213: -4391270111616709180
+    second: nachal_3_152
+  - first:
+      213: 4969310998383796536
+    second: nachal_3_153
+  - first:
+      213: -5713371334594304308
+    second: nachal_3_154
+  - first:
+      213: -7372181679717146620
+    second: nachal_3_155
+  - first:
+      213: -2597789004676666288
+    second: nachal_3_156
+  - first:
+      213: 7078610684822479390
+    second: nachal_3_157
+  - first:
+      213: 7172742831291597877
+    second: nachal_3_158
+  - first:
+      213: 5172635202114508031
+    second: nachal_3_159
+  - first:
+      213: -2309386338434189515
+    second: nachal_3_160
+  - first:
+      213: -7719302027538305558
+    second: nachal_3_161
+  - first:
+      213: -179294643877893461
+    second: nachal_3_162
+  - first:
+      213: -1520115864242863493
+    second: nachal_3_163
+  - first:
+      213: 8314920006909616208
+    second: nachal_3_164
+  - first:
+      213: 1605284882108102490
+    second: nachal_3_165
+  - first:
+      213: -1013797950901834297
+    second: nachal_3_166
+  - first:
+      213: 8321872040785720809
+    second: nachal_3_167
+  - first:
+      213: 5071459880741087896
+    second: nachal_3_168
+  - first:
+      213: -8231198969750512687
+    second: nachal_3_169
+  - first:
+      213: -4897295227818205564
+    second: nachal_3_170
+  - first:
+      213: -7383067974547069388
+    second: nachal_3_171
+  - first:
+      213: 2947830757459609648
+    second: nachal_3_172
+  - first:
+      213: -7597032419745072848
+    second: nachal_3_173
+  - first:
+      213: 5981951975446066452
+    second: nachal_3_174
+  - first:
+      213: 7658911895502305989
+    second: nachal_3_175
+  - first:
+      213: 1996740531428501021
+    second: nachal_3_176
+  - first:
+      213: -6656354183760955142
+    second: nachal_3_177
+  - first:
+      213: 7645469742614187161
+    second: nachal_3_178
+  - first:
+      213: -7680173313898554706
+    second: nachal_3_179
+  - first:
+      213: -1374298964089456066
+    second: nachal_3_180
+  - first:
+      213: -1239598045073071775
+    second: nachal_3_181
+  - first:
+      213: 1474859001482637761
+    second: nachal_3_182
+  - first:
+      213: -5768111387650704656
+    second: nachal_3_183
+  - first:
+      213: 1654349029773576298
+    second: nachal_3_184
+  - first:
+      213: -7955353720045291036
+    second: nachal_3_185
+  - first:
+      213: -4296168475855383376
+    second: nachal_3_186
+  - first:
+      213: 7025288474103058606
+    second: nachal_3_187
+  - first:
+      213: -7010502352650153223
+    second: nachal_3_188
+  - first:
+      213: -6837431312768001954
+    second: nachal_3_189
+  - first:
+      213: 1195778797280973556
+    second: nachal_3_190
+  - first:
+      213: 4269984742863805617
+    second: nachal_3_191
+  - first:
+      213: -1569003558348455328
+    second: nachal_3_192
+  - first:
+      213: -8995432604028014414
+    second: nachal_3_193
+  - first:
+      213: -4801392867408387998
+    second: nachal_3_194
+  - first:
+      213: 6410018430059712775
+    second: nachal_3_195
+  - first:
+      213: 9082699223035467840
+    second: nachal_3_196
+  - first:
+      213: 3232731523352461770
+    second: nachal_3_197
+  - first:
+      213: -8338963791053400726
+    second: nachal_3_198
+  - first:
+      213: 6782558336316004260
+    second: nachal_3_199
+  - first:
+      213: 4608760276844071282
+    second: nachal_3_200
+  - first:
+      213: -387568123673181859
+    second: nachal_3_201
+  - first:
+      213: 8566492829089338100
+    second: nachal_3_202
+  - first:
+      213: -2178643450315169432
+    second: nachal_3_203
+  - first:
+      213: -5581846835869282079
+    second: nachal_3_204
+  - first:
+      213: -3387279176574248872
+    second: nachal_3_205
+  - first:
+      213: 1448519697492919475
+    second: nachal_3_206
+  - first:
+      213: -4643361913604473193
+    second: nachal_3_207
+  - first:
+      213: -9120004550733675184
+    second: nachal_3_208
+  - first:
+      213: 292742555067567722
+    second: nachal_3_209
+  - first:
+      213: 7621122721865200216
+    second: nachal_3_210
+  - first:
+      213: -5899946395708183583
+    second: nachal_3_211
+  - first:
+      213: -2040480590998486779
+    second: nachal_3_212
+  - first:
+      213: -5411686589576206959
+    second: nachal_3_213
+  - first:
+      213: -9146757155080097342
+    second: nachal_3_214
+  - first:
+      213: 5589288347032658698
+    second: nachal_3_215
+  - first:
+      213: -2883782471998037464
+    second: nachal_3_216
+  - first:
+      213: 5482097352578838012
+    second: nachal_3_217
+  - first:
+      213: 5857500264375124087
+    second: nachal_3_218
+  - first:
+      213: 9083913191701322799
+    second: nachal_3_219
+  - first:
+      213: 709534715491263998
+    second: nachal_3_220
+  - first:
+      213: 4688370274800126586
+    second: nachal_3_221
+  - first:
+      213: 8847267879652521994
+    second: nachal_3_222
+  externalObjects: {}
+  serializedVersion: 11
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: -1
+    aniso: -1
+    mipBias: -100
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  applyGammaDecoding: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: nachal_3_0
+      rect:
+        serializedVersion: 2
+        x: 94
+        y: 43
+        width: 482
+        height: 645
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 28bd43222beb7a250800000000000000
+      internalID: 5955938704508115842
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: nachal_3_1
+      rect:
+        serializedVersion: 2
+        x: 759
+        y: 618
+        width: 82
+        height: 98
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 99fbadb5167e9f5a0800000000000000
+      internalID: -6486899382911582311
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: nachal_3_2
+      rect:
+        serializedVersion: 2
+        x: 868
+        y: 571
+        width: 21
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cc34dba9ac808ee60800000000000000
+      internalID: 7991647205041456076
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: nachal_3_3
+      rect:
+        serializedVersion: 2
+        x: 904
+        y: 570
+        width: 21
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b5df655ac9f54bf90800000000000000
+      internalID: -6938815999477613221
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: nachal_3_4
+      rect:
+        serializedVersion: 2
+        x: 953
+        y: 617
+        width: 81
+        height: 99
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e82b5e286a236eb60800000000000000
+      internalID: 7774957497443791502
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: nachal_3_5
+      rect:
+        serializedVersion: 2
+        x: 1199
+        y: 262
+        width: 149
+        height: 404
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6f7e0e7da19e631f0800000000000000
+      internalID: -1065407960326281226
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: nachal_3_6
+      rect:
+        serializedVersion: 2
+        x: 1385
+        y: 246
+        width: 112
+        height: 420
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b815e3c1531c8baf0800000000000000
+      internalID: -380341734661533301
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: nachal_3_7
+      rect:
+        serializedVersion: 2
+        x: 1569
+        y: 400
+        width: 166
+        height: 255
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 91af01568e9d60960800000000000000
+      internalID: 7567975815993948697
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: nachal_3_8
+      rect:
+        serializedVersion: 2
+        x: 1803
+        y: 558
+        width: 44
+        height: 87
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c8560fa8d4ad56e90800000000000000
+      internalID: -7032975216490814068
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: nachal_3_9
+      rect:
+        serializedVersion: 2
+        x: 1974
+        y: 524
+        width: 58
+        height: 129
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f567d2ced8481e0a0800000000000000
+      internalID: -6854051412793526689
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: nachal_3_10
+      rect:
+        serializedVersion: 2
+        x: 2052
+        y: 523
+        width: 60
+        height: 129
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 19e5b2770832146b0800000000000000
+      internalID: -5313927050658357615
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: nachal_3_11
+      rect:
+        serializedVersion: 2
+        x: 733
+        y: 564
+        width: 119
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ee824fba9c836aea0800000000000000
+      internalID: -5861935426151634706
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: nachal_3_12
+      rect:
+        serializedVersion: 2
+        x: 936
+        y: 567
+        width: 4
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: afdbd0c430a154890800000000000000
+      internalID: -7474539405088276998
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: nachal_3_13
+      rect:
+        serializedVersion: 2
+        x: 943
+        y: 562
+        width: 111
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7b5580e63e67ea130800000000000000
+      internalID: 3579929472981816759
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: nachal_3_14
+      rect:
+        serializedVersion: 2
+        x: 766
+        y: 435
+        width: 95
+        height: 88
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d3c6138b859b2b6f0800000000000000
+      internalID: -670269603826275267
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: nachal_3_15
+      rect:
+        serializedVersion: 2
+        x: 963
+        y: 435
+        width: 93
+        height: 88
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4710505a2a1022770800000000000000
+      internalID: 8584425637786485108
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: nachal_3_16
+      rect:
+        serializedVersion: 2
+        x: 1523
+        y: 387
+        width: 35
+        height: 120
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 619a9b57aa91f2c20800000000000000
+      internalID: 3183791681484466454
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: nachal_3_17
+      rect:
+        serializedVersion: 2
+        x: 1814
+        y: 439
+        width: 68
+        height: 59
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 19daff87865816440800000000000000
+      internalID: 4927366151073148305
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: nachal_3_18
+      rect:
+        serializedVersion: 2
+        x: 2000
+        y: 331
+        width: 87
+        height: 136
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: be00977f753c5d240800000000000000
+      internalID: 4815970159124087019
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: nachal_3_19
+      rect:
+        serializedVersion: 2
+        x: 716
+        y: 358
+        width: 78
+        height: 67
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e6688921a3c935110800000000000000
+      internalID: 1248513294945781358
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: nachal_3_20
+      rect:
+        serializedVersion: 2
+        x: 1034
+        y: 358
+        width: 78
+        height: 67
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5dd477e571684d8e0800000000000000
+      internalID: -1669562126920364587
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: nachal_3_21
+      rect:
+        serializedVersion: 2
+        x: 1795
+        y: 253
+        width: 147
+        height: 106
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cb2a5da752b5e5540800000000000000
+      internalID: 4998532852960567996
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: nachal_3_22
+      rect:
+        serializedVersion: 2
+        x: 675
+        y: 309
+        width: 56
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3f6c0d64036747440800000000000000
+      internalID: 4932697441596131059
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: nachal_3_23
+      rect:
+        serializedVersion: 2
+        x: 1100
+        y: 309
+        width: 56
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 64e2eb8b82cc67020800000000000000
+      internalID: 2339281531735780934
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: nachal_3_24
+      rect:
+        serializedVersion: 2
+        x: 1575
+        y: 261
+        width: 172
+        height: 72
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 850cb910b34437dd0800000000000000
+      internalID: -2489571148785008552
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: nachal_3_25
+      rect:
+        serializedVersion: 2
+        x: 725
+        y: 240
+        width: 58
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1c715f0e8f7691b60800000000000000
+      internalID: 7717313755099764673
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: nachal_3_26
+      rect:
+        serializedVersion: 2
+        x: 1029
+        y: 236
+        width: 58
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7668974db91cd1140800000000000000
+      internalID: 4692119261818750567
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: nachal_3_27
+      rect:
+        serializedVersion: 2
+        x: 1251
+        y: 85
+        width: 105
+        height: 158
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0b323ae7ca18b5e80800000000000000
+      internalID: -8188808919584136272
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: nachal_3_28
+      rect:
+        serializedVersion: 2
+        x: 1522
+        y: 17
+        width: 227
+        height: 228
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9dd293e65518620a0800000000000000
+      internalID: -6906690774604632615
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: nachal_3_29
+      rect:
+        serializedVersion: 2
+        x: 759
+        y: 133
+        width: 37
+        height: 96
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ecc8dfa66a72758d0800000000000000
+      internalID: -2857771842830234418
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: nachal_3_30
+      rect:
+        serializedVersion: 2
+        x: 1015
+        y: 129
+        width: 38
+        height: 98
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 68ac502f3a240e8f0800000000000000
+      internalID: -513337085612668282
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: nachal_3_31
+      rect:
+        serializedVersion: 2
+        x: 1809
+        y: 143
+        width: 103
+        height: 51
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 448c59a75a9494040800000000000000
+      internalID: 4632314666802333764
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: nachal_3_32
+      rect:
+        serializedVersion: 2
+        x: 1998
+        y: 50
+        width: 67
+        height: 120
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 66372150802051be0800000000000000
+      internalID: -1507296266817473690
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: nachal_3_33
+      rect:
+        serializedVersion: 2
+        x: 2101
+        y: 50
+        width: 69
+        height: 133
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 01a9c687b643c9710800000000000000
+      internalID: 1701292395425733136
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: nachal_3_34
+      rect:
+        serializedVersion: 2
+        x: 771
+        y: 49
+        width: 113
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4137709e9fb95d3a0800000000000000
+      internalID: -6641230577829186796
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: nachal_3_35
+      rect:
+        serializedVersion: 2
+        x: 928
+        y: 45
+        width: 113
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9dd538311a2a5c0c0800000000000000
+      internalID: -4556056635314577959
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
