@@ -27,7 +27,7 @@ public class boss_nachal : MonoBehaviour
     public int cnt = 0;
     public int ln = 0;
     public int hn = 0;
-    public int lcnt_1 = 0;
+    public int lcnt_1 = 0,lcnt_2 = 0;
 
     public bool can_lightning = true;
     public bool can_lightning_ready = false;     // false면 preview true면 진짜 번개
@@ -458,6 +458,7 @@ public class boss_nachal : MonoBehaviour
             reset_2 = false;                                // reset 초기화
             maxlightning = 0.25f;                           // 번개 내려치는 시간 초기화
             lightning_count_2 = 0;                          // 번개개수 카운트 초기화
+            lcnt_2 = 0;
         }
         StartCoroutine("Light_horizontal_righttoleft");     // 코루틴 시작
     }
@@ -477,12 +478,15 @@ public class boss_nachal : MonoBehaviour
                 {
 
                     // gameobject 배열 생성 cnt 셈
-                    Instantiate(lightning_preview, transform.position + (new Vector3(endpoint_right_down.transform.position.x - lightning_count_2, startpoint_left_up.transform.position.y - i * 2, 0)), Quaternion.identity);
+                    preview[lcnt_2] = Instantiate(lightning_preview, transform.position + (new Vector3(endpoint_right_down.transform.position.x - lightning_count_2, startpoint_left_up.transform.position.y - i * 2, 0)), Quaternion.identity);
+                    lcnt_2++;
                 }
                 else if (can_lightning_ready_1 == true)
                 {
                     // gameobject 생성된 배열에서 cnt 값 set active false
                     Instantiate(lightning, transform.position + (new Vector3(endpoint_right_down.transform.position.x - lightning_count_2, startpoint_left_up.transform.position.y - i * 2, 0)), Quaternion.identity);
+                    preview[lcnt_2].SetActive(false);
+                    lcnt_2++;
                 }
             }
             lightning_count_2++;
@@ -491,6 +495,7 @@ public class boss_nachal : MonoBehaviour
             {
                 can_lightning_ready_1 = true;
                 lightning_count_2 = 0;
+                lcnt_2 = 0;
             }
         }
         reset_2 = true;                                                     // 리셋 초기화
@@ -857,6 +862,7 @@ public class boss_nachal : MonoBehaviour
             ex_phase = true;                        // ex_phase fase
             can_lightning_ready = false;            // ready
             lightning_count = 0;                    //  번개 줄 0으로 초기화
+            lcnt_1 = 0;
         }
 
         if (lightning_count <= 5)
@@ -868,52 +874,63 @@ public class boss_nachal : MonoBehaviour
     public void Light_Circle()     // 전기 파지직
     {
 
-            if (can_lightning == true)              // 전기 파지직 가능
-            {
-                numchild = (int)(radiius * 3.14 * 2);       // 원하나의 바깥에 몇개의 번개가 들어가야하는지 계산 추후에 번개 크기가 달라진다면 이부분을 조절해줄것
+        if (can_lightning == true)              // 전기 파지직 가능
+        {
+            numchild = (int)(radiius * 3.14 * 2);       // 원하나의 바깥에 몇개의 번개가 들어가야하는지 계산 추후에 번개 크기가 달라진다면 이부분을 조절해줄것
 
-                for (int i = 0; i < numchild; i++)      // 번개 소환 하는 for문
-                {
-                    float angle = i * (Mathf.PI * 2.0f) / numchild;     // 번개 개수를 360으로 나눠서 지들이 들어가 각도 계산
-                    if(can_lightning_ready == true)                      // true면 번개 false 면 번개 예고
-                    {
-                        Instantiate(lightning, transform.position + (new Vector3(Mathf.Cos(angle), Mathf.Sin(angle), 0)) * radiius, Quaternion.identity);   // 번개소환  cos sin + position으로 소환될 좌표 계산
-                    }
-                    else if(can_lightning_ready == false)
-                    {
-                        Instantiate(lightning_preview, transform.position + (new Vector3(Mathf.Cos(angle), Mathf.Sin(angle), 0)) * radiius, Quaternion.identity);
-                    }
-                }
-                radiius += 2.0f;                // 다음 소환에 반지름이 더 켜져서 바깥쪽에 번개를 소환해주는것 줄과 줄사이의 번개의 텀을 줄여주고 싶다면 이부분을 조절해줄것
-                                                // 추가적으로 만약 번개 크기 조절시 이것도 같이 조절해줘야 거리 조절이 가능함
-                lightning_count++;              // lightining_count는 소환 한줄 때마다 하나씩 늘어남 이것의 최대 크기를 조절 해줄경우
-                
-                if (ex_phase == true)           // ex_phase 강화 페이즈 일시 돌아가는 코드 강화 페이즈 시에 번개 소환에 텀이 존재 하지 않으며 예고뒤 바로 소환
-                {
-                    if (lightning_count == 6)
-                    {
-                        can_lightning = false;
-                        maxlightning = 2f;      // 강화 페이즈 시 preview 이후에 소환되는 번개 텀을 조절해주는 부분 늘리면 preview 이후에 번개 늦게 소환  
-                    }
-                }
-                else if (ex_phase == false)
-                {
-                    can_lightning = false;      // 일반 페이즈 시에 각 줄별 번개가 소환되도록 해줌
-                }
-                
-                //can_lightning = false;      // 일반 페이즈 시에 각 줄별 번개가 소환되도록 해줌
-            }
-            else if(can_lightning == false)
+            for (int i = 0; i < numchild; i++)      // 번개 소환 하는 for문
             {
-                cooltime_to_lightning();        // 텀 조절
+                float angle = i * (Mathf.PI * 2.0f) / numchild;     // 번개 개수를 360으로 나눠서 지들이 들어가 각도 계산
+                if (can_lightning_ready == true)                      // true면 번개 false 면 번개 예고
+                {
+                    preview[lcnt_1] = Instantiate(lightning, transform.position + (new Vector3(Mathf.Cos(angle), Mathf.Sin(angle), 0)) * radiius, Quaternion.identity);   // 번개소환  cos sin + position으로 소환될 좌표 계산
+                    //if(preview[lcnt_1] != null) Debug.Log("preview : " + preview[lcnt_1]);
+                    //lcnt_1++;
+                }
+                else if (can_lightning_ready == false)
+                {
+                    Instantiate(lightning_preview, transform.position + (new Vector3(Mathf.Cos(angle), Mathf.Sin(angle), 0)) * radiius, Quaternion.identity);
+                    /*
+                    if(preview[lcnt_1] != null)
+                    {
+                        preview[lcnt_1].SetActive(false);
+                    }*/
+                    lcnt_1++;
+                }
+
+            }
+            radiius += 2.0f;                // 다음 소환에 반지름이 더 켜져서 바깥쪽에 번개를 소환해주는것 줄과 줄사이의 번개의 텀을 줄여주고 싶다면 이부분을 조절해줄것
+                                            // 추가적으로 만약 번개 크기 조절시 이것도 같이 조절해줘야 거리 조절이 가능함
+            lightning_count++;              // lightining_count는 소환 한줄 때마다 하나씩 늘어남 이것의 최대 크기를 조절 해줄경우
+
+            if (ex_phase == true)           // ex_phase 강화 페이즈 일시 돌아가는 코드 강화 페이즈 시에 번개 소환에 텀이 존재 하지 않으며 예고뒤 바로 소환
+            {
+                if (lightning_count == 6)
+                {
+                    can_lightning = false;
+                    maxlightning = 2f;      // 강화 페이즈 시 preview 이후에 소환되는 번개 텀을 조절해주는 부분 늘리면 preview 이후에 번개 늦게 소환  
+                }
+            }
+            else if (ex_phase == false)
+            {
+                can_lightning = false;      // 일반 페이즈 시에 각 줄별 번개가 소환되도록 해줌
+                
             }
 
-            if(can_lightning_ready == false && lightning_count == 6)     // preview 끝났음
-            {
-                can_lightning_ready = true;                             // for 문 instance에서 진짜 번개 소환으로 바꿔줌
-                lightning_count = 0;                                    // 번개 소환 카운트 0로 소환 가능하게 해줌
-                radiius = 2.0f;                                         // 반지름 초기화
-            }
+            //can_lightning = false;      // 일반 페이즈 시에 각 줄별 번개가 소환되도록 해줌
+        }
+        else if (can_lightning == false)
+        {
+            cooltime_to_lightning();        // 텀 조절
+        }
+
+        if (can_lightning_ready == false && lightning_count == 6)     // preview 끝났음
+        {
+            can_lightning_ready = true;                             // for 문 instance에서 진짜 번개 소환으로 바꿔줌
+            lightning_count = 0;                                    // 번개 소환 카운트 0로 소환 가능하게 해줌
+            radiius = 2.0f;                                         // 반지름 초기화
+            lcnt_1 = 0;
+        }
 
         if(can_lightning_ready == true && lightning_count == 6)
         {
