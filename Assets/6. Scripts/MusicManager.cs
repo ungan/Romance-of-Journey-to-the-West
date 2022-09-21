@@ -40,6 +40,10 @@ public class MusicManager : MonoBehaviour
         {
             audioSource.clip = Theme[1];
         }
+        if (eventManager.bossEvent)
+        {
+            audioSource.clip = Theme[2];
+        }
 
         if (playMusic == true)
         {

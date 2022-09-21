@@ -47,10 +47,14 @@ public class EventManager : MonoBehaviour
     public GameObject[] enemies_Special;
     public List<int> enemyList;
 
+    //Demo
+    public GameObject EnemyKiller;
+    public GameObject Boss;
+
+
+
     void Start()
     {
-
-
         enemyList = new List<int>();
     }
     void Update()
@@ -77,9 +81,12 @@ public class EventManager : MonoBehaviour
         if(curHordeDelay >= maxHordeDelay || curPhase >= maxPhase) //Horde -> Normal
         {
             ActiveNormalEvent(); //노말 전환
+            EnemyKiller.SetActive(true);
             musicManager.playMusic = false;
             curHordeDelay = 0;
             curPhase = 0;
+            Invoke("EnemyKillerActive", 0.2f);
+            Invoke("ActiveBossEvent", 2f);
         }
 
         if (normalEvent)
@@ -98,6 +105,11 @@ public class EventManager : MonoBehaviour
         {
             BossSpawn();
         }
+    }
+
+    void EnemyKillerActive()
+    {
+        EnemyKiller.SetActive(false);
     }
 
     void Delay()
@@ -184,5 +196,7 @@ public class EventManager : MonoBehaviour
         hordeEvent = false;
         bossEvent = true;
         normalEvent = false;
+        musicManager.playMusic = true;
+        Boss.SetActive(true);
     }
 }

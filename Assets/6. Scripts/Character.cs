@@ -946,7 +946,7 @@ public class Character : MonoBehaviour
             partyManager.isStopping = true;
             skillObject[1].SetActive(true);
             audioManager.PlayBgm("Sa Leader Ready");
-            anim.SetTrigger("LeaderSKill");
+            anim.SetTrigger("LeaderSkill");
             yield return new WaitForSeconds(0.3f);
             skillObject[1].SetActive(false);
             audioManager.StopBgm("Sa Leader Ready");

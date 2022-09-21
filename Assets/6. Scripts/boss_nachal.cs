@@ -94,7 +94,10 @@ public class boss_nachal : MonoBehaviour
     public GameObject nachal_ball;
     public GameObject nachal_ball_left;
     public GameObject nachal_ball_right;
-    public GameObject[] preview = new GameObject[400]; 
+    public GameObject[] preview = new GameObject[400];
+
+    //Dead
+    public bool isDead;
 
     // Start is called before the first frame update
     void Start()
@@ -186,7 +189,7 @@ public class boss_nachal : MonoBehaviour
         if(phase == 1 && curHealth <= 0)
         {
             phase = 2;          // 다음페이즈로 넘어감
-            curHealth = 200;    // 
+            curHealth = 500;    // 
         }
 
     }
@@ -942,6 +945,8 @@ public class boss_nachal : MonoBehaviour
         if (curHealth <= 0)
         {
             curHealth = 0;
+            isDead = true;
+            this.gameObject.SetActive(false);
             //Destroy(gameObject);
             //사망, 누움
             //transform.rotation = Quaternion.Euler(0, 0, -90);
