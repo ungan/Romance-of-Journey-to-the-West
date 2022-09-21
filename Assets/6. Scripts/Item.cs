@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Item : MonoBehaviour
 {
+    ObjectManager objectManager;
+
     public enum Type { Character, Item, AutoTakeItem };
     public Type type;
     public int value;
@@ -18,13 +20,27 @@ public class Item : MonoBehaviour
     void Start()
     {
         rigid = GetComponent<Rigidbody2D>();
+        objectManager = GameObject.Find("ObjectManager").GetComponent<ObjectManager>();
 
         if (type == Type.AutoTakeItem)
         {
             switch (value)
             {
                 case 0: //Soul
-                    Invoke("Destroy", 5f);
+                    Invoke("Dequeue", 5f);
+                    break;
+            }
+        }
+    }
+
+    void OnEnable()
+    {
+        if (type == Type.AutoTakeItem)
+        {
+            switch (value)
+            {
+                case 0: //Soul
+                    Invoke("Dequeue", 5f);
                     break;
             }
         }
@@ -49,6 +65,13 @@ public class Item : MonoBehaviour
         Destroy(gameObject);
     }
 
+    void Dequeue() //이거 사용 권장!
+    {
+        if (!this.gameObject.activeSelf) return;
+
+        StartCoroutine(objectManager.ObjReturn(this.gameObject));
+    }
+
     void OnTriggerEnter2D(Collider2D collision)
     {
         switch (type)
@@ -60,7 +83,7 @@ public class Item : MonoBehaviour
                         if (collision.gameObject.name == "SoulHarvestArea" || collision.gameObject.name == "MagicLine")
                         {
                             isFollowing = true;
-                            CancelInvoke("Destroy");
+                            CancelInvoke("Dequeue");
                             speed = 13f;
                         }
                         if(collision.gameObject.name == "SoulHarvestPoint")

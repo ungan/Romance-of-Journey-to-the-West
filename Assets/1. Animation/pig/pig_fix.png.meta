@@ -1,0 +1,588 @@
+fileFormatVersion: 2
+guid: 97c3457c86e53d242bf565035a8f12e2
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -7549567327372228839
+    second: pig_fix_0
+  - first:
+      213: -8846304119442186707
+    second: pig_fix_1
+  - first:
+      213: 8227145175277273943
+    second: pig_fix_2
+  - first:
+      213: -9102246103856340686
+    second: pig_fix_3
+  - first:
+      213: -5840322440711651639
+    second: pig_fix_4
+  - first:
+      213: -5180673620671927283
+    second: pig_fix_5
+  - first:
+      213: 8093451905339813442
+    second: pig_fix_6
+  - first:
+      213: -7388462216051171744
+    second: pig_fix_7
+  - first:
+      213: -6941142036563197582
+    second: pig_fix_8
+  - first:
+      213: 7161080569765210515
+    second: pig_fix_9
+  - first:
+      213: 6572796381604829526
+    second: pig_fix_10
+  - first:
+      213: -701960828852025084
+    second: pig_fix_11
+  - first:
+      213: -7486215629611919966
+    second: pig_fix_12
+  - first:
+      213: -444584463080836113
+    second: pig_fix_13
+  - first:
+      213: -8262923665627268834
+    second: pig_fix_14
+  - first:
+      213: -8374385081995113122
+    second: pig_fix_15
+  - first:
+      213: 3407978333847041118
+    second: pig_fix_16
+  - first:
+      213: 7616708598076495131
+    second: pig_fix_17
+  - first:
+      213: -6889406581803086167
+    second: pig_fix_18
+  - first:
+      213: 8397880767579865710
+    second: pig_fix_19
+  externalObjects: {}
+  serializedVersion: 11
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: -1
+    mipBias: -100
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  applyGammaDecoding: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: pig_fix_0
+      rect:
+        serializedVersion: 2
+        x: 5
+        y: 113
+        width: 43
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 917451cd38c8a3790800000000000000
+      internalID: -7549567327372228839
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pig_fix_1
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 109
+        width: 33
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d2ed299e54d9b3580800000000000000
+      internalID: -8846304119442186707
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pig_fix_2
+      rect:
+        serializedVersion: 2
+        x: 106
+        y: 99
+        width: 33
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 75388f792f0bc2270800000000000000
+      internalID: 8227145175277273943
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pig_fix_3
+      rect:
+        serializedVersion: 2
+        x: 152
+        y: 101
+        width: 8
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 231a571f4635ea180800000000000000
+      internalID: -9102246103856340686
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pig_fix_4
+      rect:
+        serializedVersion: 2
+        x: 166
+        y: 93
+        width: 48
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9ceb3abfea103fea0800000000000000
+      internalID: -5840322440711651639
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pig_fix_5
+      rect:
+        serializedVersion: 2
+        x: 5
+        y: 4
+        width: 40
+        height: 84
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d0cec965acc8a18b0800000000000000
+      internalID: -5180673620671927283
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pig_fix_6
+      rect:
+        serializedVersion: 2
+        x: 60
+        y: 81
+        width: 14
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 24eec7080a7b15070800000000000000
+      internalID: 8093451905339813442
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pig_fix_7
+      rect:
+        serializedVersion: 2
+        x: 87
+        y: 81
+        width: 14
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 06edfdf92c8e67990800000000000000
+      internalID: -7388462216051171744
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pig_fix_8
+      rect:
+        serializedVersion: 2
+        x: 107
+        y: 35
+        width: 31
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2718e1fe71c1caf90800000000000000
+      internalID: -6941142036563197582
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pig_fix_9
+      rect:
+        serializedVersion: 2
+        x: 152
+        y: 34
+        width: 19
+        height: 51
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 399aec056d4416360800000000000000
+      internalID: 7161080569765210515
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pig_fix_10
+      rect:
+        serializedVersion: 2
+        x: 179
+        y: 33
+        width: 35
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 65957822c73473b50800000000000000
+      internalID: 6572796381604829526
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pig_fix_11
+      rect:
+        serializedVersion: 2
+        x: 54
+        y: 54
+        width: 17
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 409490668522246f0800000000000000
+      internalID: -701960828852025084
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pig_fix_12
+      rect:
+        serializedVersion: 2
+        x: 81
+        y: 54
+        width: 17
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2a5110d6c8e9b1890800000000000000
+      internalID: -7486215629611919966
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pig_fix_13
+      rect:
+        serializedVersion: 2
+        x: 52
+        y: 37
+        width: 12
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fe3b86d49c484d9f0800000000000000
+      internalID: -444584463080836113
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pig_fix_14
+      rect:
+        serializedVersion: 2
+        x: 82
+        y: 36
+        width: 12
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e193e1874b2345d80800000000000000
+      internalID: -8262923665627268834
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pig_fix_15
+      rect:
+        serializedVersion: 2
+        x: 62
+        y: 13
+        width: 28
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e5dc957232538cb80800000000000000
+      internalID: -8374385081995113122
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pig_fix_16
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 7
+        width: 18
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e543e270d329b4f20800000000000000
+      internalID: 3407978333847041118
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pig_fix_17
+      rect:
+        serializedVersion: 2
+        x: 122
+        y: 7
+        width: 18
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b15530a6d1cf3b960800000000000000
+      internalID: 7616708598076495131
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pig_fix_18
+      rect:
+        serializedVersion: 2
+        x: 147
+        y: 5
+        width: 14
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9ae836a2739e360a0800000000000000
+      internalID: -6889406581803086167
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pig_fix_19
+      rect:
+        serializedVersion: 2
+        x: 168
+        y: 5
+        width: 14
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e62cea170144b8470800000000000000
+      internalID: 8397880767579865710
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline:
+    - - {x: -110, y: -71}
+      - {x: -110, y: 71}
+      - {x: 110, y: 71}
+      - {x: 110, y: -71}
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

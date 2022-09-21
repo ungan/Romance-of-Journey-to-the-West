@@ -78,7 +78,7 @@ public class Bullet : MonoBehaviour
     {
         GameObject bullet;
 
-        if (collision.gameObject.tag == "Border" && type != Type.Swing && type != Type.Magicline)
+        if ((collision.gameObject.tag == "Border" || collision.gameObject.tag == "Enemy") && type == Type.Shoot)
         {
             Dequeue();
         }
@@ -88,7 +88,7 @@ public class Bullet : MonoBehaviour
             bullet = objectManager.MakeObj("Trap Plant", this.transform.position, Quaternion.Euler(0, 0, 0));
             Dequeue();
         }
-        if(type == Type.Trap && value == 11 && collision.gameObject.tag == "Magicline" && collision.gameObject.name == "DodgePushZone")
+        if(type == Type.Trap && value == 11 && collision.gameObject.tag == "Magicline" && (collision.gameObject.name == "DodgePushZone" || collision.gameObject.name == "FireRail(Clone)"))
         {
             bullet = objectManager.MakeObj("Fire Boom Plant", this.transform.position, Quaternion.Euler(0, 0, 0));
             objectManager.MakeObj("Fire Boom Plant Effect", this.transform.position, Quaternion.Euler(0, 0, 0));
