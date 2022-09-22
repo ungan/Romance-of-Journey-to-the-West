@@ -22,7 +22,7 @@ public class lsightning_preview : MonoBehaviour
     private void FixedUpdate()
     {
         sprite.color = new Color(sprite.color.r, sprite.color.g,sprite.color.b, sprite.color.a + 0.01f);
-        //life_time();
+        life_time();
     }
     void life_time()
     {

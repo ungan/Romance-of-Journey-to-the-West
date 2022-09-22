@@ -86,7 +86,7 @@ public class EventManager : MonoBehaviour
             curHordeDelay = 0;
             curPhase = 0;
             Invoke("EnemyKillerActive", 0.2f);
-            //Invoke("ActiveBossEvent", 2f); 보스 이벤트 전환(보스전 돌입하고 싶으면 이거 활성화
+            Invoke("ActiveBossEvent", 2f);      //보스 이벤트 전환(보스전 돌입하고 싶으면 이거 활성화
         }
 
         if (normalEvent)

@@ -19171,6 +19171,10 @@ MonoBehaviour:
   character: {fileID: 0}
   explosion: {fileID: 305204144218467229}
   ball: {fileID: 861084842313488334}
+  ball2: {fileID: 2832276532733480651}
+  ball3: {fileID: 6735573327022941210}
+  explosion2: {fileID: 8358311198710335642}
+  explosion3: {fileID: 2320757624274345518}
   ball_collection: {fileID: 3741286227379577455}
 --- !u!58 &5568730220043597129
 CircleCollider2D:
@@ -19185,9 +19189,9 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: 0.0350039}
   serializedVersion: 2
-  m_Radius: 0.4
+  m_Radius: 0.8988069
 --- !u!50 &1791263569801275274
 Rigidbody2D:
   serializedVersion: 4

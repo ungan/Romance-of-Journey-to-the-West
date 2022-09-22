@@ -110,13 +110,20 @@ public class boss_nachal : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log("curhealth : " + curHealth);
-        state(); 
+        //Debug.Log("curhealth : " + curHealth);
+        state();
+        //Debug.Log("phase : " + phase);
+        if (phase == 1 && curHealth <=100)
+        {
+            phase = 2;
+            curHealth = 500;
+        }
     }
 
     private void FixedUpdate()
     {
         boss_patton_l();
+       
         boss_patton_b();
         if(isLight_circle_button == true)       // 일반 lightning_circle 이 나감
         {
@@ -962,8 +969,12 @@ public class boss_nachal : MonoBehaviour
         if (curHealth <= 0)
         {
             curHealth = 0;
-            isDead = true;
-            this.gameObject.SetActive(false);
+            
+            
+            
+                isDead = true;
+                this.gameObject.SetActive(false);
+            
             //Destroy(gameObject);
             //사망, 누움
             //transform.rotation = Quaternion.Euler(0, 0, -90);
