@@ -11,11 +11,12 @@ public class damage_zone : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Party")
+        if (collision.gameObject.tag == "Foot")
         {
             if(partymanager == null) partymanager = GameObject.Find("Party").GetComponent<PartyManager>();
-            partymanager.onDamabe_bullet_party(damage);
-            Destroy(gameObject);
+            if(partymanager.isDashing == true) partymanager.onDamabe_bullet_party(damage);
+
+            Destroy(zone);
         }
     }
 

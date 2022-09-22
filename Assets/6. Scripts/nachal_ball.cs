@@ -18,6 +18,10 @@ public class nachal_ball : MonoBehaviour
     public PartyManager character;
     public GameObject explosion;
     public GameObject ball;
+    public GameObject ball2;
+    public GameObject ball3;
+    public GameObject explosion2;
+    public GameObject explosion3;
     public GameObject ball_collection;      // 밖을 직접 돌리면 문제가 생겨서 이걸 돌려서 문제를 해결함
 
     Vector3 destination;
@@ -33,7 +37,8 @@ public class nachal_ball : MonoBehaviour
     {
         if (collision.gameObject.tag == "Leader")
         {
-            character.onDamabe_bullet_party(damage);
+            if(character.isDashing == false) character.onDamabe_bullet_party(damage);
+
             StartCoroutine("dead");
         }
 
@@ -113,6 +118,13 @@ public class nachal_ball : MonoBehaviour
         isdead = true;
         ball.SetActive(false);
         explosion.SetActive(true);
+        if(exphase == true)
+        {
+            ball2.SetActive(false);
+            explosion2.SetActive(true);
+            ball3.SetActive(false);
+            explosion3.SetActive(true);
+        }
         yield return new WaitForSeconds(0.5f);
         Destroy(gameObject);
     }
