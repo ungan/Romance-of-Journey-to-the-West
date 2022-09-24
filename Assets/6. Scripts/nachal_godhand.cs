@@ -5,12 +5,16 @@ using UnityEngine;
 public class nachal_godhand : MonoBehaviour
 {
     public SpriteRenderer hand_sprite;
+
+    public boss_nachal nachal;
     public GameObject hand;
     public GameObject hand_smoke;
     public GameObject godhand;
+
     float Dist = 2f;
     float Speed = 1f;
     float count = 0;
+
     Vector3 destination;
 
 
@@ -24,6 +28,7 @@ public class nachal_godhand : MonoBehaviour
     void Start()
     {
         //sprite = GetComponent<SpriteRenderer>();
+        nachal = GameObject.Find("boss_nachal").GetComponent<boss_nachal>();
         destination = new Vector3(hand.transform.position.x,hand.transform.position.y-4f,0f);
     }
 
@@ -35,7 +40,6 @@ public class nachal_godhand : MonoBehaviour
 
     private void FixedUpdate()
     {
-        
         
         if(count<Dist)
         {
@@ -50,10 +54,9 @@ public class nachal_godhand : MonoBehaviour
             hand_smoke.SetActive(true);
         }
 
-
-        //Debug.Log("a : " + hand_sprite.color.a);
         if (hand_sprite.color.a <= 0)
         {
+            nachal.isboss_pattern_h = false;
             Destroy(godhand);
         }
 

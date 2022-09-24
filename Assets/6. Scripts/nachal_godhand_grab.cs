@@ -11,7 +11,10 @@ public class nachal_godhand_grab : MonoBehaviour
     public GameObject gound_split_2;
     public GameObject gound_split_3;
     public Character character;
+    public boss_nachal nachal;
+
     public bool isLeavingSkill = false;
+
     float Dist = 15f;
     float Speed = 50f;
     float count = 0;
@@ -69,8 +72,6 @@ public class nachal_godhand_grab : MonoBehaviour
             }
             if (Input.GetMouseButtonDown(0))
             {
-                Debug.Log("click");
-
                 click_count++;
             }
 
@@ -81,6 +82,7 @@ public class nachal_godhand_grab : MonoBehaviour
                 gound_split_3.SetActive(false);
 
                 character.isLeaving = false;
+                nachal.isboss_pattern_h = false;
                 Destroy(gameObject);
             }
             if (click_count == 1)
@@ -111,8 +113,11 @@ public class nachal_godhand_grab : MonoBehaviour
             hand.transform.position = Vector3.MoveTowards(hand.transform.position, destination, Speed * Time.deltaTime);
             hand_sprite.color = new Color(hand_sprite.color.r, hand_sprite.color.g, hand_sprite.color.b, hand_sprite.color.a + Time.deltaTime);
         }
-        
+        else
+        {
 
+                
+        }
     }
 
 

@@ -125,7 +125,11 @@ public class boss_nachal : MonoBehaviour
         boss_patton_l();
        
         boss_patton_b();
-        if(isLight_circle_button == true)       // 일반 lightning_circle 이 나감
+        
+        //if (phase == 2) boss_pattern_h();
+
+
+        if (isLight_circle_button == true)       // 일반 lightning_circle 이 나감
         {
             Light_circle_button();
         }
@@ -254,13 +258,14 @@ public class boss_nachal : MonoBehaviour
     {
         hn = 0;
 
-        hn = Random.Range(0, 1);
-        if (hn%2 == 0)
+        hn = Random.Range(0, 2);
+        Debug.Log("hn : " + hn);
+        if (hn % 2 == 0)
         {
               isgod_hand_button = true;              // god hand 소환
 
         }
-        else if(hn%1 == 1)
+        else if(hn % 1 == 1)
         {
             isgod_hand_grab = true;     // god grab 소환
         }
