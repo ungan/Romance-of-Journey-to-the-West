@@ -5,13 +5,14 @@ using UnityEngine;
 public class nachal_ball : MonoBehaviour
 {
 
-    public float speed = 0.01f;
+    public float speed = 1000000000f;
     public float x, y;
     public float z=0;
     public int damage = 20;
 
     public bool exphase = false;
     public bool isdead = false;
+    public bool isexplosion = false;
     public boss_nachal nachal;
 
     public GameObject party;
@@ -25,7 +26,7 @@ public class nachal_ball : MonoBehaviour
     public GameObject ball_collection;      // 밖을 직접 돌리면 문제가 생겨서 이걸 돌려서 문제를 해결함
 
     Vector3 destination;
-
+    Vector3 dir;
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.tag == "Wall")
@@ -35,7 +36,7 @@ public class nachal_ball : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Leader")
+        if (collision.gameObject.tag == "Party")
         {
             if(character.isDashing == false) character.onDamabe_bullet_party(damage);
 
@@ -73,12 +74,23 @@ public class nachal_ball : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (exphase == true)
+
+
+        if (isdead == false)
         {
-            z += 5f;
-            ball_collection.transform.rotation =  Quaternion.Euler(transform.rotation.x, transform.rotation.y, z);
+            if (transform.localScale.x < 1f || transform.localScale.y < 1f)
+            {
+
+            }
+            else
+            {
+                //move();
+                //nachal.StartCoroutine("boss_delay_b");
+            }
+
         }
-        
+
+
     }
 
     private void FixedUpdate()
@@ -103,25 +115,34 @@ public class nachal_ball : MonoBehaviour
             }
         }
 
+        if (exphase == true && isexplosion == false)
+        {
+            z += 5f;
+            ball_collection.transform.rotation = Quaternion.Euler(transform.rotation.x, transform.rotation.y, z);
+        }
     }
 
     void move()
     {
-        //transform.position = Vector3.MoveTowards(transform.position, destination,  Time.deltaTime + 0.1f );
-        transform.Translate(new Vector3(x, y, 0) * Time.deltaTime * speed);
+        transform.position = Vector3.MoveTowards(transform.position, dir*1000f,  Time.deltaTime + 0.1f);
+        
+        //transform.Translate(dir * Time.deltaTime * speed);
 
     }
 
     IEnumerator dead()
     {
-        //yield return;
         isdead = true;
         ball.SetActive(false);
+        explosion.transform.position = ball.transform.position;
         explosion.SetActive(true);
-        if(exphase == true)
+        isexplosion = true;
+        if (exphase == true)
         {
+            explosion2.transform.position = ball2.transform.position;
             ball2.SetActive(false);
             explosion2.SetActive(true);
+            explosion3.transform.position = ball3.transform.position;
             ball3.SetActive(false);
             explosion3.SetActive(true);
         }
@@ -131,8 +152,10 @@ public class nachal_ball : MonoBehaviour
 
     void inclination()
     {
-        y = destination.y - transform.position.y + 0.5f;
-        x = destination.x - transform.position.x;
+        //y = destination.y - transform.position.y + 0.5f;
+        //x = destination.x - transform.position.x;
+        dir = destination - transform.position;
+        dir = dir.normalized;
     }
 }
 
