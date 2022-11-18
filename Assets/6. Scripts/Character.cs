@@ -95,6 +95,10 @@ public class Character : MonoBehaviour
     //오브젝트매니저
     ObjectManager objectManager;
 
+    //업그레이드 레벨
+    public int curUpgradeLV = 0;
+    public int maxUpgradeLV = 5;
+
     void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();

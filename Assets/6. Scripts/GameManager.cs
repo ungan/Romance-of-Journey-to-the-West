@@ -29,6 +29,10 @@ public class GameManager : MonoBehaviour
     public GameObject gameOverSet;
     public GameObject WinSet;
     public GameObject choicePanel;
+    //canvas-upgrade
+    public GameObject upgradePanel;
+    public Button[] upgradeButton;
+
     public Button retryButton;
     public Button[] choiceButton;
     //Player
@@ -53,8 +57,13 @@ public class GameManager : MonoBehaviour
 
     //bool
     public bool[] swapChoice;
+    public bool isUpgrading;
 
+    //PressKeyboard
     bool lDown;
+    bool sDown1;
+    bool sDown2;
+    bool sDown3;
 
     //Skill
     [SerializeField]
@@ -62,7 +71,9 @@ public class GameManager : MonoBehaviour
 
     void LateUpdate()
     {
-        lDown = Input.GetButtonDown("LButton");
+        GetInput();
+        if (isUpgrading) UpgradeButton();
+
         if (lDown) GameRetry();
 
         if (eventManager.Boss.activeSelf)
@@ -141,6 +152,14 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    void GetInput()
+    {
+        lDown = Input.GetButtonDown("LButton");
+        sDown1 = Input.GetButtonDown("Swap1");
+        sDown2 = Input.GetButtonDown("Swap2");
+        sDown3 = Input.GetButtonDown("Swap3");
+    }
+
     public void GameOver()
     {
         gameOverSet.SetActive(true);
@@ -188,6 +207,39 @@ public class GameManager : MonoBehaviour
     public void GameRetry()
     {
         SceneManager.LoadScene(0);
+    }
+
+    public void UpgradeChoice()
+    {
+        Time.timeScale = 0.0f;
+        isUpgrading = true;
+        Debug.Log("업그레이드 중입니다! 멈췄습니다.");
+        //upgradePanel.SetActive(true);
+    }
+
+    void UpgradeButton()
+    {
+        if (sDown1)
+        {
+            partyManager.characterScripts[0].curUpgradeLV++;
+            Debug.Log("0번 캐릭터 업글");
+            Time.timeScale = 1f;
+            isUpgrading = false;
+        }
+        else if (sDown2)
+        {
+            partyManager.characterScripts[1].curUpgradeLV++;
+            Debug.Log("1번 캐릭터 업글");
+            Time.timeScale = 1f;
+            isUpgrading = false;
+        }
+        else if (sDown3)
+        {
+            partyManager.characterScripts[2].curUpgradeLV++;
+            Debug.Log("2번 캐릭터 업글");
+            Time.timeScale = 1f;
+            isUpgrading = false;
+        }
     }
 
     IEnumerator CoolTime()
