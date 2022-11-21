@@ -462,9 +462,10 @@ public class PartyManager : MonoBehaviour
         }
     }
 
-    public IEnumerator onDamage_party(int e_damage)
+    public IEnumerator onDamage_party(float e_damage, atk_type atype)
     {
-        characterScripts[charactersIndex].StartCoroutine("OnDamage",e_damage);
+        characterScripts[charactersIndex].StartCoroutine("OnDamage", e_damage);
+        //characterScripts[charactersIndex].StartCoroutine(OnDamage(e_damage));
         yield return new WaitForSeconds(0.1f);
     }
 
