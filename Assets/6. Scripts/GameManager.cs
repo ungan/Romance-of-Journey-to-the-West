@@ -54,6 +54,10 @@ public class GameManager : MonoBehaviour
     public Text bossName;
     public Text bossHealth;
     public RectTransform bossHealthBar;
+    //EXP
+    public GameObject EXPSet;
+    public Text expAmount;
+    public RectTransform expBar;
 
     //bool
     public bool[] swapChoice;
@@ -100,7 +104,11 @@ public class GameManager : MonoBehaviour
 
         //Boss
         bossHealth.text = boss.curHealth + " / 500";
-        bossHealthBar.localScale = new Vector3(boss.curHealth / 500, 1, 1);
+        bossHealthBar.localScale = new Vector3((float)boss.curHealth / 500, 1, 1);
+
+        //EXP
+        expAmount.text = partyManager.curEXP + " / " + partyManager.maxEXP;
+        expBar.localScale = new Vector3((float)partyManager.curEXP / partyManager.maxEXP, 1, 1);
 
         //캐릭터 바꾸기
         characterImg[0].color = new Color(1, 1, 1, character[0].value == partyManager.list[partyManager.charactersIndex] ? 1 : 0);
@@ -221,6 +229,12 @@ public class GameManager : MonoBehaviour
     {
         if (sDown1)
         {
+            if (partyManager.list[0] == -1 || partyManager.characterScripts[0].curUpgradeLV >= 5)
+            {
+                Debug.Log("0번 업글 불가");
+                return;
+            }
+
             partyManager.characterScripts[0].curUpgradeLV++;
             Debug.Log("0번 캐릭터 업글");
             Time.timeScale = 1f;
@@ -228,6 +242,12 @@ public class GameManager : MonoBehaviour
         }
         else if (sDown2)
         {
+            if (partyManager.list[1] == -1 || partyManager.characterScripts[1].curUpgradeLV >= 5)
+            {
+                Debug.Log("1번 업글 불가");
+                return;
+            }
+
             partyManager.characterScripts[1].curUpgradeLV++;
             Debug.Log("1번 캐릭터 업글");
             Time.timeScale = 1f;
@@ -235,6 +255,12 @@ public class GameManager : MonoBehaviour
         }
         else if (sDown3)
         {
+            if (partyManager.list[2] == -1 || partyManager.characterScripts[2].curUpgradeLV >= 5)
+            {
+                Debug.Log("2번 업글 불가");
+                return;
+            }
+
             partyManager.characterScripts[2].curUpgradeLV++;
             Debug.Log("2번 캐릭터 업글");
             Time.timeScale = 1f;
