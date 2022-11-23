@@ -122,11 +122,12 @@ public class boss_nachal : MonoBehaviour
 
     private void FixedUpdate()
     {
-        boss_patton_l();
-       
-        boss_patton_b();
-        
+        //boss_patton_l();
+
+        //boss_patton_b();
+
         //if (phase == 2) boss_pattern_h();
+        boss_pattern_h();
 
 
         if (isLight_circle_button == true)       // 일반 lightning_circle 이 나감
@@ -265,7 +266,7 @@ public class boss_nachal : MonoBehaviour
               isgod_hand_button = true;              // god hand 소환
 
         }
-        else if(hn % 1 == 1)
+        else if(hn % 2 == 1)
         {
             isgod_hand_grab = true;     // god grab 소환
         }
@@ -690,7 +691,7 @@ public class boss_nachal : MonoBehaviour
      */
 
     
-    public void Light_chess_button_downtoup()
+    public void Light_chess_button_downtoup()       // chess 형태 번개 아래서 위로 버튼
     {
         if (isLight_chess_downtoup_reset == true)
         {
@@ -701,7 +702,7 @@ public class boss_nachal : MonoBehaviour
         StartCoroutine("Light_chess_downtoup");
     }
 
-    public void Light_chess_button_uptodown()
+    public void Light_chess_button_uptodown()       // chess 형태 번개 위에서 아래로 버튼
     {
         if (isLight_chess_uptodown_reset == true)
         {
