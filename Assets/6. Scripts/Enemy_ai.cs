@@ -13,8 +13,10 @@ public enum e_state
     Follow,     // plyaer 추격중
     attack,     // 공격
     attack_ready, // 공격 대기? 상태
+    long_attack,        // 원거리 공격
+    long_attack_ready,  // 원거리 공격 대기 상태
     attack_ani,   // attack 애니메이션 나오고 있는 상태
-    dash,           // dash 중인 상태
+    dash,           // dash 중인 상태 
     dead            // 죽은 상태
 }
 
@@ -83,6 +85,10 @@ public class Enemy_ai : MonoBehaviour
     public bool isdash_effect = false; // isdash_effect on true off false
     public bool isdead = false;     // 죽었을경우에는 true
     public bool isrange = false;
+    public bool islong_range = false;       // 원거리면 true 근거리면 false
+    public bool inlong_range = false;       // 원거리 범위안인경우 true 그렇지 않다면 false true 인경우에는 원거리 공격을 해줄것
+    public bool cool_long_attack = false;    // long_attack 쿨타임인지 아닌지 false 쿨타임 상태 아님 즉 공격 가능한 상태 true라면 쿨타임 즉 공격을 해야하는 상태 
+    public bool isshot_foxball = false;     // shot_foxball 코루틴이 돌고 있을때 계속 돌지 않도록 해주는 것
 
     public GameObject fox_ball;     // 구미호 bullet prefab
     public Transform fox_ball1;     // 구미호볼 1,2,3 
@@ -137,9 +143,16 @@ public class Enemy_ai : MonoBehaviour
     public GameObject obj;
     public GameObject attack_ragnes;             // 공격 범위가 커졌다 꺼진다.
 
+    ObjectManager objectManager;
+
     BoxCollider2D boxcollider2d;
     float[] e_angle = new float[6];
     int min_engle;
+
+    private void Awake()
+    {
+        objectManager = GameObject.Find("ObjectManager").GetComponent<ObjectManager>();
+    }
 
     Character nap;                              // 납치한 character의 script character 정보를 여기에 저장
     void Start()
@@ -274,7 +287,11 @@ public class Enemy_ai : MonoBehaviour
         if (enemy_state != e_state.dash)
         {
             isdash_effect = false;
-            dash_effect.SetActive(false);
+
+            if(dash_effect != null)     // 만약에 dash effect가 없을 경우를 대비해서 할경우
+            {
+                dash_effect.SetActive(false);
+            }
         }
 
         if (enemy_state != e_state.attack)
@@ -323,7 +340,8 @@ public class Enemy_ai : MonoBehaviour
 
         }
         //else if (enemy_state == e_state.attack_ani)
-        else if (enemy_state == e_state.attack)
+
+        else if (islong_range == true)      // 원거리일때 해주는 공격
         {
             attack_direction();         // 공격할때 어디로 해야할지 방향을 탐지
             if (can_attack && inrange && !partyManager.isDashing)            // canattack + inrange  즉 공격은 당연히 시행을 하고 inrange 공격 범위내에 player 존재시 데미지가 들어감
@@ -332,6 +350,7 @@ public class Enemy_ai : MonoBehaviour
             }
             else if (can_attack && bullet1 != null)             // 여우볼이 생성이 되어있을시 inrange를 벗어난경우 공격을 해준다.
             {
+                /*
                 switch (code)
                 {
                     case 101:
@@ -345,7 +364,7 @@ public class Enemy_ai : MonoBehaviour
                             //player = null;
                         }
                         break;
-                }
+                }*/
             }
 
             can_attack = false;
@@ -443,6 +462,12 @@ public class Enemy_ai : MonoBehaviour
             Debug.Log("issight range false");
             enemy_state = e_state.Follow;
         }
+
+        if(islong_range == true)        // 만약에 원거리인 경우에는 이 detect를 사용한다.
+        {
+            
+        }
+
         //Debug.Log("issight_range : " + issight_range);
         /*
 
@@ -540,9 +565,7 @@ public class Enemy_ai : MonoBehaviour
                 partyManager.StartCoroutine("onDamage_party", damage);
                 break;
             case 101:                                                 // 구미호
-                make_ball = true;
-                StartCoroutine("shot_foxball");
-                bullet1 = null;
+                partyManager.StartCoroutine(partyManager.onDamage_party(damage, atk_type.short_range));
                 break;
             case 104:                                                  // 이매망량 2페 ew
                 partyManager.StartCoroutine("onDamage_party", damage);
@@ -614,8 +637,6 @@ public class Enemy_ai : MonoBehaviour
             }
             else
             {
-                //debug.Log("e_angle.length : " + e_angle.Length);
-                //debug.Log("i : " + i);
                 if (e_angle[i] < e_angle[min_engle])
                 {
                     min_engle = i;
@@ -642,7 +663,7 @@ public class Enemy_ai : MonoBehaviour
 
         //atk_range.transform.rotation = Quaternion.Euler(0, 0, Mathf.Atan2(player.transform.position.y - transform.position.y + 1f, player.transform.position.x - transform.position.x) * 57.2958f);
     }
-
+    /*
     void make_foxball()
     {
         if (bullet1 == null && bullet2 == null && bullet3 == null)     // 여우볼 없을때만 생성할것
@@ -654,9 +675,10 @@ public class Enemy_ai : MonoBehaviour
             bullet2.make_ball = fox_ball2;
             bullet3.make_ball = fox_ball3;
         }
-    }
+    }*/
     void special()
     {
+        Debug.Log("special");
         switch (code)
         {
             case 1000:         // 자폭맨 => 폭죽
@@ -670,15 +692,48 @@ public class Enemy_ai : MonoBehaviour
                 }
                 break;
             case 101:         // 구미호
-                if ((enemy_state == e_state.attack_ready) && make_ball)         // attack_ready 일때 make_ball on
-                {
-                    make_ball = false;
-                    make_foxball();
-                }
+                StartCoroutine("shot_foxball");
                 break;
         }
     }
 
+    public void goto_foxball()
+    {
+        GameObject objfox_ball1;     // 구미호 bullet prefab
+        GameObject objfox_ball2;     // 구미호 bullet prefab
+        GameObject objfox_ball3;     // 구미호 bullet prefab
+        Rigidbody2D rigid1;
+        Rigidbody2D rigid2;
+        Rigidbody2D rigid3;
+        Vector2 dir1;
+        Vector2 dir2;
+        Vector2 dir3;
+        Vector2 p = new Vector2(partyManager.transform.position.x, partyManager.transform.position.y+1f);
+
+        Vector2 mousePos1 = fox_ball1.position;
+        Vector2 mousePos2 = fox_ball2.position;
+        Vector2 mousePos3 = fox_ball3.position;
+
+        dir1 = (mousePos1 - p)* (-1);
+        dir2 = (mousePos2 - p) * (-1);
+        dir3 = (mousePos3 - p) * (-1);
+
+        objfox_ball1 = objectManager.MakeObj("fox_ball", fox_ball1.position, Quaternion.Euler(0, 0, 0));
+        objfox_ball2 = objectManager.MakeObj("fox_ball", fox_ball2.position, Quaternion.Euler(0, 0, 0));
+        objfox_ball3 = objectManager.MakeObj("fox_ball", fox_ball3.position, Quaternion.Euler(0, 0, 0));
+
+        rigid1 = objfox_ball1.GetComponent<Rigidbody2D>();
+        //rigid1.velocity = v1;
+        rigid1.AddForce(dir1.normalized * 10, ForceMode2D.Impulse); //탄알 날려보내기
+        rigid2 = objfox_ball2.GetComponent<Rigidbody2D>();
+        rigid2.AddForce(dir2.normalized * 10, ForceMode2D.Impulse); //탄알 날려보내기
+        //rigid1.velocity = v1;
+        rigid3 = objfox_ball3.GetComponent<Rigidbody2D>();
+        rigid3.AddForce(dir3.normalized * 10, ForceMode2D.Impulse); //탄알 날려보내기
+        //rigid1.velocity = v1;
+        Debug.Log("여우볼 생성");
+    }
+    
     public void move_false()
     {
         aiPath.canMove = false;
@@ -747,7 +802,9 @@ public class Enemy_ai : MonoBehaviour
             isdead = true;
             rigid.constraints = RigidbodyConstraints2D.FreezeAll;   // 사망시 시체가 움직이지 않게 해줌
             boxcollider2d.isTrigger = true;
-            dash_effect.SetActive(false);
+
+            if(dash_effect != null) dash_effect.SetActive(false);      // dash 안쓰는 경우 오류 안뜨게 해줄것
+
             if (code == 101)   // fox일 때 남은 fox 삭제 해줘야됨
             {
                 bullet1.Dead();
@@ -819,13 +876,25 @@ public class Enemy_ai : MonoBehaviour
     }
     IEnumerator shot_foxball()       // 여우구슬발사
     {
+        if (isshot_foxball == true) yield break;
+
+        isshot_foxball = true;
+
+        goto_foxball();
+
+        yield return new WaitForSeconds(1f);
+
+        isshot_foxball = false;
+
+
+        /*
         if (bullet1 != null) bullet1.can_move = true;
         yield return new WaitForSeconds(0.2f);
         bullet2.can_move = true;
         yield return new WaitForSeconds(0.2f);
         bullet3.can_move = true;
         //enemy_state = e_state.attack_ready;
-        enemy_state = e_state.attack_ani;
+        enemy_state = e_state.attack_ani;*/
         yield return null;
     }
     IEnumerator atkr_image_time()       // 공격 범위 표시

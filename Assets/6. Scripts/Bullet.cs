@@ -52,7 +52,14 @@ public class Bullet : MonoBehaviour
             }
             else if (type == Type.Shoot)
             {
-                Invoke("Dequeue", 3f);
+                if(value == 101) // khi 여우 볼
+                {
+                    //Invoke("Dequeue", 3f);
+                }
+                else
+                {
+                    Invoke("Dequeue", 3f);
+                }
             }
             else if (type == Type.Trap)
             {
@@ -72,7 +79,11 @@ public class Bullet : MonoBehaviour
 
             activeCheck = false;
         }
+
+
     }
+
+
 
     void OnTriggerEnter2D(Collider2D collision)
     {
@@ -80,20 +91,35 @@ public class Bullet : MonoBehaviour
 
         if ((collision.gameObject.tag == "Border" || collision.gameObject.tag == "Enemy") && type == Type.Shoot)
         {
-            Dequeue();
+           
+            if (collision.gameObject.tag == "Enemy" && tag == "enemy_bullet")      // enemy bullet 인데 enemy 맞고 사라져서 고쳐줌
+            {
+
+            }
+            else
+            {
+                Dequeue();
+            }
         }
+
         if (type == Type.Trap && collision.gameObject.tag == "Enemy" && value == 9 && trapOn)
         {
             bullet = objectManager.MakeObj("Boom Plant", this.transform.position, Quaternion.Euler(0, 0, 0));
             bullet = objectManager.MakeObj("Trap Plant", this.transform.position, Quaternion.Euler(0, 0, 0));
             Dequeue();
         }
-        if(type == Type.Trap && value == 11 && collision.gameObject.tag == "Magicline" && (collision.gameObject.name == "DodgePushZone" || collision.gameObject.name == "FireRail(Clone)"))
+        if (type == Type.Trap && value == 11 && collision.gameObject.tag == "Magicline" && (collision.gameObject.name == "DodgePushZone" || collision.gameObject.name == "FireRail(Clone)"))
         {
             bullet = objectManager.MakeObj("Fire Boom Plant", this.transform.position, Quaternion.Euler(0, 0, 0));
             objectManager.MakeObj("Fire Boom Plant Effect", this.transform.position, Quaternion.Euler(0, 0, 0));
             Dequeue();
         }
+
+        if (collision.gameObject.tag == "enemy_bullet")       // khi enemy bullet이 캐릭터에 닿았을때 의 경우임 이는 관점에 따라서 partymanager에 옮겨 질 수 잇음
+        {
+
+        }
+
     }
 
     void Gone()

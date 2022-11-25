@@ -483,10 +483,18 @@ public class PartyManager : MonoBehaviour
 
     void OnTriggerStay2D(Collider2D collision)
     {
+        Bullet bullet = collision.gameObject.GetComponent<Bullet>();
 
         if (collision.gameObject.tag == "Character" || collision.gameObject.tag == "Item" || collision.gameObject.tag == "Downed")
         {
             nearObject = collision.gameObject;
+        }
+        if (collision.gameObject.tag == "enemy_bullet")      // enemy bullet 인데 enemy 맞고 사라져서 고쳐줌
+        {
+            Debug.Log("닿았음");
+            
+            StartCoroutine(onDamage_party(bullet.damage, atk_type.long_range));
+            bullet.Invoke("Dequeue", 0f);
         }
 
     }
