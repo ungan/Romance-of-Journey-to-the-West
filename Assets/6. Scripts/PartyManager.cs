@@ -90,7 +90,7 @@ public class PartyManager : MonoBehaviour
     //레벨
     public int maxLV = 50; //최대 레벨
     public int curLV = 0; //현재 레벨
-    public int maxEXP = 500; //최대 경험치
+    public int maxEXP = 10; //최대 경험치
     public int curEXP = 0; //현재 경험치 
 
     void Awake()
@@ -419,8 +419,26 @@ public class PartyManager : MonoBehaviour
         {
             curLV++;
             curEXP = 0;
-            maxEXP += 50;
+            //maxEXP += 50;
+            PartyUpgrade();
             gameManager.UpgradeChoice();
+        }
+    }
+
+    void PartyUpgrade()
+    {
+        maxEXP += 5;
+       if(curLV == 5)
+        {
+            speed += 1;
+        }
+        else if (curLV == 10)
+        {
+            speed += 1;
+        }
+        else if (curLV == 15)
+        {
+            speed += 1;
         }
     }
 

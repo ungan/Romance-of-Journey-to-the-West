@@ -4768,6 +4768,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 6
+  owner: 2
   value: 99999
   damage: 0
   skillObject: []

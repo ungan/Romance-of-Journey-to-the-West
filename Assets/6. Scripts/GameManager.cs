@@ -107,7 +107,7 @@ public class GameManager : MonoBehaviour
         bossHealthBar.localScale = new Vector3((float)boss.curHealth / 500, 1, 1);
 
         //EXP
-        expAmount.text = partyManager.curEXP + " / " + partyManager.maxEXP;
+        expAmount.text = "LV " + partyManager.curLV;//partyManager.curEXP + " / " + partyManager.maxEXP;
         expBar.localScale = new Vector3((float)partyManager.curEXP / partyManager.maxEXP, 1, 1);
 
         //캐릭터 바꾸기

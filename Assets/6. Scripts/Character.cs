@@ -127,6 +127,7 @@ public class Character : MonoBehaviour
         Delay();
         Watch();
         Follow();
+        Upgrade();
     }
 
     void FixedUpdate()
@@ -456,18 +457,21 @@ public class Character : MonoBehaviour
 
                         StartCoroutine(NormalAttack(rotateDg));
                     }
-                    if(fire1 && curPutButtonFire1Delay > 0.3f && !isReloading) //차지 공격 차지(근접)
+                    if (curUpgradeLV >= 1) //업그레이드1시 사용 가능
                     {
-                        if (curShotDelay < maxShotDelay || curChargeDelay < maxChargeDelay || !partyManager.canSwap || curAmmo <= 0)
-                            return;
-                        StartCoroutine(ChargeAttackReady(rotateDg));
-                    }
-                    if(fire1Up && curPutButtonFire1Delay > 0.3f && !isReloading) //차지 공격(근접)
-                    {
-                        if (curShotDelay < maxShotDelay || curChargeDelay < maxChargeDelay || !partyManager.canSwap || curAmmo <= 0)
-                            return;
+                        if (fire1 && curPutButtonFire1Delay > 0.3f && !isReloading) //차지 공격 차지(근접)
+                        {
+                            if (curShotDelay < maxShotDelay || curChargeDelay < maxChargeDelay || !partyManager.canSwap || curAmmo <= 0)
+                                return;
+                            StartCoroutine(ChargeAttackReady(rotateDg));
+                        }
+                        if (fire1Up && curPutButtonFire1Delay > 0.3f && !isReloading) //차지 공격(근접)
+                        {
+                            if (curShotDelay < maxShotDelay || curChargeDelay < maxChargeDelay || !partyManager.canSwap || curAmmo <= 0)
+                                return;
 
-                        StartCoroutine(ChargeAttack(rotateDg));
+                            StartCoroutine(ChargeAttack(rotateDg));
+                        }
                     }
                     if (fire2Down) //리더 액티브 스킬-회피(대시)
                     {
@@ -489,19 +493,22 @@ public class Character : MonoBehaviour
                             return;
                         StartCoroutine(NormalAttack(rotateDg));
                     }
-                    if (fire1 && curPutButtonFire1Delay > 0.3f && !isReloading) //차지 공격 차지(근접)
+                    if(curUpgradeLV >= 1)
                     {
-                        if (curShotDelay < maxShotDelay || curChargeDelay < maxChargeDelay || !partyManager.canSwap || curAmmo <= 0)
-                            return;
+                        if (fire1 && curPutButtonFire1Delay > 0.3f && !isReloading) //차지 공격 차지(근접)
+                        {
+                            if (curShotDelay < maxShotDelay || curChargeDelay < maxChargeDelay || !partyManager.canSwap || curAmmo <= 0)
+                                return;
 
-                        StartCoroutine(ChargeAttackReady(rotateDg));
-                    }
-                    if (fire1Up && curPutButtonFire1Delay > 0.3f && !isReloading) //차지 공격(근접)
-                    {
-                        if (curShotDelay < maxShotDelay || curChargeDelay < maxChargeDelay || !partyManager.canSwap || curAmmo <= 0)
-                            return;
+                            StartCoroutine(ChargeAttackReady(rotateDg));
+                        }
+                        if (fire1Up && curPutButtonFire1Delay > 0.3f && !isReloading) //차지 공격(근접)
+                        {
+                            if (curShotDelay < maxShotDelay || curChargeDelay < maxChargeDelay || !partyManager.canSwap || curAmmo <= 0)
+                                return;
 
-                        StartCoroutine(ChargeAttack(rotateDg));
+                            StartCoroutine(ChargeAttack(rotateDg));
+                        }
                     }
                     if (fire2Down) //리더 액티브 스킬-이탈형 스킬, 어그로
                     {
@@ -545,9 +552,8 @@ public class Character : MonoBehaviour
             switch (value)
             {
                 case 0: //손오공
-                    StartCoroutine("DashRail");
-                        //curDashRailDelay = 0f;
-                    //}
+                    if(curUpgradeLV >= 3)
+                        StartCoroutine("DashRail");
                     break;
             }
         }
@@ -701,6 +707,12 @@ public class Character : MonoBehaviour
         }
     }
 
+    void Upgrade()
+    {
+        if (value == 2 && curUpgradeLV >= 3)
+            maxMSkillDelay = 5;
+    }
+
     IEnumerator NormalAttack(float rotateDg) //일반공격
     {
         int ranAudio;
@@ -768,7 +780,10 @@ public class Character : MonoBehaviour
             case 0: //손오공
                 skillObject[3].SetActive(true);
                 if(skillObject[3].transform.localScale.x <= 25)
-                    skillObject[3].transform.localScale += new Vector3(0.05f, 0.05f, 0);
+                    if(curUpgradeLV < 4)
+                        skillObject[3].transform.localScale += new Vector3(0.05f, 0.05f, 0);
+                    else if(curUpgradeLV >= 4)
+                        skillObject[3].transform.localScale += new Vector3(0.1f, 0.1f, 0);
                 if (!partyManager.isAttacking) audioManager.PlayBgm("Son Charge Ready");
                 break;
             case 1: //저팔계
@@ -804,7 +819,10 @@ public class Character : MonoBehaviour
                 curChargeDelay = 0;
                 break;
             case 1: //저팔계
-                curAmmo = 0;
+                if (curUpgradeLV < 4)
+                    curAmmo = 0;
+                else if (curUpgradeLV >= 4)
+                    curAmmo--;
                 audioManager.StopBgm("Jeo Charge Ready");
                 anim.SetTrigger("NormalAttack");
                 curShotDelay = 0;
@@ -867,7 +885,7 @@ public class Character : MonoBehaviour
                 skillObject[1].SetActive(true);
                 cam.Shake(0.4f, 1);
 
-                for (int i = 0; i < 5; i++)
+                for (int i = 0; i < 7; i++)
                 {
                     yield return new WaitForSeconds(1);
                     StartCoroutine(Check(leavingIndex));
