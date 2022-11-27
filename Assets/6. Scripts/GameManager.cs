@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour
 {
 
     //scripts
+    public CameraController cam;
     public PartyManager partyManager;
     public EventManager eventManager;
     public Character[] character;
@@ -31,7 +32,11 @@ public class GameManager : MonoBehaviour
     public GameObject choicePanel;
     //canvas-upgrade
     public GameObject upgradePanel;
-    public Button[] upgradeButton;
+    //public Button[] upgradeButton;
+    public Image[] party1upgradeImg;
+    public Image[] party2upgradeImg;
+    public Image[] party3upgradeImg;
+
 
     public Button retryButton;
     public Button[] choiceButton;
@@ -124,6 +129,7 @@ public class GameManager : MonoBehaviour
             for(int i = 0; i < 4; i++)
             {
                 party1characterImg[i].color = new Color(1, 1, 1, character[i].value == partyManager.list[0] ? 1 : 0);
+                party1upgradeImg[i].color = new Color(1, 1, 1, character[i].value == partyManager.list[0] ? 1 : 0);
             }
         }
         //파티원2
@@ -134,6 +140,7 @@ public class GameManager : MonoBehaviour
             for (int i = 0; i < 4; i++)
             {
                 party2characterImg[i].color = new Color(1, 1, 1, character[i].value == partyManager.list[1] ? 1 : 0);
+                party2upgradeImg[i].color = new Color(1, 1, 1, character[i].value == partyManager.list[1] ? 1 : 0);
             }
         }
 
@@ -145,6 +152,7 @@ public class GameManager : MonoBehaviour
             for (int i = 0; i < 4; i++)
             {
                 party3characterImg[i].color = new Color(1, 1, 1, character[i].value == partyManager.list[2] ? 1 : 0);
+                party3upgradeImg[i].color = new Color(1, 1, 1, character[i].value == partyManager.list[2] ? 1 : 0);
             }
         }
 
@@ -227,6 +235,8 @@ public class GameManager : MonoBehaviour
 
     void UpgradeButton()
     {
+        upgradePanel.SetActive(true);
+        cam.Shake(0f, 0.1f);
         if (sDown1)
         {
             if (partyManager.list[0] == -1 || partyManager.characterScripts[0].curUpgradeLV >= 5)
@@ -239,6 +249,7 @@ public class GameManager : MonoBehaviour
             Debug.Log("0번 캐릭터 업글");
             Time.timeScale = 1f;
             isUpgrading = false;
+            upgradePanel.SetActive(false);
         }
         else if (sDown2)
         {
@@ -252,6 +263,7 @@ public class GameManager : MonoBehaviour
             Debug.Log("1번 캐릭터 업글");
             Time.timeScale = 1f;
             isUpgrading = false;
+            upgradePanel.SetActive(false);
         }
         else if (sDown3)
         {
@@ -265,6 +277,7 @@ public class GameManager : MonoBehaviour
             Debug.Log("2번 캐릭터 업글");
             Time.timeScale = 1f;
             isUpgrading = false;
+            upgradePanel.SetActive(false);
         }
     }
 
