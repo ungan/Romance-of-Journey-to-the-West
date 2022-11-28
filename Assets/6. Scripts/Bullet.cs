@@ -11,7 +11,7 @@ public class Bullet : MonoBehaviour
     public Type type;
     public int value;
     public int damage;
-
+    public GameObject explosion;
     public GameObject[] skillObject;
 
     bool active;
@@ -54,7 +54,7 @@ public class Bullet : MonoBehaviour
             {
                 if(value == 101) // khi 여우 볼
                 {
-                    //Invoke("Dequeue", 3f);
+                    Invoke("Dequeue", 3f);
                 }
                 else
                 {
@@ -89,10 +89,14 @@ public class Bullet : MonoBehaviour
     {
         GameObject bullet;
 
-        if ((collision.gameObject.tag == "Border" || collision.gameObject.tag == "Enemy") && type == Type.Shoot)
+        if ((collision.gameObject.tag == "Border" || collision.gameObject.tag == "Enemy" || collision.gameObject.tag == "Leader") && type == Type.Shoot)
         {
            
             if (collision.gameObject.tag == "Enemy" && tag == "enemy_bullet")      // enemy bullet 인데 enemy 맞고 사라져서 고쳐줌
+            {
+
+            }
+            if(collision.gameObject.tag == "Player" && tag == "PlayerBullet")
             {
 
             }
@@ -145,4 +149,14 @@ public class Bullet : MonoBehaviour
     {
         trapOn = true;
     }
+
+    IEnumerator foxball_dead()      // foxball
+    {
+        explosion.transform.position = transform.position;
+        explosion.SetActive(true);
+
+        yield return new WaitForSeconds(0.5f);
+        Destroy(gameObject);
+    }
+
 }
