@@ -96,7 +96,7 @@ public class Bullet : MonoBehaviour
             {
 
             }
-            if(collision.gameObject.tag == "Player" && tag == "PlayerBullet")
+            else if(collision.gameObject.tag == "Player" && tag == "PlayerBullet")
             {
 
             }
