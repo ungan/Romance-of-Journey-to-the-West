@@ -491,10 +491,12 @@ public class PartyManager : MonoBehaviour
         }
         if (collision.gameObject.tag == "enemy_bullet")      // enemy bullet 인데 enemy 맞고 사라져서 고쳐줌
         {
+            Bullet bullet1 = collision.GetComponent<Bullet>();
+
             Debug.Log("닿았음");
-            
+            bullet1.StartCoroutine(bullet1.foxball_dead());
             StartCoroutine(onDamage_party(bullet.damage, atk_type.long_range));
-            bullet.Invoke("Dequeue", 0f);
+            //bullet.Invoke("Dequeue", 0f);
         }
 
     }

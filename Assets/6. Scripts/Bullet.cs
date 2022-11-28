@@ -12,6 +12,7 @@ public class Bullet : MonoBehaviour
     public int value;
     public int damage;
     public GameObject explosion;
+    public GameObject ball;
     public GameObject[] skillObject;
 
     bool active;
@@ -23,6 +24,11 @@ public class Bullet : MonoBehaviour
     {
         objectManager = GameObject.Find("ObjectManager").GetComponent<ObjectManager>();
         audioManager = GameObject.Find("AudioManager").GetComponent<AudioManager>();
+    }
+
+    void OnEnable()
+    {
+        gameObject.GetComponent<CircleCollider2D>().enabled = true;
     }
 
     void Update()
@@ -89,6 +95,7 @@ public class Bullet : MonoBehaviour
     {
         GameObject bullet;
 
+        /*
         if ((collision.gameObject.tag == "Border" || collision.gameObject.tag == "Enemy" || collision.gameObject.tag == "Leader") && type == Type.Shoot)
         {
            
@@ -102,9 +109,15 @@ public class Bullet : MonoBehaviour
             }
             else
             {
-                Dequeue();
+                //Dequeue();
             }
+        }*/
+
+        if ((collision.gameObject.tag == "Border") && type == Type.Shoot)
+        {
+            Dequeue();
         }
+        
 
         if (type == Type.Trap && collision.gameObject.tag == "Enemy" && value == 9 && trapOn)
         {
@@ -150,13 +163,17 @@ public class Bullet : MonoBehaviour
         trapOn = true;
     }
 
-    IEnumerator foxball_dead()      // foxball
+    public IEnumerator foxball_dead()      // foxball
     {
         explosion.transform.position = transform.position;
         explosion.SetActive(true);
-
+        ball.SetActive(false);
+        Rigidbody2D rigid;
+        rigid = GetComponent<Rigidbody2D>();
+        rigid.velocity = new Vector2(0, 0);
+        gameObject.GetComponent<CircleCollider2D>().enabled = false;
         yield return new WaitForSeconds(0.5f);
-        Destroy(gameObject);
+        Dequeue();
     }
 
 }

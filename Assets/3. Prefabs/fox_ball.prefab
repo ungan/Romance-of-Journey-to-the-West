@@ -4894,6 +4894,7 @@ MonoBehaviour:
   value: 101
   damage: 5
   explosion: {fileID: 5153364843571935070}
+  ball: {fileID: 1449082458938554952}
   skillObject: []
 --- !u!1 &5153364843571935070
 GameObject:
