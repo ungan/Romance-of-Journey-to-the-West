@@ -24,6 +24,7 @@ TagManager:
   - EnemyBullet
   - AutoTakeItem
   - Foot
+  - enemy_bullet
   layers:
   - Default
   - TransparentFX

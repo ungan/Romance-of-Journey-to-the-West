@@ -14,7 +14,8 @@ public class Bullet : MonoBehaviour
     public Owner owner;
     public int value;
     public int damage;
-
+    public GameObject explosion;
+    public GameObject ball;
     public GameObject[] skillObject;
 
     bool active;
@@ -26,6 +27,17 @@ public class Bullet : MonoBehaviour
     {
         objectManager = GameObject.Find("ObjectManager").GetComponent<ObjectManager>();
         audioManager = GameObject.Find("AudioManager").GetComponent<AudioManager>();
+    }
+
+
+    void OnEnable()
+    {
+        switch (value)
+        {
+            case 101:
+                gameObject.GetComponent<CircleCollider2D>().enabled = true;
+                break;
+        }
     }
 
     private void Start()
@@ -68,7 +80,14 @@ public class Bullet : MonoBehaviour
             }
             else if (type == Type.Shoot)
             {
-                Invoke("Dequeue", 3f);
+                if(value == 101) // khi 여우 볼
+                {
+                    Invoke("Dequeue", 3f);
+                }
+                else
+                {
+                    Invoke("Dequeue", 3f);
+                }
             }
             else if (type == Type.Trap)
             {
@@ -95,6 +114,8 @@ public class Bullet : MonoBehaviour
 
             activeCheck = false;
         }
+
+
     }
     
     void Upgrade()
@@ -159,26 +180,54 @@ public class Bullet : MonoBehaviour
         }
     }
 
+
+
     void OnTriggerEnter2D(Collider2D collision)
     {
         GameObject bullet;
 
-        if ((collision.gameObject.tag == "Border" || collision.gameObject.tag == "Enemy") && type == Type.Shoot)
+        /*
+        if ((collision.gameObject.tag == "Border" || collision.gameObject.tag == "Enemy" || collision.gameObject.tag == "Leader") && type == Type.Shoot)
+        {
+           
+            if (collision.gameObject.tag == "Enemy" && tag == "enemy_bullet")      // enemy bullet 인데 enemy 맞고 사라져서 고쳐줌
+            {
+
+            }
+            else if(collision.gameObject.tag == "Player" && tag == "PlayerBullet")
+            {
+
+            }
+            else
+            {
+                //Dequeue();
+            }
+        }*/
+
+        if ((collision.gameObject.tag == "Border") && type == Type.Shoot)
         {
             Dequeue();
         }
+        
+
         if (type == Type.Trap && collision.gameObject.tag == "Enemy" && value == 9 && trapOn)
         {
             bullet = objectManager.MakeObj("Boom Plant", this.transform.position, Quaternion.Euler(0, 0, 0));
             bullet = objectManager.MakeObj("Trap Plant", this.transform.position, Quaternion.Euler(0, 0, 0));
             Dequeue();
         }
-        if(type == Type.Trap && value == 11 && collision.gameObject.tag == "Magicline" && (collision.gameObject.name == "DodgePushZone" || collision.gameObject.name == "FireRail(Clone)"))
+        if (type == Type.Trap && value == 11 && collision.gameObject.tag == "Magicline" && (collision.gameObject.name == "DodgePushZone" || collision.gameObject.name == "FireRail(Clone)"))
         {
             bullet = objectManager.MakeObj("Fire Boom Plant", this.transform.position, Quaternion.Euler(0, 0, 0));
             objectManager.MakeObj("Fire Boom Plant Effect", this.transform.position, Quaternion.Euler(0, 0, 0));
             Dequeue();
         }
+
+        if (collision.gameObject.tag == "enemy_bullet")       // khi enemy bullet이 캐릭터에 닿았을때 의 경우임 이는 관점에 따라서 partymanager에 옮겨 질 수 잇음
+        {
+
+        }
+
     }
 
     void Gone()
@@ -204,4 +253,18 @@ public class Bullet : MonoBehaviour
     {
         trapOn = true;
     }
+
+    public IEnumerator foxball_dead()      // foxball
+    {
+        explosion.transform.position = transform.position;
+        explosion.SetActive(true);
+        ball.SetActive(false);
+        Rigidbody2D rigid;
+        rigid = GetComponent<Rigidbody2D>();
+        rigid.velocity = new Vector2(0, 0);
+        gameObject.GetComponent<CircleCollider2D>().enabled = false;
+        yield return new WaitForSeconds(0.5f);
+        Dequeue();
+    }
+
 }

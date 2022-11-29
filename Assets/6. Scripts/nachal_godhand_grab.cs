@@ -56,6 +56,7 @@ public class nachal_godhand_grab : MonoBehaviour
     void Start()
     {
         partyManager = GameObject.Find("Party").GetComponent<PartyManager>();  //파티(플레이어)찾기 SJM
+        nachal = GameObject.Find("boss_nachal").GetComponent<boss_nachal>();
         destination = new Vector3(hand.transform.position.x, hand.transform.position.y + 3f, 0f);
     }
 
