@@ -587,7 +587,7 @@ public class Enemy_ai : MonoBehaviour
                 break;
             case 1000:
                 //partyManager.get_enemy(this);                           // 자폭맨 -> 폭죽
-                partyManager.StartCoroutine("onDamage_party", damage);
+                partyManager.StartCoroutine(partyManager.onDamage_party(damage, atk_type.short_range));
                 break;
             case 1001:                                                  // 천 요괴
                 partyManager.StartCoroutine("onDamage_party", damage);
@@ -906,8 +906,10 @@ public class Enemy_ai : MonoBehaviour
     {
 
         stop = true;
+        e_ani.Play("ready_bomb");
         yield return new WaitForSeconds(1.4f);
-        anim.SetTrigger("death");
+        e_ani.Play("bomb!");
+        //anim.SetTrigger("death");
         //partyManager.StartCoroutine("onDamage_bomb_party");
         //partyManager.StartCoroutine("onDamage_party", damage_skill);
         partyManager.StartCoroutine(partyManager.onDamage_party(damage_skill, atk_type.short_range));

@@ -28,7 +28,13 @@ public class Bullet : MonoBehaviour
 
     void OnEnable()
     {
-        gameObject.GetComponent<CircleCollider2D>().enabled = true;
+        switch (value)
+        {
+            case 101:
+                gameObject.GetComponent<CircleCollider2D>().enabled = true;
+                break;
+        }
+        
     }
 
     void Update()
