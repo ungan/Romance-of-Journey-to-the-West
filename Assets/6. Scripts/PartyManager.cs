@@ -87,6 +87,12 @@ public class PartyManager : MonoBehaviour
     //기타
     bool fCheck = false;
 
+    //레벨
+    public int maxLV = 50; //최대 레벨
+    public int curLV = 0; //현재 레벨
+    public int maxEXP = 10; //최대 경험치
+    public int curEXP = 0; //현재 경험치 
+
     void Awake()
     {
         cam = GameObject.Find("Main Camera").GetComponent<CameraController>(); //게임오브젝트를 신 안에서 찾은 후 스크립트 연결(프리펩시 필수!)
@@ -108,6 +114,7 @@ public class PartyManager : MonoBehaviour
         Use(); //사용
         Swap(); //캐릭터 스왑
         Passive(); //패시브
+        EXPControl(); //업그레이드
         Delay(); //딜레이++
         GameOver(); //게임오버
     }
@@ -124,7 +131,7 @@ public class PartyManager : MonoBehaviour
     void GetInput()
     {
         fire2 = Input.GetButtonDown("Fire2");
-        if(!isDashing)
+        if (!isDashing)
         {
             h = Input.GetAxisRaw("Horizontal");
             v = Input.GetAxisRaw("Vertical");
@@ -132,10 +139,13 @@ public class PartyManager : MonoBehaviour
         mWheel = Input.GetAxis("Mouse ScrollWheel");
         iDown = Input.GetButtonDown("Interaction");
         iStay = Input.GetButton("Interaction");
-        sDown1 = Input.GetButtonDown("Swap1");
-        sDown2 = Input.GetButtonDown("Swap2");
-        sDown3 = Input.GetButtonDown("Swap3");
-        sDown4 = Input.GetButtonDown("Swap4");
+        if (!gameManager.isUpgrading)
+        {
+            sDown1 = Input.GetButtonDown("Swap1");
+            sDown2 = Input.GetButtonDown("Swap2");
+            sDown3 = Input.GetButtonDown("Swap3");
+            sDown4 = Input.GetButtonDown("Swap4");
+        }
         qDown = Input.GetButtonDown("PreChange");
         fStay = Input.GetButton("Use");
         fUp = Input.GetButtonUp("Use");
@@ -159,13 +169,13 @@ public class PartyManager : MonoBehaviour
                 rigid.velocity = new Vector2(dirXY.x, dirXY.y) * (speed / 2);
             if (isAttacking == false && isDashing == false && isRunning)
                 rigid.velocity = new Vector2(dirXY.x, dirXY.y) * speed;
-            if(isDashing == true)
+            if (isDashing == true)
                 rigid.velocity = new Vector2(dirXY.x, dirXY.y) * (speed * 4f);
             if (isStopping == true || !controlList[charactersIndex])
                 rigid.velocity = Vector2.zero;
         }
-        
-        if(curCharactersCount == 0)
+
+        if (curCharactersCount == 0)
         {
             this.gameObject.layer = 12;
             rigid.velocity = Vector3.zero;
@@ -181,15 +191,15 @@ public class PartyManager : MonoBehaviour
 
         //포지션 보정
         x = dirXY.x; y = dirXY.y;
-        if (x == 0 && y == 0) { playerPosition.transform.localPosition = new Vector3(0, 0, 0);}//센터
-        if (x >= 1 && y == 0) { playerPosition.transform.localPosition = new Vector3(-0.08f, 0, 0);}//좌
+        if (x == 0 && y == 0) { playerPosition.transform.localPosition = new Vector3(0, 0, 0); }//센터
+        if (x >= 1 && y == 0) { playerPosition.transform.localPosition = new Vector3(-0.08f, 0, 0); }//좌
         if (x <= -1 && y == 0) { playerPosition.transform.localPosition = new Vector3(0.08f, 0, 0); }//우
-        if (x == 0 && y >= 1) { playerPosition.transform.localPosition = new Vector3(0, -0.08f, 0);}//상
-        if (x == 0 && y <= -1) { playerPosition.transform.localPosition = new Vector3(0, 0.08f, 0);}//하
-        if (x >= 0.5 && y >= 0.5) { playerPosition.transform.localPosition = new Vector3(-0.05f, -0.05f, 0);}//우상
-        if (x <= -0.5 && y >= 0.5) { playerPosition.transform.localPosition = new Vector3(0.05f, -0.05f, 0);}//좌상
-        if (x >= 0.5 && y <= -0.5) { playerPosition.transform.localPosition = new Vector3(-0.05f, 0.05f, 0);}//우하
-        if (x <= -0.5 && y <= -0.5) { playerPosition.transform.localPosition = new Vector3(0.05f, 0.05f, 0);}//좌하
+        if (x == 0 && y >= 1) { playerPosition.transform.localPosition = new Vector3(0, -0.08f, 0); }//상
+        if (x == 0 && y <= -1) { playerPosition.transform.localPosition = new Vector3(0, 0.08f, 0); }//하
+        if (x >= 0.5 && y >= 0.5) { playerPosition.transform.localPosition = new Vector3(-0.05f, -0.05f, 0); }//우상
+        if (x <= -0.5 && y >= 0.5) { playerPosition.transform.localPosition = new Vector3(0.05f, -0.05f, 0); }//좌상
+        if (x >= 0.5 && y <= -0.5) { playerPosition.transform.localPosition = new Vector3(-0.05f, 0.05f, 0); }//우하
+        if (x <= -0.5 && y <= -0.5) { playerPosition.transform.localPosition = new Vector3(0.05f, 0.05f, 0); }//좌하
 
         //마우스 이동
     }
@@ -318,19 +328,19 @@ public class PartyManager : MonoBehaviour
                 Destroy(nearObject);
             }
             //아이템 먹기
-            else if(nearObject.tag == "Item")
+            else if (nearObject.tag == "Item")
             {
                 Item item = nearObject.GetComponent<Item>();
                 switch (item.value)
                 {
                     case 5:
-                        if(curDragonBall < maxDragonBall)
+                        if (curDragonBall < maxDragonBall)
                         {
                             curDragonBall++;
                             Destroy(nearObject);
                         }
                         break;
-                } 
+                }
             }
         }
 
@@ -362,7 +372,7 @@ public class PartyManager : MonoBehaviour
             {
                 curUseDelay += Time.deltaTime;
 
-                if(curUseDelay >= maxUseDelay)
+                if (curUseDelay >= maxUseDelay)
                 {
                     StartCoroutine(curChar.Heal(curChar.maxHealth)); //전체회복
 
@@ -384,11 +394,11 @@ public class PartyManager : MonoBehaviour
         if (t && cam.dying == false)
         {
             cam.t = true;
-             Time.timeScale = 0.2f;
-             Time.fixedDeltaTime = this.fixedDeltaTime * Time.timeScale;
-             gameManager.Choice();
+            Time.timeScale = 0.2f;
+            Time.fixedDeltaTime = this.fixedDeltaTime * Time.timeScale;
+            gameManager.Choice();
         }
-        else if(!t && cam.dying == false)
+        else if (!t && cam.dying == false)
         {
             cam.t = false;
             Time.timeScale = 1f;
@@ -401,6 +411,35 @@ public class PartyManager : MonoBehaviour
     {
         curSwapDelay = 0;
         canSwap = false;
+    }
+
+    void EXPControl()
+    {
+        if(curEXP >= maxEXP)
+        {
+            curLV++;
+            curEXP = 0;
+            //maxEXP += 50;
+            PartyUpgrade();
+            gameManager.UpgradeChoice();
+        }
+    }
+
+    void PartyUpgrade()
+    {
+        maxEXP += 5;
+       if(curLV == 5)
+        {
+            speed += 1;
+        }
+        else if (curLV == 10)
+        {
+            speed += 1;
+        }
+        else if (curLV == 15)
+        {
+            speed += 1;
+        }
     }
 
     public IEnumerator Dash() //대시
@@ -464,7 +503,7 @@ public class PartyManager : MonoBehaviour
 
     public IEnumerator onDamage_party(int e_damage)
     {
-        characterScripts[charactersIndex].StartCoroutine("OnDamage",e_damage);
+        characterScripts[charactersIndex].StartCoroutine("OnDamage", e_damage);
         yield return new WaitForSeconds(0.1f);
     }
 

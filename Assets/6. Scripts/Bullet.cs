@@ -6,9 +6,12 @@ public class Bullet : MonoBehaviour
 {
     AudioManager audioManager;
     ObjectManager objectManager;
+    Character curChar;
 
     public enum Type { Swing, Shoot, Magic, Magicline, Trap, Explosive, Effect }
+    public enum Owner { Son, Jeo, Sa, Enemy}
     public Type type;
+    public Owner owner;
     public int value;
     public int damage;
 
@@ -25,12 +28,21 @@ public class Bullet : MonoBehaviour
         audioManager = GameObject.Find("AudioManager").GetComponent<AudioManager>();
     }
 
+    private void Start()
+    {
+        if (owner == Owner.Son) curChar = GameObject.Find("Son-Wokong").GetComponent<Character>();
+        else if (owner == Owner.Jeo) curChar = GameObject.Find("Jeo-PalGye").GetComponent<Character>();
+        else if (owner == Owner.Sa) curChar = GameObject.Find("Sa-OJeong").GetComponent<Character>();
+    }
+
     void Update()
     {
+        Upgrade();
+
         if (this.gameObject.activeSelf) active = true;
         else if (!this.gameObject.activeSelf) active = false;
 
-        if(active && activeCheck)
+        if (active && activeCheck)
         {
             switch (value)
             {
@@ -47,8 +59,12 @@ public class Bullet : MonoBehaviour
 
             if (type == Type.Swing)
             {
-                if (value == 2)
-                    Invoke("Dequeue", 0.6f);
+                switch (value)
+                {
+                    case 2:
+                        Invoke("Dequeue", 0.6f);
+                        break;
+                }
             }
             else if (type == Type.Shoot)
             {
@@ -58,6 +74,13 @@ public class Bullet : MonoBehaviour
             {
                 if (value == 9)
                     Invoke("Dequeue", 10f);
+                else if (value == 11)
+                {
+                    if (curChar.curUpgradeLV < 4)
+                        Invoke("Dequeue", 5f);
+                    else if (curChar.curUpgradeLV >= 4)
+                        Invoke("Dequeue", 8f);
+                }
                 else
                     Invoke("Dequeue", 5f);
             }
@@ -71,6 +94,68 @@ public class Bullet : MonoBehaviour
             }
 
             activeCheck = false;
+        }
+    }
+    
+    void Upgrade()
+    {
+        switch (type)
+        {
+            case Type.Swing:
+                switch (value)
+                {
+                    case 0: //손오공 일반공격
+                        if (curChar.curUpgradeLV >= 2)
+                            damage = 50;
+                        break;
+                    case 40: //손오공 차지공격
+                        if (curChar.curUpgradeLV >= 5)
+                            damage = 90;
+                        break;
+                    case 50: //저팔계 차지공격
+                        if (curChar.curUpgradeLV >= 5)
+                            damage = 120;
+                        break;
+                }
+                break;
+            case Type.Shoot:
+                switch (value)
+                {
+                    case 2: //저팔계 일반공격
+                        if (curChar.curUpgradeLV >= 2)
+                            damage = 15;
+                        break;
+                }
+                break;
+            case Type.Magicline:
+                switch (value)
+                {
+                    case 1: //사오정 일반공격
+                        if (curChar.curUpgradeLV == 1)
+                            damage = 25;
+                        else if (curChar.curUpgradeLV >= 2)
+                            damage = 40;
+                        break;
+                    case 2: //사오정 PushZoneRight
+                        if (curChar.curUpgradeLV >= 5)
+                            damage = 25;
+                        else if (curChar.curUpgradeLV < 5)
+                            damage = 0;
+                        break;
+                    case 3: //사오정 PushZoneLeft
+                        if (curChar.curUpgradeLV >= 5)
+                            damage = 25;
+                        else if (curChar.curUpgradeLV < 5)
+                            damage = 0;
+                        break;
+                    case 4: //사오정 Damage Zone
+                        if (curChar.curUpgradeLV >= 5)
+                            damage = 250;
+                        else if (curChar.curUpgradeLV < 5)
+                            damage = 200;
+                        break;
+                }
+                break;
         }
     }
 
