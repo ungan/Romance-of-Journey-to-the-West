@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour
 {
 
     //scripts
+    public CameraController cam;
     public PartyManager partyManager;
     public EventManager eventManager;
     public Character[] character;
@@ -29,6 +30,14 @@ public class GameManager : MonoBehaviour
     public GameObject gameOverSet;
     public GameObject WinSet;
     public GameObject choicePanel;
+    //canvas-upgrade
+    public GameObject upgradePanel;
+    //public Button[] upgradeButton;
+    public Image[] party1upgradeImg;
+    public Image[] party2upgradeImg;
+    public Image[] party3upgradeImg;
+
+
     public Button retryButton;
     public Button[] choiceButton;
     //Player
@@ -50,11 +59,20 @@ public class GameManager : MonoBehaviour
     public Text bossName;
     public Text bossHealth;
     public RectTransform bossHealthBar;
+    //EXP
+    public GameObject EXPSet;
+    public Text expAmount;
+    public RectTransform expBar;
 
     //bool
     public bool[] swapChoice;
+    public bool isUpgrading;
 
+    //PressKeyboard
     bool lDown;
+    bool sDown1;
+    bool sDown2;
+    bool sDown3;
 
     //Skill
     [SerializeField]
@@ -62,7 +80,9 @@ public class GameManager : MonoBehaviour
 
     void LateUpdate()
     {
-        lDown = Input.GetButtonDown("LButton");
+        GetInput();
+        if (isUpgrading) UpgradeButton();
+
         if (lDown) GameRetry();
 
         if (eventManager.Boss.activeSelf)
@@ -89,7 +109,11 @@ public class GameManager : MonoBehaviour
 
         //Boss
         bossHealth.text = boss.curHealth + " / 500";
-        bossHealthBar.localScale = new Vector3(boss.curHealth / 500, 1, 1);
+        bossHealthBar.localScale = new Vector3((float)boss.curHealth / 500, 1, 1);
+
+        //EXP
+        expAmount.text = "LV " + partyManager.curLV;//partyManager.curEXP + " / " + partyManager.maxEXP;
+        expBar.localScale = new Vector3((float)partyManager.curEXP / partyManager.maxEXP, 1, 1);
 
         //캐릭터 바꾸기
         characterImg[0].color = new Color(1, 1, 1, character[0].value == partyManager.list[partyManager.charactersIndex] ? 1 : 0);
@@ -105,6 +129,7 @@ public class GameManager : MonoBehaviour
             for(int i = 0; i < 4; i++)
             {
                 party1characterImg[i].color = new Color(1, 1, 1, character[i].value == partyManager.list[0] ? 1 : 0);
+                party1upgradeImg[i].color = new Color(1, 1, 1, character[i].value == partyManager.list[0] ? 1 : 0);
             }
         }
         //파티원2
@@ -115,6 +140,7 @@ public class GameManager : MonoBehaviour
             for (int i = 0; i < 4; i++)
             {
                 party2characterImg[i].color = new Color(1, 1, 1, character[i].value == partyManager.list[1] ? 1 : 0);
+                party2upgradeImg[i].color = new Color(1, 1, 1, character[i].value == partyManager.list[1] ? 1 : 0);
             }
         }
 
@@ -126,6 +152,7 @@ public class GameManager : MonoBehaviour
             for (int i = 0; i < 4; i++)
             {
                 party3characterImg[i].color = new Color(1, 1, 1, character[i].value == partyManager.list[2] ? 1 : 0);
+                party3upgradeImg[i].color = new Color(1, 1, 1, character[i].value == partyManager.list[2] ? 1 : 0);
             }
         }
 
@@ -139,6 +166,14 @@ public class GameManager : MonoBehaviour
                 party4characterImg[i].color = new Color(1, 1, 1, character[i].value == partyManager.list[3] ? 1 : 0);
             }
         }
+    }
+
+    void GetInput()
+    {
+        lDown = Input.GetButtonDown("LButton");
+        sDown1 = Input.GetButtonDown("Swap1");
+        sDown2 = Input.GetButtonDown("Swap2");
+        sDown3 = Input.GetButtonDown("Swap3");
     }
 
     public void GameOver()
@@ -188,6 +223,62 @@ public class GameManager : MonoBehaviour
     public void GameRetry()
     {
         SceneManager.LoadScene(0);
+    }
+
+    public void UpgradeChoice()
+    {
+        Time.timeScale = 0.0f;
+        isUpgrading = true;
+        Debug.Log("업그레이드 중입니다! 멈췄습니다.");
+        //upgradePanel.SetActive(true);
+    }
+
+    void UpgradeButton()
+    {
+        upgradePanel.SetActive(true);
+        cam.Shake(0f, 0.1f);
+        if (sDown1)
+        {
+            if (partyManager.list[0] == -1 || partyManager.characterScripts[0].curUpgradeLV >= 5)
+            {
+                Debug.Log("0번 업글 불가");
+                return;
+            }
+
+            partyManager.characterScripts[0].curUpgradeLV++;
+            Debug.Log("0번 캐릭터 업글");
+            Time.timeScale = 1f;
+            isUpgrading = false;
+            upgradePanel.SetActive(false);
+        }
+        else if (sDown2)
+        {
+            if (partyManager.list[1] == -1 || partyManager.characterScripts[1].curUpgradeLV >= 5)
+            {
+                Debug.Log("1번 업글 불가");
+                return;
+            }
+
+            partyManager.characterScripts[1].curUpgradeLV++;
+            Debug.Log("1번 캐릭터 업글");
+            Time.timeScale = 1f;
+            isUpgrading = false;
+            upgradePanel.SetActive(false);
+        }
+        else if (sDown3)
+        {
+            if (partyManager.list[2] == -1 || partyManager.characterScripts[2].curUpgradeLV >= 5)
+            {
+                Debug.Log("2번 업글 불가");
+                return;
+            }
+
+            partyManager.characterScripts[2].curUpgradeLV++;
+            Debug.Log("2번 캐릭터 업글");
+            Time.timeScale = 1f;
+            isUpgrading = false;
+            upgradePanel.SetActive(false);
+        }
     }
 
     IEnumerator CoolTime()

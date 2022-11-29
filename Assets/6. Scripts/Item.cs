@@ -88,8 +88,8 @@ public class Item : MonoBehaviour
                         }
                         if(collision.gameObject.name == "SoulHarvestPoint")
                         {
-                            Character character = GameObject.Find("Jeo-PalGye").GetComponent<Character>();
-                            character.curSoul++;
+                            PartyManager partyManager = GameObject.Find("Party").GetComponent<PartyManager>();
+                            partyManager.curEXP++;
                             Destroy();
                         }
                         AreaPoint = GameObject.Find("SoulHarvestPoint");

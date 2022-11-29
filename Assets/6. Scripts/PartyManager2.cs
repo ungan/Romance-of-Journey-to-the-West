@@ -2,30 +2,33 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PartyManager : MonoBehaviour
+public class PartyManager2 : MonoBehaviour
 {
-    float fixedDeltaTime;
-    public GameManager gameManager;
-    public ChoicePanel cPanel;
-    CameraController cam;
+    [Header("매니저 & 관리")]
+    float fixedDeltaTime; //fixedDeltaTime(시간)
+    public GameManager gameManager; //게임메니저
+    public ChoicePanel cPanel; //c판넬
+    CameraController cam; //카메라 컨트롤
 
     //이동
-    public float speed = 10f;
+    [Header("이동")]
+    public float speed = 10f; //이동 스피드
 
-    public GameObject[] characters;
-    public GameObject[] characterLists;
-    public Character[] characterScripts;
+    [Header("캐릭터 리스트")]
+    public Character[] charactersList; //장착 가능한 캐릭터 목록
+    public Character[] equipCharactersList; //장착한 캐릭터 목록
 
     //파티 내 포지션
-    public GameObject[] Position;
+    [Header("포지션")]
+    public GameObject[] Position; //캐릭터 포지션 지정
 
-    public Crosshair crosshair;
-    public int charactersIndex = 0;
-    public int priCharIndex = -1;
+    [Header("캐릭터 관리")]
+    public Character equipCharacter; //장착 중인 캐릭터
+    public int charactersIndex = 0; //현재 캐릭터 번호
+    public int priCharIndex = -1; //이전 캐릭터 번호
 
-    public int hasCharactersCount = 1;
-    public int curCharactersCount = 1;
-    int equipCharacterIndex;
+    public int hasCharactersCount = 1; //현재 가진 최대 캐릭터 카운트
+    public int curCharactersCount = 1; //현재 살아있는 캐릭터 카운트
     public int[] list;
     public bool[] aliveList; //현재 살아있는 캐릭터리스트
     public bool[] controlList; //현재 컨트롤 가능한 캐릭터리스트(파티에서 잠시 이탈했을 경우 false값)
@@ -45,14 +48,16 @@ public class PartyManager : MonoBehaviour
     bool tUp;
 
     //애니메이션
-    public bool isRunning;
-    public bool isDashing;
-    public bool isStopping;
-    public bool isAttacking;
+    [Header("bool값 관리")]
+    public bool isRunning; //달릴 경우
+    public bool isDashing; //대시할 경우
+    public bool isSticking; //움직일 수 없을 경우
+    public bool isAttacking; //공격할 경우
 
     //컨트롤
+    [Header("스왑 관리")]
     public bool canSwap; //true시 스왑 가능
-    bool swapDelayDone;
+    bool swapDelayDone; //스왑 딜레이가 끝날 경우
 
     //딜레이
     float maxSwapDelay = 0.2f;
@@ -72,41 +77,57 @@ public class PartyManager : MonoBehaviour
     float mWheel;
 
     Vector3 dirXY;
-    public float x, y;
+    [Header("X, Y")]
+    public float x;
+    public float y;
 
-    public GameObject nearObject;
-    public GameObject equipCharacter;
+    [Header("인터랙션")]
+    public GameObject nearObject; //주변 오브젝트
 
     //표시
-    public GameObject playerPosition;
+    public GameObject playerPosition; //플레이어 위치
 
     //여의주
-    public int curDragonBall = 0;
-    public int maxDragonBall = 3;
+    [Header("아이템")]
+    public int curDragonBall = 0; //현재 가진 드래곤볼
+    public int maxDragonBall = 3; //최대 가진 드래곤볼
 
     //기타
     bool fCheck = false;
 
-    //레벨
-    public int maxLV = 50; //최대 레벨
-    public int curLV = 0; //현재 레벨
-    public int maxEXP = 10; //최대 경험치
-    public int curEXP = 0; //현재 경험치 
-
-    void Awake()
+    private void Awake()
     {
         cam = GameObject.Find("Main Camera").GetComponent<CameraController>(); //게임오브젝트를 신 안에서 찾은 후 스크립트 연결(프리펩시 필수!)
         rigid = GetComponent<Rigidbody2D>();
         this.fixedDeltaTime = Time.fixedDeltaTime;
         boxCol = GetComponent<BoxCollider2D>();
     }
-
     void Start()
     {
-        for (int index = 1; index < 4; index++)
-            list[index] = -1;
+        for (int i = 0; i < equipCharactersList.Length; i++)
+        {
+            for(int l = 0; l < charactersList.Length; l++)
+            {
+                if (equipCharactersList[i] != null) break;
+
+                if (charactersList[l].gameObject.activeSelf)
+                {
+                    equipCharactersList[i] = charactersList[l];
+                    list[i] = equipCharactersList[i].value;
+                    aliveList[i] = true;
+                    controlList[i] = true;
+                }
+            }
+        }
+
+        for(int i = 0; i < equipCharactersList.Length; i++)
+        {
+            if(equipCharactersList[i] == null)
+                list[i] = -1;
+        }
     }
 
+    // Update is called once per frame
     void Update()
     {
         GetInput();
@@ -114,7 +135,6 @@ public class PartyManager : MonoBehaviour
         Use(); //사용
         Swap(); //캐릭터 스왑
         Passive(); //패시브
-        EXPControl(); //업그레이드
         Delay(); //딜레이++
         GameOver(); //게임오버
     }
@@ -130,22 +150,20 @@ public class PartyManager : MonoBehaviour
 
     void GetInput()
     {
-        fire2 = Input.GetButtonDown("Fire2");
         if (!isDashing)
         {
             h = Input.GetAxisRaw("Horizontal");
             v = Input.GetAxisRaw("Vertical");
         }
+
+        fire2 = Input.GetButtonDown("Fire2");
         mWheel = Input.GetAxis("Mouse ScrollWheel");
         iDown = Input.GetButtonDown("Interaction");
         iStay = Input.GetButton("Interaction");
-        if (!gameManager.isUpgrading)
-        {
-            sDown1 = Input.GetButtonDown("Swap1");
-            sDown2 = Input.GetButtonDown("Swap2");
-            sDown3 = Input.GetButtonDown("Swap3");
-            sDown4 = Input.GetButtonDown("Swap4");
-        }
+        sDown1 = Input.GetButtonDown("Swap1");
+        sDown2 = Input.GetButtonDown("Swap2");
+        sDown3 = Input.GetButtonDown("Swap3");
+        sDown4 = Input.GetButtonDown("Swap4");
         qDown = Input.GetButtonDown("PreChange");
         fStay = Input.GetButton("Use");
         fUp = Input.GetButtonUp("Use");
@@ -155,60 +173,53 @@ public class PartyManager : MonoBehaviour
 
     void Move()
     {
-        //if (characterScripts[charactersIndex].isAttacking == true) isAttacking = true; //공격중 체크
-        //else isAttacking = false;
+        //isRunning 구분
+        if (dirXY.x != 0 || dirXY.y != 0 || dirXY.z != 0) isRunning = true;
+        else isRunning = false;
 
         //방향키 이동
         dirXY = Vector3.right * h + Vector3.up * v;
         dirXY.Normalize();
 
 
-        if (curCharactersCount != 0)
+        if (curCharactersCount > 0) //파티 살아있음
         {
-            if (isAttacking == true && isDashing == false && isRunning)
-                rigid.velocity = new Vector2(dirXY.x, dirXY.y) * (speed / 2);
-            if (isAttacking == false && isDashing == false && isRunning)
-                rigid.velocity = new Vector2(dirXY.x, dirXY.y) * speed;
-            if (isDashing == true)
-                rigid.velocity = new Vector2(dirXY.x, dirXY.y) * (speed * 4f);
-            if (isStopping == true || !controlList[charactersIndex])
+            if (isSticking == true || !controlList[charactersIndex]) //굳었을 때
                 rigid.velocity = Vector2.zero;
+            else if (isRunning && !isDashing) //대시하지 않고 달리는 상태
+            {
+                rigid.velocity = new Vector2(dirXY.x, dirXY.y) * speed;
+            }
+            else if (isDashing) //대시 상태
+            {
+                rigid.velocity = new Vector2(dirXY.x, dirXY.y) * (speed * 4f);
+            }
         }
-
-        if (curCharactersCount == 0)
+        else if (curCharactersCount <= 0) //파티 터짐
         {
             this.gameObject.layer = 12;
             rigid.velocity = Vector3.zero;
         }
 
-        /*if (isAttacking)
-        {
-            StartCoroutine(Push());
-        }*/
-
-        if (dirXY.x != 0 || dirXY.y != 0 || dirXY.z != 0) isRunning = true;
-        else isRunning = false;
-
         //포지션 보정
         x = dirXY.x; y = dirXY.y;
         if (x == 0 && y == 0) { playerPosition.transform.localPosition = new Vector3(0, 0, 0); }//센터
-        if (x >= 1 && y == 0) { playerPosition.transform.localPosition = new Vector3(-0.08f, 0, 0); }//좌
-        if (x <= -1 && y == 0) { playerPosition.transform.localPosition = new Vector3(0.08f, 0, 0); }//우
-        if (x == 0 && y >= 1) { playerPosition.transform.localPosition = new Vector3(0, -0.08f, 0); }//상
-        if (x == 0 && y <= -1) { playerPosition.transform.localPosition = new Vector3(0, 0.08f, 0); }//하
-        if (x >= 0.5 && y >= 0.5) { playerPosition.transform.localPosition = new Vector3(-0.05f, -0.05f, 0); }//우상
-        if (x <= -0.5 && y >= 0.5) { playerPosition.transform.localPosition = new Vector3(0.05f, -0.05f, 0); }//좌상
-        if (x >= 0.5 && y <= -0.5) { playerPosition.transform.localPosition = new Vector3(-0.05f, 0.05f, 0); }//우하
-        if (x <= -0.5 && y <= -0.5) { playerPosition.transform.localPosition = new Vector3(0.05f, 0.05f, 0); }//좌하
-
-        //마우스 이동
+        else if (x >= 1 && y == 0) { playerPosition.transform.localPosition = new Vector3(-0.08f, 0, 0); }//좌
+        else if (x <= -1 && y == 0) { playerPosition.transform.localPosition = new Vector3(0.08f, 0, 0); }//우
+        else if (x == 0 && y >= 1) { playerPosition.transform.localPosition = new Vector3(0, -0.08f, 0); }//상
+        else if (x == 0 && y <= -1) { playerPosition.transform.localPosition = new Vector3(0, 0.08f, 0); }//하
+        else if (x >= 0.5 && y >= 0.5) { playerPosition.transform.localPosition = new Vector3(-0.05f, -0.05f, 0); }//우상
+        else if (x <= -0.5 && y >= 0.5) { playerPosition.transform.localPosition = new Vector3(0.05f, -0.05f, 0); }//좌상
+        else if (x >= 0.5 && y <= -0.5) { playerPosition.transform.localPosition = new Vector3(-0.05f, 0.05f, 0); }//우하
+        else if (x <= -0.5 && y <= -0.5) { playerPosition.transform.localPosition = new Vector3(0.05f, 0.05f, 0); }//좌하
     }
 
     void Swap()
     {
-        tracePos = characterLists[charactersIndex].transform.position;
-        range = Vector3.Distance(tracePos, transform.position);
+        tracePos = equipCharactersList[charactersIndex].transform.position; //장착한 캐릭터의 위치
+        range = Vector3.Distance(tracePos, transform.position); //캐릭터 위치과 지정된 포지션 위치와의 거리
 
+        //캐릭터 스왑(1, 2, 3, 4)
         if ((sDown1 || (cPanel.tUp && cPanel.cNum == 1)) && (hasCharactersCount < 1 || !aliveList[0] || !controlList[0]))
             return;
         if ((sDown2 || (cPanel.tUp && cPanel.cNum == 2)) && (hasCharactersCount < 2 || !aliveList[1] || !controlList[1]))
@@ -222,15 +233,9 @@ public class PartyManager : MonoBehaviour
         if (range < 0.5f && swapDelayDone) { canSwap = true; swapDelayDone = false; }
 
         if ((sDown1 || (cPanel.tUp && cPanel.cNum == 1)) && canSwap) { priCharIndex = charactersIndex; charactersIndex = 0; canSwap = false; curSwapDelay = 0; }
-        if ((sDown2 || (cPanel.tUp && cPanel.cNum == 2)) && canSwap) { priCharIndex = charactersIndex; charactersIndex = 1; canSwap = false; curSwapDelay = 0; }
-        if ((sDown3 || (cPanel.tUp && cPanel.cNum == 3)) && canSwap) { priCharIndex = charactersIndex; charactersIndex = 2; canSwap = false; curSwapDelay = 0; }
-        if (sDown4 && canSwap) { priCharIndex = charactersIndex; charactersIndex = 3; canSwap = false; curSwapDelay = 0; }
-
-        if ((sDown1 || sDown2 || sDown3 || sDown4))
-        {
-            equipCharacterIndex = charactersIndex;
-            equipCharacter = characterLists[charactersIndex];
-        }
+        else if ((sDown2 || (cPanel.tUp && cPanel.cNum == 2)) && canSwap) { priCharIndex = charactersIndex; charactersIndex = 1; canSwap = false; curSwapDelay = 0; }
+        else if ((sDown3 || (cPanel.tUp && cPanel.cNum == 3)) && canSwap) { priCharIndex = charactersIndex; charactersIndex = 2; canSwap = false; curSwapDelay = 0; }
+        else if (sDown4 && canSwap) { priCharIndex = charactersIndex; charactersIndex = 3; canSwap = false; curSwapDelay = 0; }
 
         //Q변경
         if (qDown && priCharIndex != -1 && canSwap)
@@ -278,6 +283,9 @@ public class PartyManager : MonoBehaviour
                 curSwapDelay = 0;
             }
         }
+
+        if (!canSwap)
+            equipCharacter = equipCharactersList[charactersIndex];
     }
 
     void Passive()
@@ -288,21 +296,22 @@ public class PartyManager : MonoBehaviour
             {
                 switch (list[i])
                 {
-                    case 0: //검사 패시브
+                    case 0: //1번 패시브
                         break;
-                    case 1: //기관단총 패시브
+                    case 1: //2번 패시브
 
                         break;
-                    case 2: //마법사 패시브
+                    case 2: //3번 패시브
 
                         break;
-                    case 3: //힐러 패시브
+                    case 3: //4번 패시브
 
                         break;
                 }
             }
         }
     }
+
     void Delay()
     {
         curSwapDelay += Time.deltaTime;
@@ -313,14 +322,14 @@ public class PartyManager : MonoBehaviour
         //캐릭터 장착
         if (iDown && nearObject != null)
         {
-            if (nearObject.tag == "Character" && hasCharactersCount != 4) //캐릭터 파티 편입
+            if (nearObject.tag == "Character" && hasCharactersCount < 4) //캐릭터 파티 편입
             {
                 Item item = nearObject.GetComponent<Item>();
                 int characterIndex = item.value;
-                characterLists[hasCharactersCount] = characters[characterIndex];
+                equipCharactersList[hasCharactersCount] = charactersList[characterIndex];
                 list[hasCharactersCount] = characterIndex;
-                characterLists[hasCharactersCount].SetActive(true);
-                characterScripts[hasCharactersCount] = characterLists[hasCharactersCount].GetComponent<Character>();
+                equipCharactersList[hasCharactersCount].gameObject.SetActive(true);
+                equipCharactersList[hasCharactersCount] = equipCharactersList[hasCharactersCount].GetComponent<Character>();
                 hasCharactersCount++;
                 curCharactersCount++;
                 aliveList[hasCharactersCount - 1] = true;
@@ -367,7 +376,7 @@ public class PartyManager : MonoBehaviour
     {
         if (fStay && fCheck == false)
         {
-            Character curChar = characterScripts[charactersIndex];
+            Character curChar = equipCharactersList[charactersIndex];
             if (curDragonBall > 0 && curChar.curHealth < curChar.maxHealth)
             {
                 curUseDelay += Time.deltaTime;
@@ -407,39 +416,11 @@ public class PartyManager : MonoBehaviour
         }
     }
 
+
     public void CanSwapFalse()
     {
         curSwapDelay = 0;
         canSwap = false;
-    }
-
-    void EXPControl()
-    {
-        if(curEXP >= maxEXP)
-        {
-            curLV++;
-            curEXP = 0;
-            //maxEXP += 50;
-            PartyUpgrade();
-            gameManager.UpgradeChoice();
-        }
-    }
-
-    void PartyUpgrade()
-    {
-        maxEXP += 5;
-       if(curLV == 5)
-        {
-            speed += 1;
-        }
-        else if (curLV == 10)
-        {
-            speed += 1;
-        }
-        else if (curLV == 15)
-        {
-            speed += 1;
-        }
     }
 
     public IEnumerator Dash() //대시
@@ -449,10 +430,10 @@ public class PartyManager : MonoBehaviour
 
         yield return new WaitForSeconds(0.15f);
         isDashing = false;
-        isStopping = true;
+        isSticking = true;
 
         yield return new WaitForSeconds(0.2f);
-        isStopping = false;
+        isSticking = false;
         this.gameObject.layer = 10;
     }
 
@@ -501,43 +482,30 @@ public class PartyManager : MonoBehaviour
         }
     }
 
-    public IEnumerator onDamage_party(float e_damage, atk_type atype)
+    public IEnumerator onDamage_party(int e_damage)
     {
-        characterScripts[charactersIndex].StartCoroutine("OnDamage", e_damage);
-
-        //characterScripts[charactersIndex].StartCoroutine(OnDamage(e_damage));
-
+        equipCharactersList[charactersIndex].StartCoroutine("OnDamage", e_damage);
         yield return new WaitForSeconds(0.1f);
     }
 
     public IEnumerator onDamage_bomb_party()
     {
         //Debug.Log("bomb!");
-        characterScripts[charactersIndex].StartCoroutine("OnDamage_bomb");
+        equipCharactersList[charactersIndex].StartCoroutine("OnDamage_bomb");
         yield return new WaitForSeconds(0.1f);
     }
 
     public void onDamabe_bullet_party(float damage)
     {
-        characterScripts[charactersIndex].OnDamage_bullet(damage);
+        equipCharactersList[charactersIndex].OnDamage_bullet(damage);
     }
 
     void OnTriggerStay2D(Collider2D collision)
     {
-        Bullet bullet = collision.gameObject.GetComponent<Bullet>();
 
         if (collision.gameObject.tag == "Character" || collision.gameObject.tag == "Item" || collision.gameObject.tag == "Downed")
         {
             nearObject = collision.gameObject;
-        }
-        if (collision.gameObject.tag == "enemy_bullet")      // enemy bullet 인데 enemy 맞고 사라져서 고쳐줌
-        {
-            Bullet bullet1 = collision.GetComponent<Bullet>();
-
-            Debug.Log("닿았음");
-            bullet1.StartCoroutine(bullet1.foxball_dead());
-            StartCoroutine(onDamage_party(bullet.damage, atk_type.long_range));
-            //bullet.Invoke("Dequeue", 0f);
         }
 
     }
