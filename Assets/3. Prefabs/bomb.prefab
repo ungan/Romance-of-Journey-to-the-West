@@ -191,7 +191,7 @@ Transform:
   m_GameObject: {fileID: 1211076445154722858}
   m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 5, y: 5, z: 1}
   m_Children: []
   m_Father: {fileID: 5676459147298260843}
   m_RootOrder: 14
@@ -204,14 +204,14 @@ ParticleSystem:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1211076445154722858}
   serializedVersion: 6
-  lengthInSec: 5
+  lengthInSec: 0.7
   simulationSpeed: 1
   stopAction: 0
   cullingMode: 0
   ringBufferMode: 0
   ringBufferLoopRange: {x: 0, y: 1}
   looping: 1
-  prewarm: 1
+  prewarm: 0
   playOnAwake: 1
   useUnscaledTime: 0
   autoRandomSeed: 1
@@ -5174,7 +5174,7 @@ GameObject:
   - component: {fileID: 8749525620804836421}
   - component: {fileID: 6782986476174393733}
   m_Layer: 0
-  m_Name: bomb1_2
+  m_Name: bomb_wick
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5732,14 +5732,13 @@ GameObject:
   m_Component:
   - component: {fileID: 4540733672421864245}
   - component: {fileID: 8400661626526369495}
-  - component: {fileID: 7733135603046007096}
   m_Layer: 0
   m_Name: bomb1_leg_run_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &4540733672421864245
 Transform:
   m_ObjectHideFlags: 0
@@ -5748,7 +5747,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5243347370398824311}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.079, y: -0.746, z: 0}
+  m_LocalPosition: {x: 0.01, y: -0.78, z: 0}
   m_LocalScale: {x: 5, y: 5, z: 1}
   m_Children: []
   m_Father: {fileID: 5676459147298260843}
@@ -5805,25 +5804,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!95 &7733135603046007096
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5243347370398824311}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &6106816909826399316
 GameObject:
   m_ObjectHideFlags: 0
@@ -6098,7 +6078,7 @@ ParticleSystem:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7918705639458143145}
   serializedVersion: 6
-  lengthInSec: 1
+  lengthInSec: 10
   simulationSpeed: 1
   stopAction: 0
   cullingMode: 0
@@ -11201,7 +11181,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1cdcbe6c75dd31247b6da1904131b636, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  code: 0
+  code: 1000
   value: 0
   pushAmount: 12
   defaultSpeed: 0
@@ -11209,7 +11189,7 @@ MonoBehaviour:
   maxHealth: 50
   curHealth: 50
   damage: 20
-  damage_skill: 0
+  damage_skill: 20
   attack_cooltime: 3
   maxReadyDelay: 1
   maxShotDelay: 2
@@ -11217,10 +11197,10 @@ MonoBehaviour:
   stab_damge_Cycle: 1
   stab_damage_curCycle: 0
   dash_speed: 10
-  sight_rangef: 0
+  sight_rangef: 1.5
   player: {fileID: 0}
   sprite_render: {fileID: 0}
-  e_ani: {fileID: 0}
+  e_ani: {fileID: 6373640410101792419}
   can_attack: 0
   attack_inrange: 0
   stop: 0
@@ -11241,6 +11221,7 @@ MonoBehaviour:
   inlong_range: 0
   cool_long_attack: 0
   isshot_foxball: 0
+  isself_destruct: 0
   fox_ball: {fileID: 0}
   fox_ball1: {fileID: 0}
   fox_ball2: {fileID: 0}

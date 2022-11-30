@@ -36,6 +36,8 @@ public class Bullet : MonoBehaviour
         {
             case 101:
                 gameObject.GetComponent<CircleCollider2D>().enabled = true;
+                explosion.SetActive(false);
+                ball.SetActive(true);
                 break;
         }
     }

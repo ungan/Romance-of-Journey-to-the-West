@@ -1527,7 +1527,7 @@ MonoBehaviour:
   maxSpeed: 8
   maxHealth: 50
   curHealth: 50
-  damage: 20
+  damage: 1
   damage_skill: 0
   attack_cooltime: 3
   maxReadyDelay: 1
@@ -1556,6 +1556,11 @@ MonoBehaviour:
   isdash_effect: 0
   isdead: 0
   isrange: 0
+  islong_range: 0
+  inlong_range: 0
+  cool_long_attack: 0
+  isshot_foxball: 0
+  isself_destruct: 0
   fox_ball: {fileID: 0}
   fox_ball1: {fileID: 0}
   fox_ball2: {fileID: 0}

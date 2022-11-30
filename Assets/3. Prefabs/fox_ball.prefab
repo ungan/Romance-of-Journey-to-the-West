@@ -4891,8 +4891,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 1
+  owner: 0
   value: 101
-  damage: 5
+  damage: 1
   explosion: {fileID: 5153364843571935070}
   ball: {fileID: 1449082458938554952}
   skillObject: []

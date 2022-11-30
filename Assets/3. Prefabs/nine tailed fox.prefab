@@ -500,7 +500,7 @@ MonoBehaviour:
   radius: 0.5
   height: 2
   canMove: 1
-  maxSpeed: 8
+  maxSpeed: 5
   gravity: {x: 0, y: 0, z: 0}
   groundMask:
     serializedVersion: 2
@@ -630,7 +630,7 @@ MonoBehaviour:
   value: 101
   pushAmount: 12
   defaultSpeed: 0
-  maxSpeed: 8
+  maxSpeed: 4
   maxHealth: 50
   curHealth: 50
   damage: 20
@@ -642,10 +642,10 @@ MonoBehaviour:
   stab_damge_Cycle: 1
   stab_damage_curCycle: 0
   dash_speed: 10
-  sight_rangef: 1.6
+  sight_rangef: 1.8
   player: {fileID: 0}
   sprite_render: {fileID: 553723130695773112}
-  e_ani: {fileID: 0}
+  e_ani: {fileID: 6877556382572536651}
   can_attack: 0
   attack_inrange: 0
   stop: 0
@@ -666,6 +666,7 @@ MonoBehaviour:
   inlong_range: 0
   cool_long_attack: 0
   isshot_foxball: 0
+  isself_destruct: 0
   fox_ball: {fileID: 4094950304863942409, guid: ac81cbf3c011c0648a59127f6ec6561f,
     type: 3}
   fox_ball1: {fileID: 553723129131281030}
