@@ -645,7 +645,7 @@ MonoBehaviour:
   sight_rangef: 1.6
   player: {fileID: 0}
   sprite_render: {fileID: 553723130695773112}
-  e_ani: {fileID: 0}
+  e_ani: {fileID: 6877556382572536651}
   can_attack: 0
   attack_inrange: 0
   stop: 0
