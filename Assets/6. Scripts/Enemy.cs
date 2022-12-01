@@ -131,7 +131,9 @@ public class Enemy : MonoBehaviour
     IEnumerator OnDamage(int damage)
     {
         if (curHealth > 0)
+        {
             curHealth -= damage;
+        }
         if (curHealth <= 0)
         {
             curHealth = 0;
@@ -141,7 +143,12 @@ public class Enemy : MonoBehaviour
             switch (value)
             {
                 case 9999:
+                    objectManager.MakeObj("Big Soul", this.transform.position, Quaternion.Euler(0, 0, 0));
                     this.gameObject.SetActive(false);
+                    break;
+                case 1:
+                    objectManager.MakeObj("Soul", this.transform.position, Quaternion.Euler(0, 0, 0));
+                    StartCoroutine(objectManager.ObjReturn(this.gameObject));
                     break;
                 default:
                     objectManager.MakeObj("Soul", this.transform.position, Quaternion.Euler(0, 0, 0));

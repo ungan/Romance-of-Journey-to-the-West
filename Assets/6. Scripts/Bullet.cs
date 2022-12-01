@@ -21,6 +21,8 @@ public class Bullet : MonoBehaviour
     bool active;
     bool activeCheck = true;
 
+    bool enemyDetected;
+
     bool trapOn = false; //트랩 활성화 bool
 
     void Awake()
@@ -32,6 +34,7 @@ public class Bullet : MonoBehaviour
 
     void OnEnable()
     {
+        enemyDetected = false;
         switch (value)
         {
             case 101:
@@ -120,6 +123,8 @@ public class Bullet : MonoBehaviour
     
     void Upgrade()
     {
+
+
         switch (type)
         {
             case Type.Swing:
@@ -185,7 +190,6 @@ public class Bullet : MonoBehaviour
     void OnTriggerEnter2D(Collider2D collision)
     {
         GameObject bullet;
-
         /*
         if ((collision.gameObject.tag == "Border" || collision.gameObject.tag == "Enemy" || collision.gameObject.tag == "Leader") && type == Type.Shoot)
         {
@@ -203,6 +207,9 @@ public class Bullet : MonoBehaviour
                 //Dequeue();
             }
         }*/
+        if(collision.gameObject.tag == "Enemy" && enemyDetected == false) //bullet이 tag-Enemy에 맞을 경우
+            StartCoroutine("PlayHitBgm");
+
 
         if ((collision.gameObject.tag == "Border") && type == Type.Shoot)
         {
@@ -228,6 +235,49 @@ public class Bullet : MonoBehaviour
 
         }
 
+    }
+
+    IEnumerator PlayHitBgm()
+    {
+        enemyDetected = true;
+        int ranAudio = Random.Range(1, 3); //1~2
+
+        switch (type)
+        {
+            case Type.Swing:
+                switch (value)
+                {
+                    case 0: //손오공 일반공격
+                        audioManager.PlayBgm("Hit " + ranAudio);
+                        break;
+                    case 40: //손오공 차지공격
+                        break;
+                    case 50: //저팔계 차지공격
+                        break;
+                }
+                break;
+            case Type.Shoot:
+                switch (value)
+                {
+                    case 2: //저팔계 일반공격
+                        break;
+                }
+                break;
+            case Type.Magicline:
+                switch (value)
+                {
+                    case 1: //사오정 일반공격
+                        break;
+                    case 2: //사오정 PushZoneRight
+                        break;
+                    case 3: //사오정 PushZoneLeft
+                        break;
+                    case 4: //사오정 Damage Zone
+                        break;
+                }
+                break;
+        }
+        yield return null;
     }
 
     void Gone()

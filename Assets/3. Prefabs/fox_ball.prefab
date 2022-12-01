@@ -4891,6 +4891,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 1
+  owner: 3
   value: 101
   damage: 5
   explosion: {fileID: 5153364843571935070}

@@ -84,13 +84,16 @@ public class PartyManager : MonoBehaviour
     public int curDragonBall = 0;
     public int maxDragonBall = 3;
 
+    //파티 생사 체크
+    bool isPartyRuined;
+
     //기타
     bool fCheck = false;
 
     //레벨
     public int maxLV = 50; //최대 레벨
     public int curLV = 0; //현재 레벨
-    public int maxEXP = 10; //최대 경험치
+    public int maxEXP = 30; //최대 경험치
     public int curEXP = 0; //현재 경험치 
 
     void Awake()
@@ -497,12 +500,15 @@ public class PartyManager : MonoBehaviour
         if (curCharactersCount <= 0)
         {
             gameManager.GameOver();
+            isPartyRuined = true;
             gameObject.layer = 16;
         }
     }
 
     public IEnumerator onDamage_party(float e_damage, atk_type atype)
     {
+        if (isPartyRuined) yield return null;
+
         characterScripts[charactersIndex].StartCoroutine("OnDamage", e_damage);
 
         //characterScripts[charactersIndex].StartCoroutine(OnDamage(e_damage));

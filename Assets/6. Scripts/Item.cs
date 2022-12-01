@@ -10,8 +10,12 @@ public class Item : MonoBehaviour
     public Type type;
     public int value;
 
+
     public bool isFollowing; //이끌려감
     public float speed; //속도
+
+    //경험치양
+    public int expAmount;
 
     Vector3 followPos;
     public GameObject AreaPoint;
@@ -27,7 +31,7 @@ public class Item : MonoBehaviour
             switch (value)
             {
                 case 0: //Soul
-                    Invoke("Dequeue", 5f);
+                    //Invoke("Dequeue", 5f);
                     break;
             }
         }
@@ -40,7 +44,7 @@ public class Item : MonoBehaviour
             switch (value)
             {
                 case 0: //Soul
-                    Invoke("Dequeue", 5f);
+                    isFollowing = false;
                     break;
             }
         }
@@ -89,8 +93,10 @@ public class Item : MonoBehaviour
                         if(collision.gameObject.name == "SoulHarvestPoint")
                         {
                             PartyManager partyManager = GameObject.Find("Party").GetComponent<PartyManager>();
-                            partyManager.curEXP++;
-                            Destroy();
+                            AudioManager audioManager = GameObject.Find("AudioManager").GetComponent<AudioManager>();
+                            audioManager.PlayBgm("EXP");
+                            partyManager.curEXP += expAmount;
+                            Dequeue();
                         }
                         AreaPoint = GameObject.Find("SoulHarvestPoint");
                         break;

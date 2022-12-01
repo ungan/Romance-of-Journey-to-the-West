@@ -13,6 +13,7 @@ public class MusicManager : MonoBehaviour
 
     //play
     public bool playMusic;
+    public bool pauseMusic;
 
     // Start is called before the first frame update
     void Start()
@@ -49,6 +50,12 @@ public class MusicManager : MonoBehaviour
         {
             audioSource.Play();
             playMusic = false;
+        }
+
+        if(pauseMusic == true)
+        {
+            audioSource.Pause();
+            pauseMusic = false;
         }
     }
 }

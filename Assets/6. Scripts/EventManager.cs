@@ -51,7 +51,9 @@ public class EventManager : MonoBehaviour
     public GameObject EnemyKiller;
     public GameObject Boss;
 
-
+    //EventCheck
+    public int hordeCount = 0;
+    public GameObject[] Item;
 
     void Start()
     {
@@ -68,8 +70,8 @@ public class EventManager : MonoBehaviour
         if(curEChangeDelay >= maxEChangeDelay) //Normal -> HordeIntro
         {
             ActiveHordeEventIntro(); //호드 인트로 전환
-            musicManager.playMusic = true;
-            curEChangeDelay = 0;
+            //musicManager.playMusic = true;
+            //curEChangeDelay = 0;
         }
         if(curHordeDelayIntro >= maxHordeDelayIntro) //HordeIntro -> Horde
         {
@@ -85,8 +87,28 @@ public class EventManager : MonoBehaviour
             musicManager.playMusic = false;
             curHordeDelay = 0;
             curPhase = 0;
+            hordeCount++;
+            curSpawnDelay -= 0.05f;
+            maxMonsterCount += 10;
             Invoke("EnemyKillerActive", 0.2f);
-            Invoke("ActiveBossEvent", 2f);      //보스 이벤트 전환(보스전 돌입하고 싶으면 이거 활성화
+
+            if (hordeCount == 1)
+            {
+                Item[0].SetActive(true);
+                Item[1].SetActive(true);
+            }
+            if (hordeCount == 2)
+            {
+                Item[2].SetActive(true);
+                Item[3].SetActive(true);
+            }
+
+            if (hordeCount > 2)
+                Invoke("ActiveBossEvent", 2f);      //보스 이벤트 전환(보스전 돌입하고 싶으면 이거 활성화
+            else
+            {
+                Invoke("ActiveHordeEventIntro", 5f);
+            }
         }
 
         if (normalEvent)
@@ -181,6 +203,9 @@ public class EventManager : MonoBehaviour
         hordeEvent = false;
         bossEvent = false;
         normalEvent = false;
+
+        musicManager.playMusic = true;
+        curEChangeDelay = 0;
     }
     void ActiveHordeEvent()
     {
