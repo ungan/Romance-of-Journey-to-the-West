@@ -222,7 +222,7 @@ public class Enemy_ai : MonoBehaviour
             ani_state();        // 상태에 따른 ani 기본 state와 따로 분류 해줌
         }
 
-        h_bar();        // 체력바 관리 함수
+        //h_bar();        // 체력바 관리 함수
 
 
     }
