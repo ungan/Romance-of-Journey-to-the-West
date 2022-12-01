@@ -169,12 +169,14 @@ public class Enemy_ai : MonoBehaviour
     private void Awake()
     {
         objectManager = GameObject.Find("ObjectManager").GetComponent<ObjectManager>();
+        ADS = GetComponent<AIDestinationSetter>();
+       
     }
 
     Character nap;                              // 납치한 character의 script character 정보를 여기에 저장
     void Start()
     {
-        start_health_bar = health_bar.localPosition.x;
+        //start_health_bar = health_bar.localPosition.x;
         cam = GameObject.Find("Main Camera").GetComponent<CameraController>(); //게임오브젝트를 신 안에서 찾은 후 스크립트 연결(프리펩시 필수!)
         eventManager = GameObject.Find("EventManager").GetComponent<EventManager>(); //이벤트 매니저 찾기 SJM
         partyManager = GameObject.Find("Party").GetComponent<PartyManager>();  //파티(플레이어)찾기 SJM
@@ -183,7 +185,6 @@ public class Enemy_ai : MonoBehaviour
         aiPath = GetComponent<AIPath>();
         anim = GetComponent<Animator>();
         //seeker.StartPath(rigid.position, target.position, )
-        ADS = GetComponent<AIDestinationSetter>();
         ADS.target = partyManager.transform;  //타겟 지정 SJM
         maxSpeed = aiPath.maxSpeed; //aiPath내 maxspeed 복사 SJM
 
@@ -537,7 +538,7 @@ public class Enemy_ai : MonoBehaviour
         }
         */
 
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(0.01f);
         isrange = false;
         yield return 0;
     }
