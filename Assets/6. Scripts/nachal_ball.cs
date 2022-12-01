@@ -95,30 +95,33 @@ public class nachal_ball : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if(isdead == false)
+        if(nachal.isDead == false)
         {
-            if(transform.localScale.x < 1f || transform.localScale.y < 1f)
+            if (isdead == false)
             {
-                transform.localScale = new Vector3(transform.localScale.x + Time.deltaTime, transform.localScale.y + Time.deltaTime, 1);
-                destination = party.transform.position;
-                inclination();
-            }
-            else
-            {
-                move();
-                nachal.StartCoroutine("boss_delay_b");
+                if (transform.localScale.x < 1f || transform.localScale.y < 1f)
+                {
+                    transform.localScale = new Vector3(transform.localScale.x + Time.deltaTime, transform.localScale.y + Time.deltaTime, 1);
+                    destination = party.transform.position;
+                    inclination();
+                }
+                else
+                {
+                    move();
+                    nachal.StartCoroutine("boss_delay_b");
+                }
+
+                if (exphase == true)
+                {
+                    //Debug.Log("aaaQ");
+                }
             }
 
-            if(exphase == true)
+            if (exphase == true && isexplosion == false)
             {
-                //Debug.Log("aaaQ");
+                z += 5f;
+                ball_collection.transform.rotation = Quaternion.Euler(transform.rotation.x, transform.rotation.y, z);
             }
-        }
-
-        if (exphase == true && isexplosion == false)
-        {
-            z += 5f;
-            ball_collection.transform.rotation = Quaternion.Euler(transform.rotation.x, transform.rotation.y, z);
         }
     }
 
