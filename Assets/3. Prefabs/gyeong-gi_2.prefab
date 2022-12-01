@@ -1442,7 +1442,7 @@ MonoBehaviour:
   maxSpeed: 8
   maxHealth: 50
   curHealth: 50
-  damage: 20
+  damage: 1
   damage_skill: 0
   attack_cooltime: 3
   maxReadyDelay: 1
@@ -1451,7 +1451,7 @@ MonoBehaviour:
   stab_damge_Cycle: 1
   stab_damage_curCycle: 0
   dash_speed: 10
-  sight_rangef: 1.6
+  sight_rangef: 1.8
   player: {fileID: 0}
   sprite_render: {fileID: 0}
   e_ani: {fileID: 4878560580214103639}
@@ -1471,6 +1471,11 @@ MonoBehaviour:
   isdash_effect: 0
   isdead: 0
   isrange: 0
+  islong_range: 0
+  inlong_range: 0
+  cool_long_attack: 0
+  isshot_foxball: 0
+  isself_destruct: 0
   fox_ball: {fileID: 0}
   fox_ball1: {fileID: 0}
   fox_ball2: {fileID: 0}

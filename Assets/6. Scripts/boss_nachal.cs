@@ -122,12 +122,12 @@ public class boss_nachal : MonoBehaviour
 
     private void FixedUpdate()
     {
-        //boss_patton_l();
+        boss_patton_l();
 
-        //boss_patton_b();
+        boss_patton_b();
 
         //if (phase == 2) boss_pattern_h();
-        boss_pattern_h();
+        //boss_pattern_h();
 
 
         if (isLight_circle_button == true)       // 일반 lightning_circle 이 나감

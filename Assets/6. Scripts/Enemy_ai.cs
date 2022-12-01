@@ -24,6 +24,7 @@ public enum atk_type
 {
     short_range,    // 근거리
     long_range,        // 원거리
+    skill,              // 스킬?
     dash,               // 돌진
 }
 
@@ -89,11 +90,15 @@ public class Enemy_ai : MonoBehaviour
     public bool inlong_range = false;       // 원거리 범위안인경우 true 그렇지 않다면 false true 인경우에는 원거리 공격을 해줄것
     public bool cool_long_attack = false;    // long_attack 쿨타임인지 아닌지 false 쿨타임 상태 아님 즉 공격 가능한 상태 true라면 쿨타임 즉 공격을 해야하는 상태 
     public bool isshot_foxball = false;     // shot_foxball 코루틴이 돌고 있을때 계속 돌지 않도록 해주는 것
+    public bool isself_destruct = false;    // self_destruct 코루틴이 돌고 있을때 계속 돌지 않도록 해주는 것
 
     public GameObject fox_ball;     // 구미호 bullet prefab
+
     public Transform fox_ball1;     // 구미호볼 1,2,3 
     public Transform fox_ball2;
     public Transform fox_ball3;
+    public Transform health_bar;               // 체력바
+
     public Vector3 dash_target;
     public bulletmove_khi bullet1;         // 여우볼 3개
     bulletmove_khi bullet2;
@@ -116,6 +121,9 @@ public class Enemy_ai : MonoBehaviour
     //특수상태 카운트
     float curRootedDelay = 0f; //현재속박딜레이 SJM
     float maxRootedDelay = 5f; //최대속박딜레이 SJM
+
+    float start_health_bar;     // 초기 체력바 위치
+
     bool damageon = false;
     public GameObject fire_effect;
 
@@ -143,11 +151,20 @@ public class Enemy_ai : MonoBehaviour
     public GameObject obj;
     public GameObject attack_ragnes;             // 공격 범위가 커졌다 꺼진다.
 
+    
     ObjectManager objectManager;
 
     BoxCollider2D boxcollider2d;
     float[] e_angle = new float[6];
     int min_engle;
+
+    void OnEnable()
+    {
+        curHealth = maxHealth;      // 피를 회복 시켜준다.
+        isdead = false;
+        stop = false;
+        enemy_state = e_state.Follow;
+    }
 
     private void Awake()
     {
@@ -157,6 +174,7 @@ public class Enemy_ai : MonoBehaviour
     Character nap;                              // 납치한 character의 script character 정보를 여기에 저장
     void Start()
     {
+        start_health_bar = health_bar.localPosition.x;
         cam = GameObject.Find("Main Camera").GetComponent<CameraController>(); //게임오브젝트를 신 안에서 찾은 후 스크립트 연결(프리펩시 필수!)
         eventManager = GameObject.Find("EventManager").GetComponent<EventManager>(); //이벤트 매니저 찾기 SJM
         partyManager = GameObject.Find("Party").GetComponent<PartyManager>();  //파티(플레이어)찾기 SJM
@@ -198,11 +216,14 @@ public class Enemy_ai : MonoBehaviour
             }
         }
 
-        else if (isdead == false)
+        else if (isdead == false && !stop)
         {
             rol();      // right or left
             ani_state();        // 상태에 따른 ani 기본 state와 따로 분류 해줌
         }
+
+        //h_bar();        // 체력바 관리 함수
+
 
     }
 
@@ -211,18 +232,32 @@ public class Enemy_ai : MonoBehaviour
 
         Delay_fixed();
         enemy_ai = this;
-        if (!stop)
+        if (isdead == false && !stop)
         {
             special();
+            StartCoroutine("range");
             //state();
         }
         else
         {
-            sprite_render.color = new Color(sprite_render.color.r, sprite_render.color.g - Time.deltaTime, sprite_render.color.b - Time.deltaTime);
+            //sprite_render.color = new Color(sprite_render.color.r, sprite_render.color.g - Time.deltaTime, sprite_render.color.b - Time.deltaTime);
         }
         dead();
-        StartCoroutine("range");
+        
 
+    }
+
+    void h_bar()            // 체력바 관리 함수
+    {
+        //health_bar.Scale = new Vector3((float)boss.curHealth / 500, 1, 1);
+        Debug.Log("1 : " + start_health_bar);
+        Debug.Log("2 : " + (3.333333f) * (0.5f));
+        Debug.Log("3 : " + ((curHealth / maxHealth) * 3.333333f) * 0.5f);
+
+
+        //health_bar.position = new Vector3(start_health_bar -(3.333333f)*(0.5f)+ ((curHealth / maxHealth) * 3.333333f)*0.5f+ gameObject.transform.position.y, gameObject.transform.position.y+1.5f, 0);
+        health_bar.position = new Vector3(start_health_bar - (3.333333f) * (0.5f) + ((curHealth / maxHealth) * 3.333333f) * 0.5f + gameObject.transform.position.x, gameObject.transform.position.y + 1.5f, 0);
+        health_bar.localScale = new Vector3((curHealth / maxHealth)* 3.333333f, 0.2666667f, 1);
     }
 
     void ani_state()
@@ -459,7 +494,7 @@ public class Enemy_ai : MonoBehaviour
         else
         {
             issight_range = false;
-            Debug.Log("issight range false");
+            //Debug.Log("issight range false");
             enemy_state = e_state.Follow;
         }
 
@@ -587,14 +622,18 @@ public class Enemy_ai : MonoBehaviour
                 break;
             case 1000:
                 //partyManager.get_enemy(this);                           // 자폭맨 -> 폭죽
-                partyManager.StartCoroutine(partyManager.onDamage_party(damage, atk_type.short_range));
+                StartCoroutine("self_destruct");
+                //partyManager.StartCoroutine(partyManager.onDamage_party(damage, atk_type.short_range));
                 break;
             case 1001:                                                  // 천 요괴
                 partyManager.StartCoroutine("onDamage_party", damage);
                 iskidnap = true;
                 break;
         }
-        enemy_state = e_state.attack_ready;
+        if(isself_destruct != true)
+        {
+            enemy_state = e_state.attack_ready;
+        }
     }
 
     public void dash_crash()       // dash 중 chracter(leader)와 부딫혔을때 발동될 함수 뒤로 물러나는 물리값 넣어 줄것
@@ -678,7 +717,7 @@ public class Enemy_ai : MonoBehaviour
     }*/
     void special()
     {
-        Debug.Log("special");
+        //Debug.Log("special");
         switch (code)
         {
             case 1000:         // 자폭맨 => 폭죽
@@ -687,7 +726,7 @@ public class Enemy_ai : MonoBehaviour
                     //partyManager.get_enemy(this);
                     if (attack_inrange)
                     {
-                        StartCoroutine("self_destruct");
+                        //StartCoroutine("self_destruct");
                     }
                 }
                 break;
@@ -731,7 +770,7 @@ public class Enemy_ai : MonoBehaviour
         rigid3 = objfox_ball3.GetComponent<Rigidbody2D>();
         rigid3.AddForce(dir3.normalized * 10, ForceMode2D.Impulse); //탄알 날려보내기
         //rigid1.velocity = v1;
-        Debug.Log("여우볼 생성");
+        //Debug.Log("여우볼 생성");
     }
     
     public void move_false()
@@ -805,11 +844,9 @@ public class Enemy_ai : MonoBehaviour
 
             if(dash_effect != null) dash_effect.SetActive(false);      // dash 안쓰는 경우 오류 안뜨게 해줄것
 
-            if (code == 101)   // fox일 때 남은 fox 삭제 해줘야됨
+            if(code == 1000)
             {
-                bullet1.Dead();
-                bullet2.Dead();
-                bullet3.Dead();
+                StartCoroutine(self_destruct());
             }
             else if (code == 1001)
             {
@@ -826,7 +863,7 @@ public class Enemy_ai : MonoBehaviour
             curHealth = 0;
             //Destroy(gameObject);
             e_ani.Play("dead");
-            e_ghost.SetActive(true);
+            //_ghost.SetActive(true);
             //사망, 누움
             //transform.rotation = Quaternion.Euler(0, 0, -90);
             //gameObject.layer = 17;
@@ -904,15 +941,24 @@ public class Enemy_ai : MonoBehaviour
     }
     IEnumerator self_destruct()     // 자폭
     {
-
         stop = true;
+        if (isself_destruct == true) yield break;
+
+        isself_destruct = true;
+
+        //stop = true;
         e_ani.Play("ready_bomb");
         yield return new WaitForSeconds(1.4f);
-        e_ani.Play("bomb!");
+        e_ani.Play("explosion");
+        if(issight_range == true)
+        {
+            partyManager.StartCoroutine(partyManager.onDamage_party(damage_skill, atk_type.skill));
+        }
+
         //anim.SetTrigger("death");
         //partyManager.StartCoroutine("onDamage_bomb_party");
         //partyManager.StartCoroutine("onDamage_party", damage_skill);
-        partyManager.StartCoroutine(partyManager.onDamage_party(damage_skill, atk_type.short_range));
+        //partyManager.StartCoroutine(partyManager.onDamage_party(damage_skill, atk_type.short_range));
         yield return null;
     }
     IEnumerator attack_cool()
@@ -947,12 +993,6 @@ public class Enemy_ai : MonoBehaviour
             {
                 Instantiate(imae_s, new Vector3(transform.position.x + 3, transform.position.y, transform.position.z), Quaternion.identity);
                 Instantiate(imae_n, new Vector3(transform.position.x, transform.position.y, transform.position.z), Quaternion.identity);
-            }
-            else if (code == 101)   // fox일 때 남은 fox 삭제 해줘야됨
-            {
-                bullet1.Dead();
-                bullet2.Dead();
-                bullet3.Dead();
             }
             else if (code == 1001)
             {

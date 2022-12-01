@@ -972,7 +972,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3092277470358425964}
   m_Layer: 0
-  m_Name: obj_ collection
+  m_Name: obj_collection
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1211,7 +1211,6 @@ GameObject:
   - component: {fileID: 8958931992095593759}
   - component: {fileID: 3279361533050278190}
   - component: {fileID: 8958931992095593755}
-  - component: {fileID: 3913581464202705349}
   m_Layer: 11
   m_Name: docheol_2
   m_TagString: Enemy
@@ -1414,7 +1413,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8958931992095593748}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1cdcbe6c75dd31247b6da1904131b636, type: 3}
   m_Name: 
@@ -1426,7 +1425,7 @@ MonoBehaviour:
   maxSpeed: 5
   maxHealth: 50
   curHealth: 50
-  damage: 20
+  damage: 1
   damage_skill: 0
   attack_cooltime: 3
   maxReadyDelay: 1
@@ -1435,7 +1434,7 @@ MonoBehaviour:
   stab_damge_Cycle: 1
   stab_damage_curCycle: 0
   dash_speed: 10
-  sight_rangef: 1.6
+  sight_rangef: 1.8
   player: {fileID: 0}
   sprite_render: {fileID: 0}
   e_ani: {fileID: 8001627739633090156}
@@ -1455,6 +1454,11 @@ MonoBehaviour:
   isdash_effect: 0
   isdead: 0
   isrange: 0
+  islong_range: 0
+  inlong_range: 0
+  cool_long_attack: 0
+  isshot_foxball: 0
+  isself_destruct: 0
   fox_ball: {fileID: 0}
   fox_ball1: {fileID: 0}
   fox_ball2: {fileID: 0}
@@ -1483,29 +1487,6 @@ MonoBehaviour:
   sight_range: {fileID: 0}
   obj: {fileID: 7644902130509641407}
   attack_ragnes: {fileID: 0}
---- !u!114 &3913581464202705349
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8958931992095593748}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0b1ff7e506975914e9e34f639f327be2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  obj: {fileID: 0}
-  value: 0
-  pushAmount: 0
-  maxHealth: 20
-  curHealth: 20
-  damage: 0
-  defaultSpeed: 8
-  maxSpeed: 8
-  a: 0
-  isRooted: 0
-  isDead: 0
 --- !u!1001 &2838592232089256340
 PrefabInstance:
   m_ObjectHideFlags: 0
