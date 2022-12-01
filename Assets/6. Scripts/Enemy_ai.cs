@@ -164,6 +164,8 @@ public class Enemy_ai : MonoBehaviour
         isdead = false;
         stop = false;
         enemy_state = e_state.Follow;
+        gameObject.SetActive(true);
+
     }
 
     private void Awake()
