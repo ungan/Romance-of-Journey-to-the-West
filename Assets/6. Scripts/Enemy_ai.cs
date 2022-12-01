@@ -93,9 +93,12 @@ public class Enemy_ai : MonoBehaviour
     public bool isself_destruct = false;    // self_destruct 코루틴이 돌고 있을때 계속 돌지 않도록 해주는 것
 
     public GameObject fox_ball;     // 구미호 bullet prefab
+
     public Transform fox_ball1;     // 구미호볼 1,2,3 
     public Transform fox_ball2;
     public Transform fox_ball3;
+    public Transform health_bar;               // 체력바
+
     public Vector3 dash_target;
     public bulletmove_khi bullet1;         // 여우볼 3개
     bulletmove_khi bullet2;
@@ -118,6 +121,9 @@ public class Enemy_ai : MonoBehaviour
     //특수상태 카운트
     float curRootedDelay = 0f; //현재속박딜레이 SJM
     float maxRootedDelay = 5f; //최대속박딜레이 SJM
+
+    float start_health_bar;     // 초기 체력바 위치
+
     bool damageon = false;
     public GameObject fire_effect;
 
@@ -145,6 +151,7 @@ public class Enemy_ai : MonoBehaviour
     public GameObject obj;
     public GameObject attack_ragnes;             // 공격 범위가 커졌다 꺼진다.
 
+    
     ObjectManager objectManager;
 
     BoxCollider2D boxcollider2d;
@@ -167,6 +174,7 @@ public class Enemy_ai : MonoBehaviour
     Character nap;                              // 납치한 character의 script character 정보를 여기에 저장
     void Start()
     {
+        start_health_bar = health_bar.localPosition.x;
         cam = GameObject.Find("Main Camera").GetComponent<CameraController>(); //게임오브젝트를 신 안에서 찾은 후 스크립트 연결(프리펩시 필수!)
         eventManager = GameObject.Find("EventManager").GetComponent<EventManager>(); //이벤트 매니저 찾기 SJM
         partyManager = GameObject.Find("Party").GetComponent<PartyManager>();  //파티(플레이어)찾기 SJM
@@ -214,6 +222,9 @@ public class Enemy_ai : MonoBehaviour
             ani_state();        // 상태에 따른 ani 기본 state와 따로 분류 해줌
         }
 
+        h_bar();        // 체력바 관리 함수
+
+
     }
 
     private void FixedUpdate()
@@ -234,6 +245,19 @@ public class Enemy_ai : MonoBehaviour
         dead();
         
 
+    }
+
+    void h_bar()            // 체력바 관리 함수
+    {
+        //health_bar.Scale = new Vector3((float)boss.curHealth / 500, 1, 1);
+        Debug.Log("1 : " + start_health_bar);
+        Debug.Log("2 : " + (3.333333f) * (0.5f));
+        Debug.Log("3 : " + ((curHealth / maxHealth) * 3.333333f) * 0.5f);
+
+
+        //health_bar.position = new Vector3(start_health_bar -(3.333333f)*(0.5f)+ ((curHealth / maxHealth) * 3.333333f)*0.5f+ gameObject.transform.position.y, gameObject.transform.position.y+1.5f, 0);
+        health_bar.position = new Vector3(start_health_bar - (3.333333f) * (0.5f) + ((curHealth / maxHealth) * 3.333333f) * 0.5f + gameObject.transform.position.x, gameObject.transform.position.y + 1.5f, 0);
+        health_bar.localScale = new Vector3((curHealth / maxHealth)* 3.333333f, 0.2666667f, 1);
     }
 
     void ani_state()
