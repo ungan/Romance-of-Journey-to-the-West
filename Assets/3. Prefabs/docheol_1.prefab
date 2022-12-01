@@ -1364,7 +1364,7 @@ MonoBehaviour:
   stab_damge_Cycle: 1
   stab_damage_curCycle: 0
   dash_speed: 10
-  sight_rangef: 1.4
+  sight_rangef: 2
   player: {fileID: 0}
   sprite_render: {fileID: 0}
   e_ani: {fileID: 4213910704675554186}
@@ -1393,6 +1393,7 @@ MonoBehaviour:
   fox_ball1: {fileID: 0}
   fox_ball2: {fileID: 0}
   fox_ball3: {fileID: 0}
+  health_bar: {fileID: 0}
   dash_target: {x: 0, y: 0, z: 0}
   bullet1: {fileID: 0}
   stab: {fileID: 0}

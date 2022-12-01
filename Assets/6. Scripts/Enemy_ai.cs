@@ -864,12 +864,23 @@ public class Enemy_ai : MonoBehaviour
             curHealth = 0;
             //Destroy(gameObject);
             e_ani.Play("dead");
+            Invoke("Dequeue", 3f);
             //_ghost.SetActive(true);
             //사망, 누움
             //transform.rotation = Quaternion.Euler(0, 0, -90);
             //gameObject.layer = 17;
         }
     }
+
+    void Dequeue() //이거 사용 권장!
+    {
+        if (!this.gameObject.activeSelf) return;
+
+        StartCoroutine(objectManager.ObjReturn(this.gameObject));
+        this.gameObject.SetActive(false);
+    }
+
+
     void cooltime_to_attack()
     {
         if (maxShotDelay <= curShotDelay)
