@@ -8,7 +8,7 @@ public class nachal_ball : MonoBehaviour
     public float speed = 1000000000f;
     public float x, y;
     public float z=0;
-    public int damage = 20;
+    public int damage = 2;
 
     public bool exphase = false;
     public bool isdead = false;
@@ -63,11 +63,11 @@ public class nachal_ball : MonoBehaviour
         character = party.GetComponent<PartyManager>();
         if(exphase == true)
         {
-            damage = 30;        // 강화시의 데미지
+            damage = 4;        // 강화시의 데미지
         }
         else
         {
-            damage = 20;        // 일반 상태의 데미지
+            damage = 2;        // 일반 상태의 데미지
         }
     }
 

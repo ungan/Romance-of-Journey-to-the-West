@@ -260,8 +260,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9739370a6167a74c85492f01075600e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 20
+  damage: 2
   partymanager: {fileID: 0}
+  lightning_manager: {fileID: 0}
   zone: {fileID: 559542460712831116}
 --- !u!1 &5043265803122119392
 GameObject:
@@ -5137,6 +5138,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 20
   partymanager: {fileID: 0}
+  lightning_manager: {fileID: 0}
   zone: {fileID: 559542460712831116}
 --- !u!1 &8976358778941670764
 GameObject:
