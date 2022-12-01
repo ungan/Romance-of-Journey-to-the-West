@@ -25064,6 +25064,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 0
   value: 3
+  isFollowing: 0
+  speed: 0
+  AreaPoint: {fileID: 0}
 --- !u!1001 &296486899
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -25302,7 +25305,7 @@ Transform:
   - {fileID: 1671126613}
   - {fileID: 1323650329}
   m_Father: {fileID: 0}
-  m_RootOrder: 13
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &358013530
 GameObject:
@@ -25487,7 +25490,7 @@ Transform:
   - {fileID: 1542196548}
   - {fileID: 72158570}
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &377048265
 MonoBehaviour:
@@ -26464,7 +26467,7 @@ RectTransform:
   - {fileID: 1277582676}
   - {fileID: 1654733836}
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -26530,7 +26533,8 @@ GameObject:
   - component: {fileID: 519420030}
   - component: {fileID: 519420034}
   - component: {fileID: 519420033}
-  m_Layer: 0
+  - component: {fileID: 519420035}
+  m_Layer: 19
   m_Name: Main Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
@@ -26560,6 +26564,10 @@ MonoBehaviour:
   player: {fileID: 1884214265}
   dying: 0
   t: 0
+  zoomCamera: 0
+  normalCamera: 0
+  leftBottom: {x: 0, y: 0, z: 0}
+  rightTop: {x: 0, y: 0, z: 0}
 --- !u!20 &519420031
 Camera:
   m_ObjectHideFlags: 0
@@ -26615,7 +26623,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &519420033
 MonoBehaviour:
@@ -26651,6 +26659,66 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   a: 0.2
   b: 1
+--- !u!114 &519420035
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519420028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 948f4100a11a5c24981795d21301da5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  volumeTrigger: {fileID: 519420032}
+  volumeLayer:
+    serializedVersion: 2
+    m_Bits: 524288
+  stopNaNPropagation: 0
+  finalBlitToCameraTarget: 0
+  antialiasingMode: 0
+  temporalAntialiasing:
+    jitterSpread: 0.75
+    sharpness: 0.25
+    stationaryBlending: 0.95
+    motionBlending: 0.85
+  subpixelMorphologicalAntialiasing:
+    quality: 2
+  fastApproximateAntialiasing:
+    fastMode: 0
+    keepAlpha: 0
+  fog:
+    enabled: 1
+    excludeSkybox: 1
+  debugLayer:
+    lightMeter:
+      width: 512
+      height: 256
+      showCurves: 1
+    histogram:
+      width: 512
+      height: 256
+      channel: 3
+    waveform:
+      exposure: 0.12
+      height: 256
+    vectorscope:
+      size: 256
+      exposure: 0.12
+    overlaySettings:
+      linearDepth: 0
+      motionColorIntensity: 4
+      motionGridSize: 64
+      colorBlindnessType: 0
+      colorBlindnessStrength: 1
+  m_Resources: {fileID: 11400000, guid: d82512f9c8e5d4a4d938b575d47f88d4, type: 2}
+  m_ShowToolkit: 1
+  m_ShowCustomSorter: 1
+  breakBeforeColorGrading: 0
+  m_BeforeTransparentBundles: []
+  m_BeforeStackBundles: []
+  m_AfterStackBundles: []
 --- !u!1 &533080085
 GameObject:
   m_ObjectHideFlags: 0
@@ -27878,7 +27946,7 @@ Transform:
   - {fileID: 899992538}
   - {fileID: 1987083155}
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &765206338
 GameObject:
@@ -28089,6 +28157,7 @@ GameObject:
   m_Component:
   - component: {fileID: 783539140}
   - component: {fileID: 783539141}
+  - component: {fileID: 783539142}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -28108,7 +28177,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &783539141
 MonoBehaviour:
@@ -28123,13 +28192,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   partyManager: {fileID: 1884214263}
+  eventManager: {fileID: 0}
   character:
   - {fileID: 7382542978908881107}
   - {fileID: 1060456352176846754}
   - {fileID: 8661538816832965223}
   - {fileID: 8345400888720189023}
+  boss: {fileID: 0}
   gamePanel: {fileID: 1243076966}
   gameOverSet: {fileID: 1857133618}
+  WinSet: {fileID: 0}
   choicePanel: {fileID: 1277582675}
   retryButton: {fileID: 380155415}
   choiceButton:
@@ -28176,7 +28248,29 @@ MonoBehaviour:
   - {fileID: 964218640}
   - {fileID: 1994161476}
   - {fileID: 1441306769}
+  BossSet: {fileID: 0}
+  bossName: {fileID: 0}
+  bossHealth: {fileID: 0}
+  bossHealthBar: {fileID: 0}
   swapChoice: 000000
+  classInfos: []
+--- !u!114 &783539142
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 783539139}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b9a305e18de0c04dbd257a21cd47087, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sharedProfile: {fileID: 0}
+  isGlobal: 0
+  blendDistance: 0
+  weight: 1
+  priority: 0
 --- !u!1 &790078331
 GameObject:
   m_ObjectHideFlags: 0
@@ -28359,7 +28453,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   eventManager: {fileID: 2070688221}
   gameManager: {fileID: 783539141}
-  hordeTheme: {fileID: 8300000, guid: e3c7029d631e0b54aa86ce62f2ea25f4, type: 3}
+  Theme: []
   playMusic: 0
 --- !u!4 &826022831
 Transform:
@@ -28373,7 +28467,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!82 &826022832
 AudioSource:
@@ -33849,6 +33943,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 0
   value: 2
+  isFollowing: 0
+  speed: 0
+  AreaPoint: {fileID: 0}
 --- !u!1001 &989168416
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -35073,7 +35170,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1174463197
-  m_SortingLayer: 9
+  m_SortingLayer: 10
   m_SortingOrder: 30
   m_Sprite: {fileID: -3838241492584662357, guid: b2e999335b0713d45a9f3625a730f34e,
     type: 3}
@@ -35099,7 +35196,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1214723548
 GameObject:
@@ -35183,7 +35280,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1225509087
 GameObject:
@@ -43389,7 +43486,7 @@ Transform:
   - {fileID: 403159748}
   - {fileID: 143036403}
   m_Father: {fileID: 0}
-  m_RootOrder: 15
+  m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1410311483
 PrefabInstance:
@@ -44072,6 +44169,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 0
   value: 1
+  isFollowing: 0
+  speed: 0
+  AreaPoint: {fileID: 0}
 --- !u!1001 &1452013241
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -60579,6 +60679,68 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1678461355}
   m_CullTransparentMesh: 0
+--- !u!1 &1678731697
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1678731698}
+  - component: {fileID: 1678731700}
+  - component: {fileID: 1678731699}
+  m_Layer: 19
+  m_Name: Post-process Volume
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1678731698
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1678731697}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 18.77765, y: -25.767576, z: -185.56496}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1678731699
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1678731697}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b9a305e18de0c04dbd257a21cd47087, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sharedProfile: {fileID: 11400000, guid: e22446faeb92acf40b20fd5f0f3c6b38, type: 2}
+  isGlobal: 1
+  blendDistance: 0
+  weight: 1
+  priority: 0
+--- !u!65 &1678731700
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1678731697}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 59.476776, y: 55.44111, z: 80}
+  m_Center: {x: -10.261613, y: 12.279446, z: 0}
 --- !u!1 &1707454148
 GameObject:
   m_ObjectHideFlags: 0
@@ -61246,12 +61408,16 @@ MonoBehaviour:
   controlList: 01000000
   isRunning: 0
   isDashing: 0
+  isStopping: 0
+  isAttacking: 0
   canSwap: 0
   x: 0
   y: 0
   nearObject: {fileID: 0}
   equipCharacter: {fileID: 7382542978908881106}
   playerPosition: {fileID: 47755509}
+  curDragonBall: 0
+  maxDragonBall: 3
 --- !u!212 &1884214264
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -61317,7 +61483,7 @@ Transform:
   - {fileID: 1885124194}
   - {fileID: 47755510}
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &1884214266
 Rigidbody2D:
@@ -61687,7 +61853,7 @@ Transform:
   - {fileID: 984787703}
   - {fileID: 283770191}
   m_Father: {fileID: 0}
-  m_RootOrder: 14
+  m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2023434845
 GameObject:
@@ -61884,7 +62050,7 @@ Transform:
   - {fileID: 362889608}
   - {fileID: 2045655043}
   m_Father: {fileID: 0}
-  m_RootOrder: 16
+  m_RootOrder: 17
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2045655042
 GameObject:
@@ -62042,31 +62208,39 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   musicManager: {fileID: 826022830}
+  objectManager: {fileID: 0}
   curEChangeDelay: 13
   maxEChangeDelay: 20
   curSpawnDelay: 0
   maxSpawnDelay: 0.25
+  curEliteSpawnDelay: 0
+  maxEliteSpawnDelay: 10
   normalEvent: 1
+  hordeEventIntro: 0
   hordeEvent: 0
   bossEvent: 0
+  curHordeDelayIntro: 0
+  maxHordeDelayIntro: 10
   curHordeDelay: 0
   maxHordeDelay: 78
   curBreakTimeDelay: 0
   maxBreakTimeDelay: 10
+  curPhase: 0
+  maxPhase: 4
   curMonsterCount: 0
   maxMonsterCount: 20
   hordeBreakTime: 0
+  ranZone: 0
   enemySpawnZone:
   - {fileID: 440014086}
   - {fileID: 362889608}
   - {fileID: 2045655043}
-  enemies:
-  - {fileID: 8958931992095593748, guid: 519b37c7321a3ab4cb9914d27bc4175c, type: 3}
-  - {fileID: 553723129943523875, guid: 7d0f031e4e9747041a72ddeacdbc4ca3, type: 3}
-  - {fileID: 622089961713009119, guid: 17a68aecbe89e164db7f97faecddb2d5, type: 3}
-  - {fileID: 4967149955886504490, guid: b1461cb2c1b133049a98eff0c564e38f, type: 3}
-  - {fileID: 7772141664105544662, guid: 858aa5df6853d4341a626467621650f0, type: 3}
+  enemies_Normal: []
+  enemies_Elite: []
+  enemies_Special: []
   enemyList: 
+  EnemyKiller: {fileID: 0}
+  Boss: {fileID: 0}
 --- !u!4 &2070688222
 Transform:
   m_ObjectHideFlags: 0
@@ -62079,7 +62253,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &2085922688 stripped
 Transform:
@@ -64074,21 +64248,22 @@ MonoBehaviour:
   curHealth: 0
   maxAmmo: 0
   curAmmo: 0
-  maxShield: 0
-  curShield: 0
+  curSoul: 0
+  maxSoul: 0
   followValue: 0
   posValue: 0
   reloadTime: 2.5
   maxShotDelay: 0.1
   curShotDelay: 0
-  maxDodgeDelay: 0
-  curDodgeDelay: 0
+  maxChargeDelay: 0
+  curChargeDelay: 0
   maxLSkillDelay: 0
   curLSkillDelay: 0
   maxMSkillDelay: 0
   curMSkillDelay: 0
   maxMemberShotDelay: 0.5
   curMemberShotDelay: 0
+  curPutButtonFire1Delay: 0
   followPos: {x: 0, y: 0, z: 0}
   parent: {fileID: 1884214265}
   partyManager: {fileID: 1884214263}
@@ -64097,12 +64272,13 @@ MonoBehaviour:
   skillObject:
   - {fileID: 195924082222946349, guid: 546fb525e71bd5b4888f7af65ec0f828, type: 3}
   skillPositionCenter: {fileID: 2054133619}
-  maxDodgeCount: 0
-  curDodgeCount: 0
-  maxDodgeCooldownDelay: 0
-  curDodgeCooldownDelay: 0
+  maxDashCount: 1
+  curDashCount: 0
+  maxDashCooldownDelay: 1
+  curDashCooldownDelay: 0
   material: {fileID: 2100000, guid: 85796f1fda2222c4dabea1d11d34f338, type: 2}
   unitRoot: {fileID: 75198583763223378}
+  audioManager: {fileID: 0}
 --- !u!50 &1060456352176846755
 Rigidbody2D:
   serializedVersion: 4
@@ -76563,21 +76739,22 @@ MonoBehaviour:
   curHealth: 0
   maxAmmo: 0
   curAmmo: 0
-  maxShield: 0
-  curShield: 0
+  curSoul: 0
+  maxSoul: 0
   followValue: 1
   posValue: 0
   reloadTime: 2
   maxShotDelay: 0.4
   curShotDelay: 0
-  maxDodgeDelay: 0.4
-  curDodgeDelay: 0
+  maxChargeDelay: 0
+  curChargeDelay: 0
   maxLSkillDelay: 0
   curLSkillDelay: 0
   maxMSkillDelay: 0
   curMSkillDelay: 0
   maxMemberShotDelay: 2
   curMemberShotDelay: 0
+  curPutButtonFire1Delay: 0
   followPos: {x: 0, y: 0, z: 0}
   parent: {fileID: 47755510}
   partyManager: {fileID: 1884214263}
@@ -76588,12 +76765,13 @@ MonoBehaviour:
   - {fileID: 3855167649168962188, guid: 540e0963f31df9a4cb03e54128d14e3c, type: 3}
   - {fileID: 579214919}
   skillPositionCenter: {fileID: 1225509087}
-  maxDodgeCount: 1
-  curDodgeCount: 0
-  maxDodgeCooldownDelay: 1
-  curDodgeCooldownDelay: 0
+  maxDashCount: 1
+  curDashCount: 0
+  maxDashCooldownDelay: 1
+  curDashCooldownDelay: 0
   material: {fileID: 2100000, guid: 573b460f36014e14aac36e4f4db29234, type: 2}
   unitRoot: {fileID: 2018736123173173171}
+  audioManager: {fileID: 0}
 --- !u!50 &7382542978908881108
 Rigidbody2D:
   serializedVersion: 4
@@ -78230,21 +78408,22 @@ MonoBehaviour:
   curHealth: 0
   maxAmmo: 0
   curAmmo: 0
-  maxShield: 0
-  curShield: 0
+  curSoul: 0
+  maxSoul: 0
   followValue: 0
   posValue: 0
   reloadTime: 1.5
   maxShotDelay: 0.3
   curShotDelay: 0
-  maxDodgeDelay: 0
-  curDodgeDelay: 0
+  maxChargeDelay: 0
+  curChargeDelay: 0
   maxLSkillDelay: 0
   curLSkillDelay: 0
   maxMSkillDelay: 0
   curMSkillDelay: 0
   maxMemberShotDelay: 5
   curMemberShotDelay: 0
+  curPutButtonFire1Delay: 0
   followPos: {x: 0, y: 0, z: 0}
   parent: {fileID: 1884214265}
   partyManager: {fileID: 1884214263}
@@ -78254,12 +78433,13 @@ MonoBehaviour:
   - {fileID: 195924082222946349, guid: da98e58eb7071ee40809ea72f26957b4, type: 3}
   - {fileID: 1799610115}
   skillPositionCenter: {fileID: 1033894769}
-  maxDodgeCount: 0
-  curDodgeCount: 0
-  maxDodgeCooldownDelay: 0
-  curDodgeCooldownDelay: 0
+  maxDashCount: 1
+  curDashCount: 0
+  maxDashCooldownDelay: 1
+  curDashCooldownDelay: 0
   material: {fileID: 2100000, guid: a9a0aea6a01ead249a9d948b22174ff1, type: 2}
   unitRoot: {fileID: 7381393497004904481}
+  audioManager: {fileID: 0}
 --- !u!50 &8345400888720189024
 Rigidbody2D:
   serializedVersion: 4
@@ -78800,21 +78980,22 @@ MonoBehaviour:
   curHealth: 0
   maxAmmo: 0
   curAmmo: 0
-  maxShield: 0
-  curShield: 0
+  curSoul: 0
+  maxSoul: 0
   followValue: 0
   posValue: 0
   reloadTime: 1.5
   maxShotDelay: 0.3
   curShotDelay: 0
-  maxDodgeDelay: 0
-  curDodgeDelay: 0
+  maxChargeDelay: 0
+  curChargeDelay: 0
   maxLSkillDelay: 5
   curLSkillDelay: 0
   maxMSkillDelay: 0
   curMSkillDelay: 0
   maxMemberShotDelay: 4
   curMemberShotDelay: 0
+  curPutButtonFire1Delay: 0
   followPos: {x: 0, y: 0, z: 0}
   parent: {fileID: 1884214265}
   partyManager: {fileID: 1884214263}
@@ -78826,12 +79007,13 @@ MonoBehaviour:
   - {fileID: 226312153}
   - {fileID: 3340513835563190928, guid: 4b6785cd978096643bed4b82960df3be, type: 3}
   skillPositionCenter: {fileID: 880883172}
-  maxDodgeCount: 0
-  curDodgeCount: 0
-  maxDodgeCooldownDelay: 0
-  curDodgeCooldownDelay: 0
+  maxDashCount: 1
+  curDashCount: 0
+  maxDashCooldownDelay: 1
+  curDashCooldownDelay: 0
   material: {fileID: 2100000, guid: 56eb0b4c4a952a445a0175a7ac523af2, type: 2}
   unitRoot: {fileID: 2925465267753225473}
+  audioManager: {fileID: 0}
 --- !u!61 &8661538816832965224
 BoxCollider2D:
   m_ObjectHideFlags: 0

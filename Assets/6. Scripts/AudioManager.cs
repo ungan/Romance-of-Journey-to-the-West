@@ -40,6 +40,11 @@ public class Bgm
     {
         source.mute = mute;
     }
+    public bool PlayingCheck()
+    {
+        if (source.isPlaying) return true;
+        else return false;
+    }
 }
 
 public class AudioManager : MonoBehaviour
@@ -79,6 +84,20 @@ public class AudioManager : MonoBehaviour
             }
         }
     }
+
+    public void NonStopPlayBgm(string _name) //끝날때까지 다시 플레이되지 않음
+    {
+        for (int i = 0; i < bgms.Length; i++)
+        {
+            if (_name == bgms[i].name)
+            {
+                if(bgms[i].PlayingCheck() == false)
+                    bgms[i].Play();
+                return;
+            }
+        }
+    }
+
     public void StopBgm(string _name)
     {
         for (int i = 0; i < bgms.Length; i++)

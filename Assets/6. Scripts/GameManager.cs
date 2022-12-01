@@ -21,6 +21,7 @@ public class GameManager : MonoBehaviour
     public CameraController cam;
     public PartyManager partyManager;
     public EventManager eventManager;
+    public MusicManager musicManager;
     public Character[] character;
     public boss_nachal boss;
     
@@ -36,7 +37,12 @@ public class GameManager : MonoBehaviour
     public Image[] party1upgradeImg;
     public Image[] party2upgradeImg;
     public Image[] party3upgradeImg;
-
+    public RectTransform upgradeLVBar1;
+    public RectTransform upgradeLVBar2;
+    public RectTransform upgradeLVBar3;
+    public Text upgradeLVText1;
+    public Text upgradeLVText2;
+    public Text upgradeLVText3;
 
     public Button retryButton;
     public Button[] choiceButton;
@@ -229,6 +235,7 @@ public class GameManager : MonoBehaviour
     {
         Time.timeScale = 0.0f;
         isUpgrading = true;
+        musicManager.pauseMusic = true;
         Debug.Log("업그레이드 중입니다! 멈췄습니다.");
         //upgradePanel.SetActive(true);
     }
@@ -236,6 +243,17 @@ public class GameManager : MonoBehaviour
     void UpgradeButton()
     {
         upgradePanel.SetActive(true);
+        if(partyManager.list[0] > -1)
+            upgradeLVBar1.localScale = new Vector3((float)character[partyManager.list[0]].curUpgradeLV / character[partyManager.list[0]].maxUpgradeLV, 1, 1);
+        if(partyManager.list[1] > -1)
+            upgradeLVBar2.localScale = new Vector3((float)character[partyManager.list[1]].curUpgradeLV / character[partyManager.list[1]].maxUpgradeLV, 1, 1);
+        if(partyManager.list[2] > -1)
+            upgradeLVBar3.localScale = new Vector3((float)character[partyManager.list[2]].curUpgradeLV / character[partyManager.list[2]].maxUpgradeLV, 1, 1);
+        if (partyManager.list[0] > -1) upgradeLVText1.text = "LV " + character[partyManager.list[0]].curUpgradeLV;
+        if (partyManager.list[1] > -1) upgradeLVText2.text = "LV " + character[partyManager.list[1]].curUpgradeLV;
+        if (partyManager.list[2] > -1) upgradeLVText3.text = "LV " + character[partyManager.list[2]].curUpgradeLV;
+
+
         cam.Shake(0f, 0.1f);
         if (sDown1)
         {
@@ -249,6 +267,7 @@ public class GameManager : MonoBehaviour
             Debug.Log("0번 캐릭터 업글");
             Time.timeScale = 1f;
             isUpgrading = false;
+            musicManager.playMusic = true;
             upgradePanel.SetActive(false);
         }
         else if (sDown2)
@@ -263,6 +282,7 @@ public class GameManager : MonoBehaviour
             Debug.Log("1번 캐릭터 업글");
             Time.timeScale = 1f;
             isUpgrading = false;
+            musicManager.playMusic = true;
             upgradePanel.SetActive(false);
         }
         else if (sDown3)
@@ -277,6 +297,7 @@ public class GameManager : MonoBehaviour
             Debug.Log("2번 캐릭터 업글");
             Time.timeScale = 1f;
             isUpgrading = false;
+            musicManager.playMusic = true;
             upgradePanel.SetActive(false);
         }
     }

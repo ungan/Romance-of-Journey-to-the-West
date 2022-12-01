@@ -25,7 +25,7 @@ public class SceneChanger : MonoBehaviour
 
     public void PressStart()
     {
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(0);
     }
 
     public void PressExit()
