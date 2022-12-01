@@ -866,7 +866,7 @@ public class Enemy_ai : MonoBehaviour
             curHealth = 0;
             //Destroy(gameObject);
             e_ani.Play("dead");
-            Invoke("Dequeue", 3f);
+            Invoke("Dequeue", 0.05f);
             //_ghost.SetActive(true);
             //사망, 누움
             //transform.rotation = Quaternion.Euler(0, 0, -90);
