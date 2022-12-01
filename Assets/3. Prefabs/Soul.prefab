@@ -100,6 +100,7 @@ MonoBehaviour:
   value: 0
   isFollowing: 0
   speed: 0
+  expAmount: 1
   AreaPoint: {fileID: 0}
 --- !u!61 &8252555352404929031
 BoxCollider2D:
