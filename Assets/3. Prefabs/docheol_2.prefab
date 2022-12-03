@@ -1227,7 +1227,7 @@ Transform:
   m_GameObject: {fileID: 8958931992095593748}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children:
   - {fileID: 3092277470358425964}
   m_Father: {fileID: 0}
@@ -1292,7 +1292,7 @@ MonoBehaviour:
   radius: 0.5
   height: 2
   canMove: 1
-  maxSpeed: 8
+  maxSpeed: 6
   gravity: {x: 0, y: 0, z: 0}
   groundMask:
     serializedVersion: 2
@@ -1342,7 +1342,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0.15}
@@ -1422,19 +1422,19 @@ MonoBehaviour:
   value: 0
   pushAmount: 12
   defaultSpeed: 0
-  maxSpeed: 5
-  maxHealth: 50
-  curHealth: 50
+  maxSpeed: 2
+  maxHealth: 200
+  curHealth: 200
   damage: 1
   damage_skill: 0
-  attack_cooltime: 3
-  maxReadyDelay: 1
-  maxShotDelay: 2
+  attack_cooltime: 0.3
+  maxReadyDelay: 0.2
+  maxShotDelay: 0.3
   regular_d: 0
   stab_damge_Cycle: 1
   stab_damage_curCycle: 0
   dash_speed: 10
-  sight_rangef: 1.8
+  sight_rangef: 2.4
   player: {fileID: 0}
   sprite_render: {fileID: 0}
   e_ani: {fileID: 8001627739633090156}
@@ -1463,6 +1463,7 @@ MonoBehaviour:
   fox_ball1: {fileID: 0}
   fox_ball2: {fileID: 0}
   fox_ball3: {fileID: 0}
+  health_bar: {fileID: 0}
   dash_target: {x: 0, y: 0, z: 0}
   bullet1: {fileID: 0}
   stab: {fileID: 0}

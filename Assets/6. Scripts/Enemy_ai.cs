@@ -41,6 +41,7 @@ public class Enemy_ai : MonoBehaviour
     CameraController cam;
     PartyManager partyManager; //SJM
     EventManager eventManager; //SJM
+    AudioManager audioManager; //SJM
     int r;                   // 납치할때 character 랜덤 배열값
 
     public int code;        // code enemy 고유값
@@ -165,12 +166,12 @@ public class Enemy_ai : MonoBehaviour
         stop = false;
         enemy_state = e_state.Follow;
         gameObject.SetActive(true);
-
     }
 
     private void Awake()
     {
         objectManager = GameObject.Find("ObjectManager").GetComponent<ObjectManager>();
+        audioManager = GameObject.Find("AudioManager").GetComponent<AudioManager>(); //오디오매니저 찾기 SJM
         ADS = GetComponent<AIDestinationSetter>();
        
     }
@@ -837,6 +838,8 @@ public class Enemy_ai : MonoBehaviour
     }
     public void dead()
     {
+        if (isdead) return;
+
         fire_effect.SetActive(false);
         if (curHealth <= 0)
         {
@@ -847,9 +850,10 @@ public class Enemy_ai : MonoBehaviour
 
             if(dash_effect != null) dash_effect.SetActive(false);      // dash 안쓰는 경우 오류 안뜨게 해줄것
 
-            if(code == 1000)
+            if (code == 1000)
             {
                 StartCoroutine(self_destruct());
+                Invoke("Dequeue", 3f);
             }
             else if (code == 1001)
             {
@@ -866,7 +870,9 @@ public class Enemy_ai : MonoBehaviour
             curHealth = 0;
             //Destroy(gameObject);
             e_ani.Play("dead");
-            Invoke("Dequeue", 0.05f);
+            objectManager.MakeObj("Soul", this.transform.position, Quaternion.Euler(0, 0, 0));
+            if(code != 1000)
+                Invoke("Dequeue", 0.05f);
             //_ghost.SetActive(true);
             //사망, 누움
             //transform.rotation = Quaternion.Euler(0, 0, -90);
@@ -962,13 +968,15 @@ public class Enemy_ai : MonoBehaviour
 
         //stop = true;
         e_ani.Play("ready_bomb");
+        audioManager.PlayBgm("BombExplosionReady");
         yield return new WaitForSeconds(1.4f);
+        audioManager.StopBgm("BombExplosionReady");
         e_ani.Play("explosion");
         if(issight_range == true)
         {
             partyManager.StartCoroutine(partyManager.onDamage_party(damage_skill, atk_type.skill));
         }
-
+        audioManager.PlayBgm("BombExplosion");
         //anim.SetTrigger("death");
         //partyManager.StartCoroutine("onDamage_bomb_party");
         //partyManager.StartCoroutine("onDamage_party", damage_skill);
@@ -1135,7 +1143,6 @@ public class Enemy_ai : MonoBehaviour
         {
             StartCoroutine(OnDamage(bullet.damage));
             StartCoroutine(BePushed());
-            Destroy(collision.gameObject);
         }
         if (collision.gameObject.tag == "PlayerSwing") //근접공격
         {
@@ -1165,6 +1172,7 @@ public class Enemy_ai : MonoBehaviour
 
         if (collision.gameObject.tag == "Explosive") //폭발
         {
+            StartCoroutine(OnDamage(bullet.damage));
             switch (bullet.value)
             {
                 case 10: //속박됨
@@ -1183,7 +1191,7 @@ public class Enemy_ai : MonoBehaviour
             switch (bullet.value)
             {
                 case 0: //어그로
-                    ADS.target = partyManager.characters[3].transform; //SJM
+                    ADS.target = partyManager.characters[1].transform; //SJM
                     break;
                 case 11: //느려짐
                     aiPath.maxSpeed = 4f;

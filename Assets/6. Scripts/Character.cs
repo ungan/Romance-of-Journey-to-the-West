@@ -1011,7 +1011,7 @@ public class Character : MonoBehaviour
     public IEnumerator OnDamage(int e_damage)
     {
         curHealth -= e_damage;
-        cam.Shake(0.2f, 1);
+        cam.Shake(0.1f, 0.5f);
         if (curHealth <= 0)
         {
             //사망, 누움
@@ -1082,6 +1082,8 @@ public class Character : MonoBehaviour
 
     IEnumerator DownednDead() //사망
     {
+        if (partyManager.curCharactersCount <= 0) yield return null;
+
         curHealth = 0;
         partyManager.priCharIndex = -1;
 
@@ -1109,12 +1111,6 @@ public class Character : MonoBehaviour
                     partyManager.charactersIndex = 0;
             }
 
-        }
-        else if (partyManager.curCharactersCount <= 0)
-        {
-            //Game Over
-            partyManager.charactersIndex = 0;
-            Debug.Log("Game Over!");
         }
 
         yield return null;

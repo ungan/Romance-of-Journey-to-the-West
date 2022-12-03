@@ -191,7 +191,7 @@ Transform:
   m_GameObject: {fileID: 1211076445154722858}
   m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 5, y: 5, z: 1}
+  m_LocalScale: {x: 10, y: 10, z: 10}
   m_Children: []
   m_Father: {fileID: 5676459147298260843}
   m_RootOrder: 14
@@ -11105,7 +11105,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: -0.027973771, y: -0.039600253}
@@ -11226,6 +11226,7 @@ MonoBehaviour:
   fox_ball1: {fileID: 0}
   fox_ball2: {fileID: 0}
   fox_ball3: {fileID: 0}
+  health_bar: {fileID: 0}
   dash_target: {x: 0, y: 0, z: 0}
   bullet1: {fileID: 0}
   stab: {fileID: 0}

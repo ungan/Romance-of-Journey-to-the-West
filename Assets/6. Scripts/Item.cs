@@ -15,24 +15,32 @@ public class Item : MonoBehaviour
     public float speed; //속도
 
     //경험치양
-    public int expAmount;
+    public int expAmount = 0;
 
     Vector3 followPos;
     public GameObject AreaPoint;
     Rigidbody2D rigid;
 
+    private void Awake()
+    {
+        objectManager = GameObject.Find("ObjectManager").GetComponent<ObjectManager>();
+        rigid = GetComponent<Rigidbody2D>();
+    }
+
     void Start()
     {
-        rigid = GetComponent<Rigidbody2D>();
-        objectManager = GameObject.Find("ObjectManager").GetComponent<ObjectManager>();
 
         if (type == Type.AutoTakeItem)
         {
             switch (value)
             {
                 case 0: //Soul
-                    //Invoke("Dequeue", 5f);
+                    expAmount = 1;
                     break;
+                case 1: //BigSoul
+                    expAmount = 5;
+                    break;
+
             }
         }
     }
@@ -45,6 +53,11 @@ public class Item : MonoBehaviour
             {
                 case 0: //Soul
                     isFollowing = false;
+                    AreaPoint = null;
+                    break;
+                case 1: //Big Soul
+                    isFollowing = false;
+                    AreaPoint = null;
                     break;
             }
         }
@@ -84,10 +97,11 @@ public class Item : MonoBehaviour
                 switch (value)
                 {
                     case 0: //Soul
+                    case 1: //Big Soul
                         if (collision.gameObject.name == "SoulHarvestArea" || collision.gameObject.name == "MagicLine")
                         {
                             isFollowing = true;
-                            CancelInvoke("Dequeue");
+                            //CancelInvoke("Dequeue");
                             speed = 13f;
                         }
                         if(collision.gameObject.name == "SoulHarvestPoint")

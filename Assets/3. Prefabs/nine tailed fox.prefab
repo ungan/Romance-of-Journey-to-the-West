@@ -550,7 +550,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0.15}
@@ -672,6 +672,7 @@ MonoBehaviour:
   fox_ball1: {fileID: 553723129131281030}
   fox_ball2: {fileID: 553723129100821089}
   fox_ball3: {fileID: 553723130039306952}
+  health_bar: {fileID: 0}
   dash_target: {x: 0, y: 0, z: 0}
   bullet1: {fileID: 0}
   stab: {fileID: 0}
@@ -805,7 +806,7 @@ SpriteRenderer:
   m_Size: {x: 0.13, y: 0.12}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &1259777177176810827

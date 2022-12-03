@@ -43,6 +43,9 @@ public class GameManager : MonoBehaviour
     public Text upgradeLVText1;
     public Text upgradeLVText2;
     public Text upgradeLVText3;
+    public Text upgradeLVText1_1;
+    public Text upgradeLVText2_1;
+    public Text upgradeLVText3_1;
 
     public Button retryButton;
     public Button[] choiceButton;
@@ -50,8 +53,10 @@ public class GameManager : MonoBehaviour
     public RectTransform playerHealthBar;
     public GameObject HealthSet;
     public GameObject AmmoSet;
+    public GameObject HealpackSet;
     public Text health;
     public Text ammo;
+    public Text healpack;
     public Image[] characterImg;
     //Party
     public RectTransform[] partyHealthBar;
@@ -112,6 +117,7 @@ public class GameManager : MonoBehaviour
         health.text = character[partyManager.list[partyManager.charactersIndex]].curHealth + " / " + character[partyManager.list[partyManager.charactersIndex]].maxHealth;
         playerHealthBar.localScale = new Vector3(character[partyManager.list[partyManager.charactersIndex]].curHealth / character[partyManager.list[partyManager.charactersIndex]].maxHealth, 1, 1);
         ammo.text = character[partyManager.list[partyManager.charactersIndex]].curAmmo + " / " + character[partyManager.list[partyManager.charactersIndex]].maxAmmo;
+        healpack.text = "00" + partyManager.curDragonBall;
 
         //Boss
         bossHealth.text = boss.curHealth + " / 500";
@@ -249,9 +255,12 @@ public class GameManager : MonoBehaviour
             upgradeLVBar2.localScale = new Vector3((float)character[partyManager.list[1]].curUpgradeLV / character[partyManager.list[1]].maxUpgradeLV, 1, 1);
         if(partyManager.list[2] > -1)
             upgradeLVBar3.localScale = new Vector3((float)character[partyManager.list[2]].curUpgradeLV / character[partyManager.list[2]].maxUpgradeLV, 1, 1);
-        if (partyManager.list[0] > -1) upgradeLVText1.text = "LV " + character[partyManager.list[0]].curUpgradeLV;
-        if (partyManager.list[1] > -1) upgradeLVText2.text = "LV " + character[partyManager.list[1]].curUpgradeLV;
-        if (partyManager.list[2] > -1) upgradeLVText3.text = "LV " + character[partyManager.list[2]].curUpgradeLV;
+        if (partyManager.list[0] > -1) upgradeLVText1.text = "LV. " + character[partyManager.list[0]].curUpgradeLV;
+        if (partyManager.list[1] > -1) upgradeLVText2.text = "LV. " + character[partyManager.list[1]].curUpgradeLV;
+        if (partyManager.list[2] > -1) upgradeLVText3.text = "LV. " + character[partyManager.list[2]].curUpgradeLV;
+        if(partyManager.list[0] > -1) upgradeLVText1_1.text = "LV. " + character[partyManager.list[0]].curUpgradeLV;
+        if (partyManager.list[1] > -1) upgradeLVText2_1.text = "LV. " + character[partyManager.list[1]].curUpgradeLV;
+        if (partyManager.list[2] > -1) upgradeLVText3_1.text = "LV. " + character[partyManager.list[2]].curUpgradeLV;
 
 
         cam.Shake(0f, 0.1f);

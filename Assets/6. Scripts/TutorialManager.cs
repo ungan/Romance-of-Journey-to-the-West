@@ -94,7 +94,12 @@ public class TutorialManager : MonoBehaviour
                 }
                 break;
             case 5:
-                if (party.characterScripts[party.charactersIndex].curChargeDelay <= 0.2f) lineNumber = 6;
+                if (!oneTime)
+                {
+                    oneTime = true;
+                    Invoke("LinePP", 5f);
+                }
+                //if (party.characterScripts[party.charactersIndex].curChargeDelay <= 0.2f) lineNumber = 6;
                 break;
             case 6:
                 if (fire2Down)

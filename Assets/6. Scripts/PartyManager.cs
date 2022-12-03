@@ -49,6 +49,7 @@ public class PartyManager : MonoBehaviour
     public bool isDashing;
     public bool isStopping;
     public bool isAttacking;
+    public bool isDamaging;
 
     //컨트롤
     public bool canSwap; //true시 스왑 가능
@@ -85,7 +86,7 @@ public class PartyManager : MonoBehaviour
     public int maxDragonBall = 3;
 
     //파티 생사 체크
-    bool isPartyRuined;
+    public bool isPartyRuined;
 
     //기타
     bool fCheck = false;
@@ -168,7 +169,7 @@ public class PartyManager : MonoBehaviour
 
         if (curCharactersCount != 0)
         {
-            if (isAttacking == true && isDashing == false && isRunning)
+            if ((isAttacking == true || isDamaging) && isDashing == false && isRunning)
                 rigid.velocity = new Vector2(dirXY.x, dirXY.y) * (speed / 2);
             if (isAttacking == false && isDashing == false && isRunning)
                 rigid.velocity = new Vector2(dirXY.x, dirXY.y) * speed;
@@ -501,7 +502,7 @@ public class PartyManager : MonoBehaviour
         {
             gameManager.GameOver();
             isPartyRuined = true;
-            gameObject.layer = 16;
+            gameObject.layer = 21;
         }
     }
 
@@ -509,7 +510,9 @@ public class PartyManager : MonoBehaviour
     {
         if (isPartyRuined) yield return null;
 
-        characterScripts[charactersIndex].StartCoroutine("OnDamage", e_damage);
+        if (e_damage > 0) isDamaging = true;
+        if(!isPartyRuined)
+            characterScripts[charactersIndex].StartCoroutine("OnDamage", e_damage);
 
         //characterScripts[charactersIndex].StartCoroutine(OnDamage(e_damage));
 

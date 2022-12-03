@@ -25,6 +25,7 @@ TagManager:
   - AutoTakeItem
   - Foot
   - enemy_bullet
+  - PartyRuined
   layers:
   - Default
   - TransparentFX

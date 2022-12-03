@@ -9591,7 +9591,7 @@ MonoBehaviour:
   x: 0
   y: 0
   z: 0
-  damage: 2
+  damage: 20
   exphase: 0
   isdead: 0
   isexplosion: 0

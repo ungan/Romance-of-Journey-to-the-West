@@ -97,7 +97,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 2
-  value: 0
+  value: 1
   isFollowing: 0
   speed: 0
   expAmount: 5

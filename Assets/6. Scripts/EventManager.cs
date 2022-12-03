@@ -6,6 +6,7 @@ public class EventManager : MonoBehaviour
 {
     public MusicManager musicManager;
     public ObjectManager objectManager;
+    public AudioManager audioManager;
 
     //Event
     public float curEChangeDelay = 0f; //현재 노말->호드 이벤트 체인지 딜레이
@@ -13,7 +14,9 @@ public class EventManager : MonoBehaviour
     public float curSpawnDelay = 0f; //현재 스폰 딜레이
     public float maxSpawnDelay = 1f; //최대 스폰 딜레이
     public float curEliteSpawnDelay = 0f; //현재 엘리트 스폰 딜레이
-    public float maxEliteSpawnDelay = 10f; //최대 엘리트 스폰 딜레이
+    public float maxEliteSpawnDelay = 6f; //최대 엘리트 스폰 딜레이
+    public float curSpecialSpawnDelay = 0f; //현재 엘리트 스폰 딜레이
+    public float maxSpecialSpawnDelay = 13f; //최대 엘리트 스폰 딜레이
     public bool normalEvent; //일반 이벤트
     public bool hordeEventIntro; //호드 이벤트 인트로(전주)
     public bool hordeEvent; //호드 이벤트
@@ -136,7 +139,7 @@ public class EventManager : MonoBehaviour
 
     void Delay()
     {
-        if(hordeEvent) { curHordeDelay += Time.deltaTime; curSpawnDelay += Time.deltaTime; curEliteSpawnDelay += Time.deltaTime; }
+        if(hordeEvent) { curHordeDelay += Time.deltaTime; curSpawnDelay += Time.deltaTime; curEliteSpawnDelay += Time.deltaTime; curSpecialSpawnDelay += Time.deltaTime; }
         //if(normalEvent) curEChangeDelay += Time.deltaTime; 
         if(hordeEventIntro) curHordeDelayIntro += Time.deltaTime;
         if(hordeBreakTime && hordeEvent) curBreakTimeDelay += Time.deltaTime;
@@ -179,10 +182,24 @@ public class EventManager : MonoBehaviour
         if(curEliteSpawnDelay >= maxEliteSpawnDelay)
         {
             int ranPosition = Random.Range(0, enemySpawnZone[ranZone].transform.childCount);
-            int ran = Random.Range(0, enemies_Normal.Length);
-            //GameObject instantEnemy = objectManager.MakeObj(enemies_Elite[ran].name, enemySpawnZone[ranZone].transform.GetChild(ranPosition).position, Quaternion.Euler(0, 0, 0));
-            //Enemy_ai enemy = instantEnemy.GetComponent<Enemy_ai>();
+            int ran = Random.Range(0, enemies_Elite.Length);
+            GameObject instantEnemy = objectManager.MakeObj(enemies_Elite[ran].name, enemySpawnZone[0].transform.GetChild(ranPosition).position, Quaternion.Euler(0, 0, 0));
+            Enemy_ai enemy = instantEnemy.GetComponent<Enemy_ai>();
             curEliteSpawnDelay = 0f;
+        }
+
+        if (curSpecialSpawnDelay >= maxSpecialSpawnDelay)
+        {
+            int ranPosition = Random.Range(0, enemySpawnZone[ranZone].transform.childCount);
+            int ran = Random.Range(0, enemies_Special.Length);
+            GameObject instantEnemy = objectManager.MakeObj(enemies_Special[ran].name, enemySpawnZone[0].transform.GetChild(ranPosition).position, Quaternion.Euler(0, 0, 0));
+            Enemy_ai enemy = instantEnemy.GetComponent<Enemy_ai>();
+
+            if(ran == 0) //bomb일 시 
+            {
+                audioManager.PlayBgm("BombAwaken");
+            } 
+            curSpecialSpawnDelay = 0f;
         }
     }
     void BossSpawn()
