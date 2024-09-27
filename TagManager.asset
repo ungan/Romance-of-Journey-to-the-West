@@ -1,0 +1,96 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags:
+  - Item
+  - Character
+  - Floor
+  - Border
+  - Bullet
+  - Leader
+  - Party
+  - Member
+  - Enemy
+  - PlayerBullet
+  - EnemyDead
+  - PlayerSwing
+  - Magicline
+  - Downed
+  - ChoiceButton
+  - Explosive
+  - EnemySwing
+  - EnemyBullet
+  - AutoTakeItem
+  - Foot
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - 
+  - Water
+  - UI
+  - 
+  - 
+  - Land
+  - Leader
+  - Party
+  - Enemy
+  - LeaderDamaged
+  - Member
+  - Downed
+  - Dead
+  - PartyRuined
+  - EnemyDead
+  - Wall
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0
+  - name: MagicLine
+    uniqueID: 3713344793
+    locked: 0
+  - name: Member3
+    uniqueID: 3581080207
+    locked: 0
+  - name: Member2
+    uniqueID: 3079584915
+    locked: 0
+  - name: Member1
+    uniqueID: 732431587
+    locked: 0
+  - name: Bullet
+    uniqueID: 1870347001
+    locked: 0
+  - name: Leader
+    uniqueID: 2323042685
+    locked: 0
+  - name: Enemy
+    uniqueID: 3877242483
+    locked: 0
+  - name: Item
+    uniqueID: 2824527
+    locked: 0
+  - name: effect
+    uniqueID: 304880467
+    locked: 0
+  - name: Panel
+    uniqueID: 3120504099
+    locked: 0
+  - name: Crosshair
+    uniqueID: 821509591
+    locked: 0

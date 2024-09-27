@@ -1,0 +1,494 @@
+Using pre-set license
+Built from '2020.3/staging' branch; Version is '2020.3.42f1 (7ade1201f527) revision 8052242'; Using compiler version '192528614'; Build Type 'Release'
+OS: 'Windows 11  (10.0.22621) 64bit Core' Language: 'ko' Physical Memory: 3975 MB
+BatchMode: 1, IsHumanControllingUs: 0, StartBugReporterOnCrash: 0, Is64bit: 1, IsPro: 0
+
+COMMAND LINE ARGUMENTS:
+D:\unity\2020.3.42f1\Editor\Unity.exe
+-adb2
+-batchMode
+-noUpm
+-name
+AssetImportWorker0
+-projectPath
+D:/Romance-of-Journey-to-the-West-main
+-logFile
+Logs/AssetImportWorker0.log
+-srvPort
+50061
+Successfully changed project path to: D:/Romance-of-Journey-to-the-West-main
+D:/Romance-of-Journey-to-the-West-main
+Using Asset Import Pipeline V2.
+Refreshing native plugins compatible for Editor in 1324.71 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Initialize engine version: 2020.3.42f1 (7ade1201f527)
+[Subsystems] Discovering subsystems at path D:/unity/2020.3.42f1/Editor/Data/Resources/UnitySubsystems
+[Subsystems] Discovering subsystems at path D:/Romance-of-Journey-to-the-West-main/Assets
+GfxDevice: creating device client; threaded=0
+Direct3D:
+    Version:  Direct3D 11.0 [level 11.1]
+    Renderer: Intel(R) UHD Graphics 620 (ID=0x3ea0)
+    Vendor:   
+    VRAM:     1987 MB
+    Driver:   27.20.100.8729
+Initialize mono
+Mono path[0] = 'D:/unity/2020.3.42f1/Editor/Data/Managed'
+Mono path[1] = 'D:/unity/2020.3.42f1/Editor/Data/MonoBleedingEdge/lib/mono/unityjit'
+Mono config path = 'D:/unity/2020.3.42f1/Editor/Data/MonoBleedingEdge/etc'
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56260
+Begin MonoManager ReloadAssembly
+Registering precompiled unity dll's ...
+Register platform support module: D:/unity/2020.3.42f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
+Registered in 0.007635 seconds.
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 228.68 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  1.415 seconds
+Domain Reload Profiling:
+	ReloadAssembly (1415ms)
+		BeginReloadAssembly (249ms)
+			ExecutionOrderSort (0ms)
+			DisableScriptedObjects (0ms)
+			BackupInstance (0ms)
+			ReleaseScriptingObjects (0ms)
+			CreateAndSetChildDomain (3ms)
+		EndReloadAssembly (1045ms)
+			LoadAssemblies (243ms)
+			RebuildTransferFunctionScriptingTraits (4ms)
+			SetupTypeCache (247ms)
+			ReleaseScriptCaches (0ms)
+			RebuildScriptCaches (36ms)
+			SetupLoadedEditorAssemblies (429ms)
+				LogAssemblyErrors (0ms)
+				InitializePlatformSupportModulesInManaged (8ms)
+				SetLoadedEditorAssemblies (0ms)
+				RefreshPlugins (229ms)
+				BeforeProcessingInitializeOnLoad (11ms)
+				ProcessInitializeOnLoadAttributes (114ms)
+				ProcessInitializeOnLoadMethodAttributes (66ms)
+				AfterProcessingInitializeOnLoad (0ms)
+				EditorAssembliesLoaded (1ms)
+			ExecutionOrderSort2 (0ms)
+			AwakeInstancesAfterBackupRestoration (0ms)
+Platform modules already initialized, skipping
+Registering precompiled user dll's ...
+Registered in 0.122898 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 180.78 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  2.876 seconds
+Domain Reload Profiling:
+	ReloadAssembly (2881ms)
+		BeginReloadAssembly (557ms)
+			ExecutionOrderSort (0ms)
+			DisableScriptedObjects (5ms)
+			BackupInstance (0ms)
+			ReleaseScriptingObjects (0ms)
+			CreateAndSetChildDomain (26ms)
+		EndReloadAssembly (1734ms)
+			LoadAssemblies (776ms)
+			RebuildTransferFunctionScriptingTraits (0ms)
+			SetupTypeCache (502ms)
+			ReleaseScriptCaches (1ms)
+			RebuildScriptCaches (64ms)
+			SetupLoadedEditorAssemblies (621ms)
+				LogAssemblyErrors (0ms)
+				InitializePlatformSupportModulesInManaged (4ms)
+				SetLoadedEditorAssemblies (0ms)
+				RefreshPlugins (181ms)
+				BeforeProcessingInitializeOnLoad (63ms)
+				ProcessInitializeOnLoadAttributes (338ms)
+				ProcessInitializeOnLoadMethodAttributes (32ms)
+				AfterProcessingInitializeOnLoad (2ms)
+				EditorAssembliesLoaded (0ms)
+			ExecutionOrderSort2 (0ms)
+			AwakeInstancesAfterBackupRestoration (2ms)
+Platform modules already initialized, skipping
+========================================================================
+Worker process is ready to serve import requests
+Launched and connected shader compiler UnityShaderCompiler.exe after 1.45 seconds
+Refreshing native plugins compatible for Editor in 3.70 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2503 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 115.8 MB.
+System memory in use after: 116.0 MB.
+
+Unloading 28 unused Assets to reduce memory usage. Loaded Objects now: 2940.
+Total: 18.208400 ms (FindLiveObjects: 0.242900 ms CreateObjectMapping: 0.135500 ms MarkObjects: 17.672600 ms  DeleteObjects: 0.154800 ms)
+
+AssetImportParameters requested are different than current active one (requested -> active):
+  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
+  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
+  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
+  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
+  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
+  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
+  custom:video-codec-MediaFoundation-h265: 746d11721c4dcdbdad8f713fa42b33f4 -> 
+  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
+  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+========================================================================
+Received Import Request.
+  path: Assets/9. Unity Asset Store/RPGW_DeepCave/Sliced/MainLev.png
+  artifactKey: Guid(051bc0506bd228042b599e5ef91ce14a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/9. Unity Asset Store/RPGW_DeepCave/Sliced/MainLev.png using Guid(051bc0506bd228042b599e5ef91ce14a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '41d9e1f058b38e4b24be202020270d38') in 4.039635 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000906 seconds.
+  path: Assets/9. Unity Asset Store/RPGW_DeepCave/Sliced/Decorative.png
+  artifactKey: Guid(a388ea28f6ebc2a4a882240e6c7a6fd6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/9. Unity Asset Store/RPGW_DeepCave/Sliced/Decorative.png using Guid(a388ea28f6ebc2a4a882240e6c7a6fd6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0743738cd4200a013c8c089c9900c756') in 1.387568 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.004593 seconds.
+  path: Assets/9. Unity Asset Store/RPGW_DeepCave
+  artifactKey: Guid(dd41bc62c20534248b4b77d56982c924) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/9. Unity Asset Store/RPGW_DeepCave using Guid(dd41bc62c20534248b4b77d56982c924) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ac774f1ed514a3d6d7868031eb1b7063') in 0.043074 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000526 seconds.
+  path: Assets/9. Unity Asset Store/RPGW_DeepCave/Sliced
+  artifactKey: Guid(9fc83087ed6d75a4583a521212dd3020) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/9. Unity Asset Store/RPGW_DeepCave/Sliced using Guid(9fc83087ed6d75a4583a521212dd3020) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'cef3e00dd9078df13e0063d334cc440b') in 0.028316 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 5.431540 seconds.
+  path: Assets/9. Unity Asset Store/RPGW_DeepCave/Sliced/4.prefab
+  artifactKey: Guid(649a06d2cf050cf4d953f8014e8d4b30) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/9. Unity Asset Store/RPGW_DeepCave/Sliced/4.prefab using Guid(649a06d2cf050cf4d953f8014e8d4b30) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5a517f27daf673ffc04ffc722417eb57') in 0.083169 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 302.236765 seconds.
+  path: Assets/9. Unity Asset Store/RPGW_DeepCave/Sliced/4.prefab
+  artifactKey: Guid(649a06d2cf050cf4d953f8014e8d4b30) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/9. Unity Asset Store/RPGW_DeepCave/Sliced/4.prefab using Guid(649a06d2cf050cf4d953f8014e8d4b30) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ba78b94d733e684f7d6cf447fac91b4d') in 2.611380 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.001737 seconds.
+  path: Assets/9. Unity Asset Store/RPGW_DeepCave/Sliced/MainLev_25.asset
+  artifactKey: Guid(db245e7ecd59a4b47a80df7d1945e9db) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/9. Unity Asset Store/RPGW_DeepCave/Sliced/MainLev_25.asset using Guid(db245e7ecd59a4b47a80df7d1945e9db) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7708a84bdf606c6636fad6f8050e21bf') in 0.596071 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000545 seconds.
+  path: Assets/9. Unity Asset Store/RPGW_DeepCave/Sliced/MainLev_4.asset
+  artifactKey: Guid(d04046a55f9873e43a0bdfa4147753ef) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/9. Unity Asset Store/RPGW_DeepCave/Sliced/MainLev_4.asset using Guid(d04046a55f9873e43a0bdfa4147753ef) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b6fe8f996f922df34aed73f7f9967e0a') in 0.046678 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000428 seconds.
+  path: Assets/9. Unity Asset Store/RPGW_DeepCave/Sliced/MainLev_5.asset
+  artifactKey: Guid(466c7a5ae46a641489deb0ec5d14f9af) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/9. Unity Asset Store/RPGW_DeepCave/Sliced/MainLev_5.asset using Guid(466c7a5ae46a641489deb0ec5d14f9af) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b44e81d3ee0a04b093595dd1be720871') in 0.078029 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000718 seconds.
+  path: Assets/9. Unity Asset Store/RPGW_DeepCave/Sliced/MainLev_15.asset
+  artifactKey: Guid(0b4de1b6e1e9aac4784df3160a85b2c7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/9. Unity Asset Store/RPGW_DeepCave/Sliced/MainLev_15.asset using Guid(0b4de1b6e1e9aac4784df3160a85b2c7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'fed19b3165a3fcddc1bc971adb14b899') in 0.038674 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000349 seconds.
+  path: Assets/9. Unity Asset Store/RPGW_DeepCave/Sliced/MainLev_7.asset
+  artifactKey: Guid(9170ee2575ba51e438a4c30508e4ae2c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/9. Unity Asset Store/RPGW_DeepCave/Sliced/MainLev_7.asset using Guid(9170ee2575ba51e438a4c30508e4ae2c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '44b3fbae8e6502a4d9f0ec362700cc28') in 0.048735 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000508 seconds.
+  path: Assets/9. Unity Asset Store/RPGW_DeepCave/Sliced/MainLev_18.asset
+  artifactKey: Guid(2d25f85cdec0f8e4ca6e2a24c592bd7d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/9. Unity Asset Store/RPGW_DeepCave/Sliced/MainLev_18.asset using Guid(2d25f85cdec0f8e4ca6e2a24c592bd7d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '30501fc1f5de15061d29306b8ec2717b') in 0.050753 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000508 seconds.
+  path: Assets/9. Unity Asset Store/RPGW_DeepCave/Sliced/MainLev_9.asset
+  artifactKey: Guid(90bc128468d9acc439f0a3a289852ce1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/9. Unity Asset Store/RPGW_DeepCave/Sliced/MainLev_9.asset using Guid(90bc128468d9acc439f0a3a289852ce1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9e8f21f7a9e0db30af40fb5443044997') in 0.074995 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.001552 seconds.
+  path: Assets/9. Unity Asset Store/RPGW_DeepCave/Sliced/MainLev_23.asset
+  artifactKey: Guid(ff442f100003e224c8d2731118f270e6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/9. Unity Asset Store/RPGW_DeepCave/Sliced/MainLev_23.asset using Guid(ff442f100003e224c8d2731118f270e6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a8de0bb451f0d5a5b4faf0fc4e5ab687') in 0.055720 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.001935 seconds.
+  path: Assets/9. Unity Asset Store/RPGW_DeepCave/Sliced/MainLev_6.asset
+  artifactKey: Guid(85b1cf92cf20c8e499dfbb79c8776995) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/9. Unity Asset Store/RPGW_DeepCave/Sliced/MainLev_6.asset using Guid(85b1cf92cf20c8e499dfbb79c8776995) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6dd44672df76cc01c6bdf01cdc2af552') in 0.063326 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.001299 seconds.
+  path: Assets/9. Unity Asset Store/RPGW_DeepCave/Sliced/MainLev_20.asset
+  artifactKey: Guid(b1b76c676b995c147b785f535122915f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/9. Unity Asset Store/RPGW_DeepCave/Sliced/MainLev_20.asset using Guid(b1b76c676b995c147b785f535122915f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'abe675dc816299e2a1ce0edc5cc03184') in 0.056770 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000475 seconds.
+  path: Assets/9. Unity Asset Store/RPGW_DeepCave/Sliced/MainLev_16.asset
+  artifactKey: Guid(f3a51d7a511e690488055de0014bbdc5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/9. Unity Asset Store/RPGW_DeepCave/Sliced/MainLev_16.asset using Guid(f3a51d7a511e690488055de0014bbdc5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '84d124ac2a38efa1ccf458b85ac7aa1f') in 0.074544 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000573 seconds.
+  path: Assets/9. Unity Asset Store/RPGW_DeepCave/Sliced/MainLev_1.asset
+  artifactKey: Guid(63382b706dce46141994ddec9e442972) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/9. Unity Asset Store/RPGW_DeepCave/Sliced/MainLev_1.asset using Guid(63382b706dce46141994ddec9e442972) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c6b88bf8e4997c9bc88c9e01171040f9') in 0.081706 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000456 seconds.
+  path: Assets/9. Unity Asset Store/RPGW_DeepCave/Sliced/MainLev_3.asset
+  artifactKey: Guid(c93c35a56dd889a4a8b2881f80559f04) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/9. Unity Asset Store/RPGW_DeepCave/Sliced/MainLev_3.asset using Guid(c93c35a56dd889a4a8b2881f80559f04) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ca85090d06e01a8ed41546121241b188') in 0.083701 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000577 seconds.
+  path: Assets/9. Unity Asset Store/RPGW_DeepCave/Sliced/MainLev_12.asset
+  artifactKey: Guid(c378f21c6a370b543942c530d3cfadd8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/9. Unity Asset Store/RPGW_DeepCave/Sliced/MainLev_12.asset using Guid(c378f21c6a370b543942c530d3cfadd8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a6f705789d48fcee57f6b081eaa8f455') in 0.054016 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000791 seconds.
+  path: Assets/9. Unity Asset Store/RPGW_DeepCave/Sliced/MainLev_22.asset
+  artifactKey: Guid(1b227daa0de6ecc48901ab8c990acb93) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/9. Unity Asset Store/RPGW_DeepCave/Sliced/MainLev_22.asset using Guid(1b227daa0de6ecc48901ab8c990acb93) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e76d6845dedb09a2666a109e34b308d3') in 0.050588 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000401 seconds.
+  path: Assets/9. Unity Asset Store/RPGW_DeepCave/Sliced/MainLev_19.asset
+  artifactKey: Guid(798fcd603302ee44e898ce350109ef2b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/9. Unity Asset Store/RPGW_DeepCave/Sliced/MainLev_19.asset using Guid(798fcd603302ee44e898ce350109ef2b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '536342187226194d54878bdb90e8eba2') in 0.043826 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.001476 seconds.
+  path: Assets/9. Unity Asset Store/RPGW_DeepCave/Sliced/MainLev_0.asset
+  artifactKey: Guid(33a736c8e8538a441827d49b712cd227) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/9. Unity Asset Store/RPGW_DeepCave/Sliced/MainLev_0.asset using Guid(33a736c8e8538a441827d49b712cd227) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd55a0c9d42f4eb51451a190a72d8d91e') in 0.050160 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000515 seconds.
+  path: Assets/9. Unity Asset Store/RPGW_DeepCave/Sliced/MainLev_14.asset
+  artifactKey: Guid(ff7a42b6aa2065e489dffe8d7a54df88) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/9. Unity Asset Store/RPGW_DeepCave/Sliced/MainLev_14.asset using Guid(ff7a42b6aa2065e489dffe8d7a54df88) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '198ce5b372bad2e8370037abf28cca84') in 0.046519 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.001151 seconds.
+  path: Assets/9. Unity Asset Store/RPGW_DeepCave/Sliced/MainLev_8.asset
+  artifactKey: Guid(96c6b3d05b7bb7941a68324b5fb95f2d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/9. Unity Asset Store/RPGW_DeepCave/Sliced/MainLev_8.asset using Guid(96c6b3d05b7bb7941a68324b5fb95f2d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd22fa951f84aab15592cef9eaf340367') in 0.055992 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000445 seconds.
+  path: Assets/9. Unity Asset Store/RPGW_DeepCave/Sliced/MainLev_13.asset
+  artifactKey: Guid(5dc9567fd40c044479b3fd37806d2d9a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/9. Unity Asset Store/RPGW_DeepCave/Sliced/MainLev_13.asset using Guid(5dc9567fd40c044479b3fd37806d2d9a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1f9121ad8f0280d77cf80cfbc7fa4120') in 0.049137 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000718 seconds.
+  path: Assets/9. Unity Asset Store/RPGW_DeepCave/Sliced/MainLev_24.asset
+  artifactKey: Guid(3be94ca475dd32f4f868077349a60d2b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/9. Unity Asset Store/RPGW_DeepCave/Sliced/MainLev_24.asset using Guid(3be94ca475dd32f4f868077349a60d2b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ae88b371d5c31ad5e401c6f3355f681b') in 0.045086 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000756 seconds.
+  path: Assets/9. Unity Asset Store/RPGW_DeepCave/Sliced/MainLev_10.asset
+  artifactKey: Guid(475b9952455dd2c4c9779dfe1340c55a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/9. Unity Asset Store/RPGW_DeepCave/Sliced/MainLev_10.asset using Guid(475b9952455dd2c4c9779dfe1340c55a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ff5d0493c00cc4b57013a8de81624cc0') in 0.042033 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.001420 seconds.
+  path: Assets/9. Unity Asset Store/RPGW_DeepCave/Sliced/MainLev_2.asset
+  artifactKey: Guid(a96fdd4a9ab5f454997d7f663821114a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/9. Unity Asset Store/RPGW_DeepCave/Sliced/MainLev_2.asset using Guid(a96fdd4a9ab5f454997d7f663821114a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '575484c83b08e4efb2c0323a6aff52fc') in 0.058195 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000385 seconds.
+  path: Assets/9. Unity Asset Store/RPGW_DeepCave/Sliced/MainLev_11.asset
+  artifactKey: Guid(3a2400d8040ae8b4ca31d9f5c32b731c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/9. Unity Asset Store/RPGW_DeepCave/Sliced/MainLev_11.asset using Guid(3a2400d8040ae8b4ca31d9f5c32b731c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd5d2e4381fc892cf223365f71be78d80') in 0.050415 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000550 seconds.
+  path: Assets/9. Unity Asset Store/RPGW_DeepCave/Sliced/MainLev_17.asset
+  artifactKey: Guid(de0390c7f8749594bb649bb998b983cb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/9. Unity Asset Store/RPGW_DeepCave/Sliced/MainLev_17.asset using Guid(de0390c7f8749594bb649bb998b983cb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '00b0e7ece8891c7a23d83c34be7bdae3') in 0.048169 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000852 seconds.
+  path: Assets/9. Unity Asset Store/RPGW_DeepCave/Sliced/MainLev_21.asset
+  artifactKey: Guid(3592eaa91c6bd5d48868385cfdf7cbfd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/9. Unity Asset Store/RPGW_DeepCave/Sliced/MainLev_21.asset using Guid(3592eaa91c6bd5d48868385cfdf7cbfd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'eeb73625baae81a507af1cde9d0485ae') in 0.063542 seconds 
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.009263 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 4.10 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  3.846 seconds
+Domain Reload Profiling:
+	ReloadAssembly (3890ms)
+		BeginReloadAssembly (1824ms)
+			ExecutionOrderSort (1ms)
+			DisableScriptedObjects (271ms)
+			BackupInstance (0ms)
+			ReleaseScriptingObjects (2ms)
+			CreateAndSetChildDomain (873ms)
+		EndReloadAssembly (1906ms)
+			LoadAssemblies (602ms)
+			RebuildTransferFunctionScriptingTraits (3ms)
+			SetupTypeCache (813ms)
+			ReleaseScriptCaches (2ms)
+			RebuildScriptCaches (60ms)
+			SetupLoadedEditorAssemblies (539ms)
+				LogAssemblyErrors (0ms)
+				InitializePlatformSupportModulesInManaged (19ms)
+				SetLoadedEditorAssemblies (6ms)
+				RefreshPlugins (4ms)
+				BeforeProcessingInitializeOnLoad (93ms)
+				ProcessInitializeOnLoadAttributes (384ms)
+				ProcessInitializeOnLoadMethodAttributes (30ms)
+				AfterProcessingInitializeOnLoad (2ms)
+				EditorAssembliesLoaded (0ms)
+			ExecutionOrderSort2 (0ms)
+			AwakeInstancesAfterBackupRestoration (7ms)
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 2.38 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2486 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 119.7 MB.
+System memory in use after: 120.0 MB.
+
+Unloading 17 unused Assets to reduce memory usage. Loaded Objects now: 2958.
+Total: 4.270300 ms (FindLiveObjects: 0.284300 ms CreateObjectMapping: 0.146300 ms MarkObjects: 3.273400 ms  DeleteObjects: 0.564500 ms)
+
+AssetImportParameters requested are different than current active one (requested -> active):
+  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
+  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
+  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
+  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
+  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
+  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
+  custom:video-codec-MediaFoundation-h265: 746d11721c4dcdbdad8f713fa42b33f4 -> 
+  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
+  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.007417 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 1.85 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  2.478 seconds
+Domain Reload Profiling:
+	ReloadAssembly (2537ms)
+		BeginReloadAssembly (1079ms)
+			ExecutionOrderSort (0ms)
+			DisableScriptedObjects (186ms)
+			BackupInstance (0ms)
+			ReleaseScriptingObjects (2ms)
+			CreateAndSetChildDomain (403ms)
+		EndReloadAssembly (1236ms)
+			LoadAssemblies (485ms)
+			RebuildTransferFunctionScriptingTraits (2ms)
+			SetupTypeCache (407ms)
+			ReleaseScriptCaches (2ms)
+			RebuildScriptCaches (51ms)
+			SetupLoadedEditorAssemblies (413ms)
+				LogAssemblyErrors (0ms)
+				InitializePlatformSupportModulesInManaged (7ms)
+				SetLoadedEditorAssemblies (2ms)
+				RefreshPlugins (2ms)
+				BeforeProcessingInitializeOnLoad (59ms)
+				ProcessInitializeOnLoadAttributes (318ms)
+				ProcessInitializeOnLoadMethodAttributes (23ms)
+				AfterProcessingInitializeOnLoad (2ms)
+				EditorAssembliesLoaded (0ms)
+			ExecutionOrderSort2 (0ms)
+			AwakeInstancesAfterBackupRestoration (4ms)
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 1.99 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2486 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 119.8 MB.
+System memory in use after: 120.0 MB.
+
+Unloading 17 unused Assets to reduce memory usage. Loaded Objects now: 2961.
+Total: 8.524100 ms (FindLiveObjects: 0.529600 ms CreateObjectMapping: 0.215900 ms MarkObjects: 7.673300 ms  DeleteObjects: 0.101900 ms)
+
+AssetImportParameters requested are different than current active one (requested -> active):
+  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
+  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
+  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
+  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
+  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
+  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
+  custom:video-codec-MediaFoundation-h265: 746d11721c4dcdbdad8f713fa42b33f4 -> 
+  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
+  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.013675 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 3.86 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  4.484 seconds
+Domain Reload Profiling:
+	ReloadAssembly (4512ms)
+		BeginReloadAssembly (1829ms)
+			ExecutionOrderSort (0ms)
+			DisableScriptedObjects (206ms)
+			BackupInstance (0ms)
+			ReleaseScriptingObjects (1ms)
+			CreateAndSetChildDomain (940ms)
+		EndReloadAssembly (2577ms)
+			LoadAssemblies (489ms)
+			RebuildTransferFunctionScriptingTraits (0ms)
+			SetupTypeCache (750ms)
+			ReleaseScriptCaches (2ms)
+			RebuildScriptCaches (71ms)
+			SetupLoadedEditorAssemblies (1212ms)
+				LogAssemblyErrors (0ms)
+				InitializePlatformSupportModulesInManaged (16ms)
+				SetLoadedEditorAssemblies (4ms)
+				RefreshPlugins (4ms)
+				BeforeProcessingInitializeOnLoad (77ms)
+				ProcessInitializeOnLoadAttributes (594ms)
+				ProcessInitializeOnLoadMethodAttributes (515ms)
+				AfterProcessingInitializeOnLoad (2ms)
+				EditorAssembliesLoaded (0ms)
+			ExecutionOrderSort2 (0ms)
+			AwakeInstancesAfterBackupRestoration (8ms)
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 5.41 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2486 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 119.8 MB.
+System memory in use after: 120.1 MB.
+
+Unloading 17 unused Assets to reduce memory usage. Loaded Objects now: 2964.
+Total: 50.808700 ms (FindLiveObjects: 28.955900 ms CreateObjectMapping: 0.307800 ms MarkObjects: 21.499100 ms  DeleteObjects: 0.042900 ms)
+
+AssetImportParameters requested are different than current active one (requested -> active):
+  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
+  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
+  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
+  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
+  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
+  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
+  custom:video-codec-MediaFoundation-h265: 746d11721c4dcdbdad8f713fa42b33f4 -> 
+  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
+  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
